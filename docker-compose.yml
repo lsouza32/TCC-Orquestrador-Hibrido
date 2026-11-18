@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  context-server:
+    build:
+      context: ./context_server
+    container_name: context-server
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data # Volume para o banco de dados
+      - ./uploaded_tasks:/app/uploaded_tasks # Volume para os uploads
+      - ./context_server:/app/context_server # Volume para código em tempo real
+      - ${USERPROFILE}/.kube/config-broker:/root/.kube/config:ro
+    environment:
+      - GOOGLE_GEMINI_API_KEY=${GOOGLE_GEMINI_API_KEY:-}
+      - OLLAMA_URL=http://ollama:11434
+      - OLLAMA_MODEL=${OLLAMA_MODEL:-LiquidAI/lfm2.5-1.2b-instruct}
+      - K8S_NAMESPACE=default
+    networks:
+      - tcc-network
+      - kind_network
+  
+  web-interface:
+    build:
+      context: ./web_interface
+    container_name: web-interface
+    ports:
+      - "80:80"
+    networks:
+      - tcc-network
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    gpus: all
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    restart: always
+    networks:
+      - tcc-network
+
+networks:
+  tcc-network:
+    driver: bridge
+  kind_network:
+    external: true
+    name: kind
+    driver: bridge
+
+volumes:
+  ollama_data:

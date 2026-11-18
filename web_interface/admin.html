@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Context Server</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+    <script src="users.js"></script>
+    <style>
+        /* Estilos adicionais para o Modal de Detalhes da Execução */
+        .execution-modal-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            width: 90%;
+            max-width: 850px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .execution-modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .execution-modal-header h3 {
+            margin: 0;
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .modal-tabs {
+            display: flex;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 1rem;
+        }
+        .modal-tab {
+            padding: 1rem 1.25rem;
+            color: var(--text-muted);
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .modal-tab:hover {
+            color: var(--text-secondary);
+        }
+        .modal-tab.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            flex: 1;
+            font-size: var(--font-size-sm);
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+        /* Grid de informações */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .info-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            padding: 0.75rem 1rem;
+        }
+        .info-label {
+            display: block;
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        .info-value {
+            font-weight: 500;
+            color: var(--text-primary);
+            word-break: break-all;
+        }
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 1.5rem;
+            border-left: 2px solid var(--border-color);
+            margin: 1rem 0 1rem 1rem;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(-1.5rem - 7px);
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--secondary-color);
+            border: 2px solid var(--bg-card);
+        }
+        .timeline-item.failed::before {
+            background: var(--error-color);
+        }
+        .timeline-item.success::before {
+            background: var(--success-color);
+        }
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.25rem;
+        }
+        .timeline-title {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .timeline-time {
+            font-size: var(--font-size-xs);
+            color: var(--text-muted);
+        }
+        .timeline-body {
+            color: var(--text-secondary);
+        }
+        /* Logs Terminal */
+        .log-terminal {
+            background: #090d16;
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-sm);
+            font-family: 'Courier New', Courier, monospace;
+            padding: 1rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            max-height: 400px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .log-terminal.error-log {
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+        }
+        .log-header-badge {
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            font-size: var(--font-size-xs);
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body class="task-details-page">
+    <div class="container details-page">
+        <div class="card details-card admin-card">
+            <div class="header-with-back">
+                <div class="header-left">
+                    <button id="backBtn" class="btn btn-secondary" aria-label="Voltar para início">
+                        <span aria-hidden="true">←</span>
+                        <span>Voltar</span>
+                    </button>
+                    <div class="page-title">
+                        <p>Observabilidade</p>
+                        <h1>Dashboard Admin</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="btn btn-secondary admin-tab active" data-tab="tasks">Tarefas</button>
+                <button class="btn btn-secondary admin-tab" data-tab="nodes">Nós ativos</button>
+            </div>
+
+            <div id="adminMeta" class="nodes-summary admin-meta"></div>
+            <div id="adminContent"></div>
+        </div>
+    </div>
+
+    <div id="aiModal" class="admin-modal" style="display:none;">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3>Resposta completa da IA</h3>
+                <button id="closeModalBtn" class="btn btn-secondary">Fechar</button>
+            </div>
+            <pre id="aiModalJson" class="log-content"></pre>
+        </div>
+    </div>
+
+    <!-- Modal de Detalhes da Execução da Tarefa -->
+    <div id="executionModal" class="admin-modal" style="display:none; align-items: center; justify-content: center; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 1100;">
+        <div class="execution-modal-content">
+            <div class="execution-modal-header">
+                <h3>Detalhes de Execução</h3>
+                <button id="closeExecModalBtn" class="btn btn-secondary btn-sm" style="padding: 6px 12px; font-size: var(--font-size-sm);">Fechar</button>
+            </div>
+            
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-modal-tab="summary">Sumário</button>
+                <button class="modal-tab" data-modal-tab="logs">Logs do Pod</button>
+                <button class="modal-tab" data-modal-tab="realloc">Histórico de Nós</button>
+                <button class="modal-tab" data-modal-tab="ai">Decisão da IA</button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Painel 1: Sumário -->
+                <div id="panel-summary" class="tab-panel active">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">ID da Tarefa</span>
+                            <span class="info-value" id="md-task-id"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Arquivo Script</span>
+                            <span class="info-value" id="md-filename"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tipo / Submissão</span>
+                            <span class="info-value" id="md-type-sub"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Usuário</span>
+                            <span class="info-value" id="md-user"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Status Atual</span>
+                            <span class="info-value" id="md-status"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Nó Alocado</span>
+                            <span class="info-value" id="md-node"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Camadas (Preferida vs Efetiva)</span>
+                            <span class="info-value" id="md-layers"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Imagem Docker Resolvida</span>
+                            <span class="info-value" id="md-image"></span>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-weight: 600; color: var(--text-primary);">Métricas de Desempenho</h4>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="info-label">CPU de Pico</span>
+                            <span class="info-value" id="md-cpu-peak"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Threads Alocadas</span>
+                            <span class="info-value" id="md-cpu-threads"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">RAM de Pico</span>
+                            <span class="info-value" id="md-ram-peak"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">RAM Alocada</span>
+                            <span class="info-value" id="md-ram-allocated"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Eficiência de Memória</span>
+                            <span class="info-value" id="md-ram-efficiency"></span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Diagnóstico de Recursos</span>
+                            <span class="info-value" id="md-diagnostico"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Painel 2: Logs -->
+                <div id="panel-logs" class="tab-panel">
+                    <div class="log-header-badge" style="color: var(--success-color);">Saída Padrão (stdout)</div>
+                    <div id="md-stdout-terminal" class="log-terminal" style="margin-bottom: 1.5rem;"></div>
+                    
+                    <div class="log-header-badge" style="color: var(--error-color);">Logs de Erro (stderr)</div>
+                    <div id="md-stderr-terminal" class="log-terminal error-log"></div>
+                </div>
+                
+                <!-- Painel 3: Realocações -->
+                <div id="panel-realloc" class="tab-panel">
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Timeline de escalonamento e realocações em caso de falha nos nós.</p>
+                    <div id="md-realloc-timeline" class="timeline">
+                        <!-- Itens da timeline injetados por JS -->
+                    </div>
+                </div>
+                
+                <!-- Painel 4: Decisão IA -->
+                <div id="panel-ai" class="tab-panel">
+                    <h4 style="margin-bottom: 0.5rem; color: var(--text-primary);">Raciocínio dos Agentes e Metadados da IA</h4>
+                    <pre id="md-ai-json" class="log-content" style="max-height: 400px; overflow-y: auto; font-family: monospace; font-size: 11px; background: rgba(0,0,0,0.25); padding: 1rem; border-radius: 4px; border: 1px solid var(--border-color);"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const { buildApiUrl } = window.APP_CONFIG;
+        const backBtn = document.getElementById('backBtn');
+        const adminContent = document.getElementById('adminContent');
+        const adminMeta = document.getElementById('adminMeta');
+        const aiModal = document.getElementById('aiModal');
+        const aiModalJson = document.getElementById('aiModalJson');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const tabButtons = Array.from(document.querySelectorAll('.admin-tab'));
+
+        let dashboardData = null;
+        let activeTab = 'tasks';
+        let adminStream = null;
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+            if (!localStorage.getItem('isAdmin') && typeof window.isAdminUser === 'function' && currentUser) {
+                localStorage.setItem('isAdmin', window.isAdminUser(currentUser) ? 'true' : 'false');
+            }
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
+            if (!isAuthenticated || !currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            if (!isAdmin) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            await loadDashboard();
+            connectDashboardStream();
+        });
+
+        backBtn.addEventListener('click', () => { window.location.href = 'index.html'; });
+        closeModalBtn.addEventListener('click', hideModal);
+        aiModal.addEventListener('click', (ev) => {
+            if (ev.target === aiModal) hideModal();
+        });
+
+        tabButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                activeTab = btn.getAttribute('data-tab');
+                tabButtons.forEach((x) => x.classList.toggle('active', x === btn));
+                renderDashboard();
+            });
+        });
+
+        async function loadDashboard() {
+            const currentUser = localStorage.getItem('currentUser');
+            try {
+                const response = await fetch(buildApiUrl('/admin/dashboard_data?user_id=' + encodeURIComponent(currentUser)), {
+                    headers: { 'X-User-Id': currentUser }
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.message || 'Erro na API');
+                dashboardData = data;
+                renderDashboard();
+            } catch (err) {
+                adminContent.innerHTML = `<div class="error-details"><p>❌ ${escapeHTML(err.message || 'Falha ao carregar dashboard')}</p></div>`;
+            }
+        }
+
+        function connectDashboardStream() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (!currentUser) return;
+            const streamUrl = buildApiUrl('/admin/dashboard_stream?user_id=' + encodeURIComponent(currentUser));
+            adminStream = new EventSource(streamUrl);
+            adminStream.onmessage = (ev) => {
+                try {
+                    const data = JSON.parse(ev.data);
+                    if (data.type === 'dashboard_update' && data.payload) {
+                        dashboardData = data.payload;
+                        renderDashboard();
+                    }
+                } catch (_) { }
+            };
+            adminStream.onerror = () => {
+                if (adminStream) adminStream.close();
+                adminStream = null;
+                setTimeout(connectDashboardStream, 4000);
+            };
+        }
+
+        function renderDashboard() {
+            if (!dashboardData) return;
+            const generatedAt = dashboardData.generated_at ? new Date(dashboardData.generated_at * 1000).toLocaleString('pt-BR') : '—';
+            adminMeta.innerHTML = `
+                <p><strong>${dashboardData.summary?.tasks_returned || 0}</strong> tarefa(s) recentes | <strong>${dashboardData.summary?.active_nodes || 0}</strong> nó(s) ativos</p>
+                <span class="live-badge">Atualizado: ${generatedAt}</span>
+            `;
+
+            if (activeTab === 'nodes') {
+                renderNodesTable(dashboardData.nodes_status || []);
+                return;
+            }
+            renderTasksTable(dashboardData.latest_tasks || []);
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'pendente': 'Pendente',
+                'analisando_ia': 'Analisando IA',
+                'na_fila': 'Na fila',
+                'alocada': 'Alocada',
+                'executando': 'Executando',
+                'concluida': 'Concluída',
+                'cancelada': 'Cancelada',
+                'falha': 'Falha',
+                'falha_alocacao': 'Falha na alocação',
+                'falha_envio': 'Falha no envio',
+                'erro_agente': 'Erro do agente'
+            };
+            return statusMap[status] || status;
+        }
+
+        function renderTasksTable(tasks) {
+            if (!tasks.length) {
+                adminContent.innerHTML = '<div class="no-nodes"><p>Sem tarefas para exibir.</p></div>';
+                return;
+            }
+            adminContent.innerHTML = `
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Tarefa / Arquivo</th>
+                                <th>Usuário</th>
+                                <th>Status / Nó</th>
+                                <th>Camada / Imagem</th>
+                                <th>Análise IA</th>
+                                <th>Pico RAM / Alocado</th>
+                                <th>Pico CPU</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tasks.map(renderTaskRow).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderTaskRow(task) {
+            const perf = task.performance || {};
+            const ai = task.ai_analysis || {};
+            const allocatedRam = perf.allocated_ram_mb != null ? `${Math.round(perf.allocated_ram_mb)}MB` : '—';
+            const peakRam = perf.ram_peak_mb != null ? `${Math.round(perf.ram_peak_mb)}MB` : '—';
+            const ramPair = `${peakRam} / ${allocatedRam}`;
+            const cpuPeak = perf.cpu_peak_percent != null ? `${Number(perf.cpu_peak_percent).toFixed(1)}%` : '—';
+            const efficiency = perf.ram_efficiency_ratio != null ? `${Math.round(perf.ram_efficiency_ratio * 100)}%` : '—';
+            
+            let oversizedBadge = '';
+            if (perf.ram_efficiency_ratio != null) {
+                oversizedBadge = perf.is_oversized 
+                    ? '<span class="status-chip status-falha status-chip--inline" style="font-size: 10px; padding: 2px 6px;">Sobredimensionada</span>' 
+                    : '<span class="status-chip status-concluida status-chip--inline" style="font-size: 10px; padding: 2px 6px;">Adequada</span>';
+            }
+
+            const libs = (ai.detected_libraries || []).slice(0, 3).join(', ') || '—';
+            const submittedAt = task.submitted_at ? new Date(task.submitted_at * 1000).toLocaleString('pt-BR') : '—';
+            
+            const fileDisplay = task.filename ? `<div style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 2px;">📁 ${escapeHTML(task.filename)}</div>` : '';
+            const typeBadge = task.task_type === 'auto' 
+                ? '<span style="font-size: 10px; background: rgba(59, 130, 246, 0.15); color: var(--primary-color); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 4px; padding: 1px 4px; margin-left: 6px;">IA</span>' 
+                : '<span style="font-size: 10px; background: rgba(100, 116, 139, 0.15); color: var(--text-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 4px; padding: 1px 4px; margin-left: 6px;">Manual</span>';
+
+            const statusClass = `status-${task.status}`;
+            const nodeDisplay = task.allocated_node_id ? escapeHTML(task.allocated_node_id.replace('k8s:', '')) : '—';
+            
+            let reallocBadge = '';
+            if (task.reallocation_attempts && task.reallocation_attempts > 0) {
+                reallocBadge = `<div style="font-size: var(--font-size-xs); color: var(--warning-color); margin-top: 2px;">🔄 ${task.reallocation_attempts} realocação(ões)</div>`;
+            }
+
+            const prefLayer = task.preferred_compute_layer || '—';
+            const allocLayer = task.allocated_compute_layer || '—';
+            const layerDisplay = prefLayer === allocLayer 
+                ? `<span class="tag" style="padding: 2px 6px; font-size: 11px;">${allocLayer}</span>` 
+                : `<span class="tag" style="padding: 2px 6px; font-size: 11px;" title="Camada Preferida: ${prefLayer}">${prefLayer} ➔ ${allocLayer}</span>`;
+
+            const imgDisplay = task.docker_image ? `<div style="font-size: 10px; color: var(--text-muted); word-break: break-all; max-width: 140px; margin-top: 2px;">🐳 ${escapeHTML(task.docker_image)}</div>` : '';
+
+            // Serializa a tarefa completa para passar ao modal de detalhes da execução
+            const taskJsonEscaped = encodeURIComponent(JSON.stringify(task)).replace(/'/g, "%27");
+
+            return `
+                <tr>
+                    <td>
+                        <div style="display: flex; align-items: center;">
+                            <strong>${escapeHTML(task.task_id ? task.task_id.substring(0, 8) : '—')}...</strong>
+                            ${typeBadge}
+                        </div>
+                        ${fileDisplay}
+                        <div class="task-date">${submittedAt}</div>
+                    </td>
+                    <td>${escapeHTML(task.user_id || '—')}</td>
+                    <td>
+                        <span class="status-chip ${statusClass} status-chip--inline" style="padding: 2px 8px; font-size: 11px;">${escapeHTML(getStatusText(task.status))}</span>
+                        <div style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px; font-weight: 500;">🖥️ ${nodeDisplay}</div>
+                        ${reallocBadge}
+                    </td>
+                    <td>
+                        <div>${layerDisplay}</div>
+                        ${imgDisplay}
+                    </td>
+                    <td>
+                        <div><strong>${escapeHTML(ai.category || 'geral')}</strong></div>
+                        <div class="task-date" title="${escapeHTML(libs)}">${escapeHTML(libs)}</div>
+                    </td>
+                    <td>
+                        <div>${ramPair}</div>
+                        <div style="margin-top: 4px; display: flex; flex-direction: column; gap: 2px;">
+                            <span style="font-size: 11px; color: var(--text-muted)">Eficiência: ${efficiency}</span>
+                            ${oversizedBadge}
+                        </div>
+                    </td>
+                    <td>${cpuPeak}</td>
+                    <td>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <button class="btn btn-primary btn-sm" style="padding: 4px 8px; font-size: 11px;" onclick="openExecutionModal('${taskJsonEscaped}')">Detalhes</button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+
+        function renderNodesTable(nodes) {
+            if (!nodes.length) {
+                adminContent.innerHTML = '<div class="no-nodes"><p>Sem nós ativos no momento.</p></div>';
+                return;
+            }
+            adminContent.innerHTML = `
+                <div class="admin-table-wrap">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nó</th>
+                                <th>Camada</th>
+                                <th>CPU (total / reservada)</th>
+                                <th>RAM (GB total / reservada)</th>
+                                <th>Disco (GB total / reservado)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${nodes.map((node) => {
+                                const r = node.resources || {};
+                                const layer = (node.compute_layer || '—').toString();
+                                return `
+                                    <tr>
+                                        <td>${escapeHTML(node.hostname || node.node_id || '—')}</td>
+                                        <td>${escapeHTML(layer)}</td>
+                                        <td>${valuePair(r.cpu_total_threads, r.cpu_reserved_threads)}</td>
+                                        <td>${valuePair(r.memory_total_gb, r.memory_reserved_gb)}</td>
+                                        <td>${valuePair(r.disk_total_gb, r.disk_reserved_gb)}</td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function valuePair(total, reserved) {
+            const t = total != null ? Number(total).toFixed(2) : '—';
+            const r = reserved != null ? Number(reserved).toFixed(2) : '—';
+            return `${t} / ${r}`;
+        }
+
+        function escapeHTML(value) {
+            if (value == null) return '—';
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function hideModal() {
+            aiModal.style.display = 'none';
+            aiModalJson.textContent = '';
+        }
+
+        window.openAiModal = function openAiModal(encodedJson) {
+            try {
+                aiModalJson.textContent = decodeURIComponent(encodedJson);
+                aiModal.style.display = 'flex';
+            } catch (_) {
+                aiModalJson.textContent = '{}';
+                aiModal.style.display = 'flex';
+            }
+        };
+
+        const executionModal = document.getElementById('executionModal');
+        const closeExecModalBtn = document.getElementById('closeExecModalBtn');
+        const modalTabs = Array.from(document.querySelectorAll('.modal-tab'));
+        const tabPanels = Array.from(document.querySelectorAll('.tab-panel'));
+
+        closeExecModalBtn.addEventListener('click', () => {
+            executionModal.style.display = 'none';
+        });
+        executionModal.addEventListener('click', (ev) => {
+            if (ev.target === executionModal) {
+                executionModal.style.display = 'none';
+            }
+        });
+
+        modalTabs.forEach((tab) => {
+            tab.addEventListener('click', () => {
+                const targetPanelId = 'panel-' + tab.getAttribute('data-modal-tab');
+                modalTabs.forEach(t => t.classList.toggle('active', t === tab));
+                tabPanels.forEach(p => p.classList.toggle('active', p.id === targetPanelId));
+            });
+        });
+
+        window.openAiModalJsonOnly = function openAiModalJsonOnly(encodedTask) {
+            try {
+                const task = JSON.parse(decodeURIComponent(encodedTask));
+                const ai = task.ai_analysis || {};
+                aiModalJson.textContent = JSON.stringify(ai.full_response || {}, null, 2);
+                aiModal.style.display = 'flex';
+            } catch (_) {
+                aiModalJson.textContent = '{}';
+                aiModal.style.display = 'flex';
+            }
+        };
+
+        window.openExecutionModal = function openExecutionModal(encodedTask) {
+            try {
+                const task = JSON.parse(decodeURIComponent(encodedTask));
+                
+                // Reseta para a primeira aba (Sumário)
+                modalTabs.forEach((t, i) => t.classList.toggle('active', i === 0));
+                tabPanels.forEach((p, i) => p.classList.toggle('active', i === 0));
+
+                // Injeta dados no Sumário
+                document.getElementById('md-task-id').textContent = task.task_id || '—';
+                document.getElementById('md-filename').textContent = task.filename || '—';
+                
+                const taskType = task.task_type === 'auto' ? 'Automático (IA)' : 'Manual';
+                const submitted = task.submitted_at ? new Date(task.submitted_at * 1000).toLocaleString('pt-BR') : '—';
+                document.getElementById('md-type-sub').textContent = `${taskType} em ${submitted}`;
+                document.getElementById('md-user').textContent = task.user_id || '—';
+                
+                const statusBadge = `<span class="status-chip status-${task.status} status-chip--inline" style="padding: 2px 8px; font-size: 11px;">${escapeHTML(getStatusText(task.status))}</span>`;
+                document.getElementById('md-status').innerHTML = statusBadge;
+                document.getElementById('md-node').textContent = task.allocated_node_id ? task.allocated_node_id.replace('k8s:', '') : 'Aguardando alocação';
+                
+                const pref = task.preferred_compute_layer || '—';
+                const alloc = task.allocated_compute_layer || '—';
+                document.getElementById('md-layers').textContent = pref === alloc ? alloc : `${pref} ➔ ${alloc}`;
+                document.getElementById('md-image').textContent = task.docker_image || '—';
+
+                // Métricas
+                const perf = task.performance || {};
+                document.getElementById('md-cpu-peak').textContent = perf.cpu_peak_percent != null ? `${Number(perf.cpu_peak_percent).toFixed(1)}%` : '—';
+                document.getElementById('md-cpu-threads').textContent = perf.allocated_cpu_threads != null ? `${perf.allocated_cpu_threads} thread(s)` : '—';
+                document.getElementById('md-ram-peak').textContent = perf.ram_peak_mb != null ? `${Math.round(perf.ram_peak_mb)} MB` : '—';
+                document.getElementById('md-ram-allocated').textContent = perf.allocated_ram_mb != null ? `${Math.round(perf.allocated_ram_mb)} MB` : '—';
+                
+                const eff = perf.ram_efficiency_ratio != null ? `${Math.round(perf.ram_efficiency_ratio * 100)}%` : '—';
+                document.getElementById('md-ram-efficiency').textContent = eff;
+
+                let diagText = '—';
+                if (perf.ram_efficiency_ratio != null) {
+                    diagText = perf.is_oversized 
+                        ? 'Sobredimensionada (Uso real < 60% do alocado pela IA)' 
+                        : 'Dimensionamento adequado';
+                }
+                document.getElementById('md-diagnostico').textContent = diagText;
+
+                // Logs
+                document.getElementById('md-stdout-terminal').textContent = task.stdout_log ? task.stdout_log : '(vazio)';
+                document.getElementById('md-stderr-terminal').textContent = task.stderr_log ? task.stderr_log : '(vazio)';
+
+                // Histórico de Nós / Timeline de Realocação
+                const timeline = document.getElementById('md-realloc-timeline');
+                timeline.innerHTML = '';
+
+                // Inicial: submissão
+                const initialItem = document.createElement('div');
+                initialItem.className = 'timeline-item';
+                initialItem.innerHTML = `
+                    <div class="timeline-header">
+                        <span class="timeline-title">Submissão da tarefa</span>
+                        <span class="timeline-time">${submitted}</span>
+                    </div>
+                    <div class="timeline-body">
+                        Tarefa registrada no banco de dados e enviada para planejamento de recursos.
+                    </div>
+                `;
+                timeline.appendChild(initialItem);
+
+                // Tentativas anteriores
+                const realloc = task.reallocation || {};
+                const history = realloc.history || [];
+                if (history && history.length > 0) {
+                    history.forEach((h) => {
+                        const hItem = document.createElement('div');
+                        hItem.className = 'timeline-item failed';
+                        const hTime = h.at ? new Date(h.at * 1000).toLocaleString('pt-BR') : '—';
+                        hItem.innerHTML = `
+                            <div class="timeline-header">
+                                <span class="timeline-title" style="color: var(--error-color);">Tentativa #${h.attempt}: Falha no nó</span>
+                                <span class="timeline-time">${hTime}</span>
+                            </div>
+                            <div class="timeline-body">
+                                Executado no nó <strong>${escapeHTML(h.hostname)}</strong>.<br>
+                                Status final: <span class="status-chip status-falha status-chip--inline" style="font-size:10px; padding:1px 5px;">${escapeHTML(h.phase)}</span><br>
+                                Motivo: <code>${escapeHTML(h.reason)}</code>
+                            </div>
+                        `;
+                        timeline.appendChild(hItem);
+                    });
+                }
+
+                // Tentativa atual ou status final
+                if (task.status === 'concluida' || task.status === 'falha') {
+                    const finalItem = document.createElement('div');
+                    finalItem.className = task.status === 'concluida' ? 'timeline-item success' : 'timeline-item failed';
+                    const compTime = task.completed_at ? new Date(task.completed_at * 1000).toLocaleString('pt-BR') : submitted;
+                    const finalStatusBadge = `<span class="status-chip status-${task.status} status-chip--inline" style="font-size:10px; padding:1px 5px;">${escapeHTML(getStatusText(task.status))}</span>`;
+                    
+                    let bodyHtml = '';
+                    if (task.status === 'concluida') {
+                        bodyHtml = `Tarefa executada com sucesso no nó <strong>${escapeHTML(task.allocated_node_id ? task.allocated_node_id.replace('k8s:', '') : '')}</strong>.`;
+                    } else {
+                        bodyHtml = `Tarefa finalizada com status de falha.`;
+                        if (task.reallocation_attempts > 0) {
+                            bodyHtml += ` Todas as realocações nos nós foram esgotadas.`;
+                        }
+                    }
+
+                    finalItem.innerHTML = `
+                        <div class="timeline-header">
+                            <span class="timeline-title" style="color: ${task.status === 'concluida' ? 'var(--success-color)' : 'var(--error-color)'};">Execução finalizada</span>
+                            <span class="timeline-time">${compTime}</span>
+                        </div>
+                        <div class="timeline-body">
+                            Status: ${finalStatusBadge}<br>
+                            ${bodyHtml}
+                        </div>
+                    `;
+                    timeline.appendChild(finalItem);
+                } else if (task.status === 'executando' || task.status === 'alocada') {
+                    const activeItem = document.createElement('div');
+                    activeItem.className = 'timeline-item';
+                    activeItem.innerHTML = `
+                        <div class="timeline-header">
+                            <span class="timeline-title" style="color: var(--primary-color);">Execução ativa</span>
+                            <span class="timeline-time">Em andamento</span>
+                        </div>
+                        <div class="timeline-body">
+                            Tarefa em execução ativa no nó <strong>${escapeHTML(task.allocated_node_id ? task.allocated_node_id.replace('k8s:', '') : '')}</strong>.
+                        </div>
+                    `;
+                    timeline.appendChild(activeItem);
+                }
+
+                // Aba 4: Detalhes da IA
+                const ai = task.ai_analysis || {};
+                document.getElementById('md-ai-json').textContent = JSON.stringify(ai.full_response || {}, null, 2);
+
+                executionModal.style.display = 'flex';
+            } catch (err) {
+                console.error(err);
+                alert('Erro ao abrir detalhes da execução.');
+            }
+        };
+    </script>
+</body>
+</html>

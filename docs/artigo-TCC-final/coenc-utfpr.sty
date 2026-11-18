@@ -1,0 +1,264 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = pt_BR
+% !TeX program = pdflatex
+%% ============================================================================
+%% coenc-utfpr.sty
+%% Estilo compartilhado pelos modelos de TCC do Curso de Engenharia de
+%% Computacao -- UTFPR Campus Apucarana (COENC-AP).
+%%
+%% Fornece:
+%%   * cores da identidade visual UTFPR;
+%%   * cabecalho institucional (Brasao da Republica + textos + marca UTFPR);
+%%   * caixas de orientacao (dica, norma, resolucao, atencao), que podem ser
+%%     ocultadas com a opcao [semdicas];
+%%   * estilos de codigo-fonte (listings), pseudocodigo (algorithm2e),
+%%     fluxogramas (TikZ) e diagrama de Gantt (pgfgantt);
+%%   * comando \repositorio para indicar repositorios de codigo.
+%%
+%% Uso:  \usepackage{coenc-utfpr}            -> mostra as caixas de orientacao
+%%       \usepackage[semdicas]{coenc-utfpr}  -> oculta TODAS as caixas
+%%                                             (use na versao de entrega!)
+%% ============================================================================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{coenc-utfpr}[2026/10/19 Modelos TCC COENC-AP UTFPR]
+
+\newif\ifcoenc@dicas \coenc@dicastrue
+\DeclareOption{semdicas}{\coenc@dicasfalse}
+\DeclareOption{comdicas}{\coenc@dicastrue}
+\ProcessOptions\relax
+
+\RequirePackage{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\RequirePackage{pgfgantt}
+\RequirePackage{listings}
+\RequirePackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
+\RequirePackage{comment}
+\RequirePackage[most]{tcolorbox}
+\tcbuselibrary{listings}
+
+\usetikzlibrary{shapes.geometric,shapes.misc,arrows.meta,positioning,fit,
+                backgrounds,calc,automata}
+
+%% ----------------------------------------------------------------------------
+%% 1. CORES DA IDENTIDADE VISUAL
+%% A marca UTFPR usa amarelo e preto. Os valores abaixo sao aproximacoes para
+%% tela/impressao. Confira os valores oficiais no Manual de Identidade Visual
+%% (https://www.utfpr.edu.br/comunicacao/design) e ajuste se necessario.
+%% ----------------------------------------------------------------------------
+\definecolor{utfpramarelo}{HTML}{FFCC00}
+\definecolor{utfprpreto}{HTML}{1D1D1B}
+\definecolor{utfprcinza}{HTML}{58595B}
+\definecolor{utfprcinzaclaro}{HTML}{EDEDED}
+\definecolor{dicaazul}{HTML}{1F5F8B}
+\definecolor{alertavermelho}{HTML}{A4262C}
+\definecolor{normaverde}{HTML}{2E6B30}
+
+%% ----------------------------------------------------------------------------
+%% 2. DADOS INSTITUCIONAIS (podem ser redefinidos no documento principal)
+%% ----------------------------------------------------------------------------
+\newcommand{\nomeministerio}{Ministério da Educação}
+\newcommand{\nomeuniversidade}{Universidade Tecnológica Federal do Paraná}
+\newcommand{\nomecampus}{Câmpus Apucarana}
+\newcommand{\nomecoordenacao}{Coordenação do Curso de Engenharia de Computação}
+\newcommand{\nomecurso}{Engenharia de Computação}
+% O brasao e usado em PNG de alta resolucao (1200 px, fundo transparente).
+% A versao vetorial (brasao-republica.pdf) tem contornos muito finos que
+% muitos visualizadores de PDF engrossam em tamanho pequeno, deixando a
+% imagem escura na tela. Para usar o vetorial, troque .png por .pdf.
+\newcommand{\arquivobrasao}{figuras/brasao-republica.png}
+\newcommand{\arquivologo}{figuras/logo-utfpr}
+
+%% ----------------------------------------------------------------------------
+%% 3. CABECALHO INSTITUCIONAL
+%% Segue o padrao dos documentos oficiais da UTFPR: Brasao da Republica a
+%% esquerda, identificacao do orgao ao centro e marca da UTFPR a direita.
+%% Nao distorca as imagens: altere apenas a altura (height), nunca altura e
+%% largura ao mesmo tempo, e mantenha a area de protecao ao redor da marca.
+%% Uso: \cabecalhoinstitucional   ou   \cabecalhoinstitucional[<largura>]
+%% ----------------------------------------------------------------------------
+\newcommand{\cabecalhoinstitucional}[1][\linewidth]{%
+  \begingroup
+  \noindent
+  \begin{minipage}{#1}
+    \begin{minipage}[c]{0.17\linewidth}
+      \raggedright\includegraphics[height=1.75cm]{\arquivobrasao}
+    \end{minipage}%
+    \begin{minipage}[c]{0.56\linewidth}
+      \centering\fontsize{9}{11}\selectfont
+      \nomeministerio\\
+      \textbf{\nomeuniversidade}\\
+      \nomecampus\\
+      \nomecoordenacao
+    \end{minipage}%
+    \begin{minipage}[c]{0.27\linewidth}
+      \raggedleft\includegraphics[height=1.15cm]{\arquivologo}
+    \end{minipage}\par
+    \vspace{4pt}
+    {\color{utfpramarelo}\rule{\linewidth}{2pt}}\par
+  \end{minipage}%
+  \endgroup
+}
+
+%% ----------------------------------------------------------------------------
+%% 4. CAIXAS DE ORIENTACAO
+%%   dica       -> como escrever bem a secao (azul)
+%%   norma      -> regra ABNT / UTFPR de formatacao (verde)
+%%   resolucao  -> exigencia da Resolucao de TCC do curso (amarelo UTFPR)
+%%   atencao    -> erro comum que deve ser evitado (vermelho)
+%%   codigolatex  -> mostra codigo LaTeX (sem compilar)
+%%   exemplolatex -> mostra codigo LaTeX e o resultado compilado logo abaixo
+%% Com a opcao [semdicas] TODAS elas desaparecem do PDF.
+%% ----------------------------------------------------------------------------
+\lstdefinestyle{latexcodigo}{
+  language=[LaTeX]TeX,
+  basicstyle=\ttfamily\scriptsize,
+  numbers=none, frame=none, xleftmargin=0pt, framexleftmargin=0pt,
+  aboveskip=0pt, belowskip=0pt,
+  keywordstyle=\color{dicaazul},
+  commentstyle=\color{utfprcinza}\itshape,
+  breaklines=true, columns=fullflexible, keepspaces=true,
+  showstringspaces=false, upquote=true,
+  texcsstyle=*\color{dicaazul},
+  moretexcs={citeonline,citeauthor,citeyear,apud,fonte,repositorio,
+             autoref,cref,SI,includegraphics,toprule,midrule,bottomrule},
+  literate=
+    {á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1
+    {é}{{\'e}}1 {ê}{{\^e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
+    {ô}{{\^o}}1 {õ}{{\~o}}1 {ú}{{\'u}}1 {ü}{{\"u}}1 {ç}{{\c c}}1
+    {Á}{{\'A}}1 {À}{{\`A}}1 {Â}{{\^A}}1 {Ã}{{\~A}}1
+    {É}{{\'E}}1 {Ê}{{\^E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1
+    {Ô}{{\^O}}1 {Õ}{{\~O}}1 {Ú}{{\'U}}1 {Ç}{{\c C}}1
+    {–}{{--}}1 {—}{{---}}1
+}
+
+\ifcoenc@dicas
+  \tcbset{coencbase/.style={enhanced, breakable, sharp corners,
+      boxrule=0pt, leftrule=3pt, left=5pt, right=5pt, top=3pt, bottom=3pt,
+      fonttitle=\bfseries\small, fontupper=\small, coltitle=black,
+      before skip=6pt, after skip=6pt,
+      before upper={\ifdefined\SingleSpacing\SingleSpacing\fi
+                    \setlength{\parindent}{0pt}},
+      attach title to upper={\ \ }}}
+  \newtcolorbox{dica}[1][Dica de escrita]{coencbase,
+      colback=dicaazul!6, colframe=dicaazul, title={\color{dicaazul}#1:}}
+  \newtcolorbox{norma}[1][Norma ABNT/UTFPR]{coencbase,
+      colback=normaverde!6, colframe=normaverde, title={\color{normaverde}#1:}}
+  \newtcolorbox{resolucao}[1][Resolução do TCC]{coencbase,
+      colback=utfpramarelo!14, colframe=utfpramarelo!90!black,
+      title={#1:}}
+  \newtcolorbox{atencao}[1][Atenção]{coencbase,
+      colback=alertavermelho!6, colframe=alertavermelho,
+      title={\color{alertavermelho}#1:}}
+  \newtcblisting{codigolatex}{enhanced, breakable, sharp corners,
+      colback=utfprcinzaclaro, colframe=utfprcinza, boxrule=0.4pt,
+      left=4pt, right=4pt, top=1pt, bottom=1pt, listing only,
+      listing options={style=latexcodigo}}
+  \newtcblisting{exemplolatex}{enhanced, breakable, sharp corners,
+      colback=white, colframe=utfprcinza, boxrule=0.4pt,
+      left=4pt, right=4pt, top=1pt, bottom=2pt, listing and text,
+      fontupper=\small,
+      segmentation style={dashed, utfprcinza},
+      listing options={style=latexcodigo}}
+\else
+  \excludecomment{dica}
+  \excludecomment{norma}
+  \excludecomment{resolucao}
+  \excludecomment{atencao}
+  \excludecomment{codigolatex}
+  \excludecomment{exemplolatex}
+\fi
+
+%% Texto de preenchimento que deve ser substituido (aparece em cinza).
+%% Com [semdicas] continua visivel, para lembrar que ainda falta trocar.
+\DeclareRobustCommand{\preencher}[1]{{\color{utfprcinza}[#1]}}
+
+%% ----------------------------------------------------------------------------
+%% 5. CODIGO-FONTE (listings)
+%% ----------------------------------------------------------------------------
+\lstdefinestyle{codigo}{
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{dicaazul}\bfseries,
+  commentstyle=\color{utfprcinza}\itshape,
+  stringstyle=\color{normaverde},
+  numbers=left, numberstyle=\tiny\color{utfprcinza}, numbersep=6pt,
+  frame=tb, framerule=0.6pt, rulecolor=\color{utfprpreto},
+  breaklines=true, breakatwhitespace=true, columns=fullflexible,
+  keepspaces=true, showstringspaces=false, tabsize=2,
+  captionpos=t, abovecaptionskip=2pt, belowcaptionskip=4pt,
+  xleftmargin=1.2em, framexleftmargin=1.2em,
+  literate=
+    {á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1
+    {é}{{\'e}}1 {ê}{{\^e}}1 {í}{{\'i}}1 {ó}{{\'o}}1
+    {ô}{{\^o}}1 {õ}{{\~o}}1 {ú}{{\'u}}1 {ç}{{\c c}}1
+    {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {Ç}{{\c C}}1 {Ã}{{\~A}}1 {Õ}{{\~O}}1
+}
+\lstset{style=codigo}
+\renewcommand{\lstlistingname}{Código}
+\renewcommand{\lstlistlistingname}{Lista de códigos}
+
+%% ----------------------------------------------------------------------------
+%% 6. PSEUDOCODIGO (algorithm2e) em portugues
+%% ----------------------------------------------------------------------------
+\SetAlgoCaptionSeparator{ --}
+\SetKwInput{KwEntrada}{Entrada}
+\SetKwInput{KwSaida}{Saída}
+\SetKwInput{KwDados}{Dados}
+\SetKwInput{KwResultado}{Resultado}
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+
+%% ----------------------------------------------------------------------------
+%% 7. FLUXOGRAMAS (TikZ) -- simbolos usuais (ISO 5807)
+%% ----------------------------------------------------------------------------
+\tikzset{
+  fx/base/.style={draw=utfprpreto, thick, align=center, font=\footnotesize,
+                  minimum height=7mm, text width=24mm, inner sep=2pt},
+  fx/terminal/.style={fx/base, rounded rectangle, fill=utfpramarelo!45},
+  fx/processo/.style={fx/base, rectangle, fill=utfprcinzaclaro},
+  fx/decisao/.style={fx/base, diamond, aspect=2, fill=utfpramarelo!20,
+                     text width=18mm, inner sep=1pt},
+  fx/es/.style={fx/base, trapezium, trapezium left angle=70,
+                trapezium right angle=110, trapezium stretches=true,
+                fill=white},
+  fx/dados/.style={fx/base, cylinder, shape border rotate=90, aspect=0.2,
+                   fill=utfprcinzaclaro, text width=16mm},
+  fx/seta/.style={-{Stealth[length=2.2mm]}, thick, draw=utfprpreto},
+  bloco/.style={draw=utfprpreto, thick, rounded corners=2pt, align=center,
+                font=\footnotesize, minimum height=8mm, text width=22mm,
+                fill=utfprcinzaclaro},
+  bloco/destaque/.style={bloco, fill=utfpramarelo!45},
+}
+
+%% ----------------------------------------------------------------------------
+%% 8. DIAGRAMA DE GANTT (pgfgantt)
+%% ----------------------------------------------------------------------------
+\ganttset{
+  hgrid, vgrid={*1{utfprcinza!35, dashed}},
+  x unit=0.42cm, y unit chart=0.48cm, y unit title=0.55cm,
+  title/.append style={fill=utfprpreto, draw=utfprpreto},
+  title label font=\scriptsize\bfseries\color{white},
+  bar/.append style={fill=utfpramarelo, draw=utfprpreto},
+  bar height=0.55,
+  bar label font=\scriptsize,
+  group/.append style={fill=utfprpreto},
+  group label font=\scriptsize\bfseries,
+  group right shift=0, group top shift=0.55, group height=0.25,
+  group peaks height=0.15,
+  milestone/.append style={fill=alertavermelho, draw=alertavermelho},
+  milestone label font=\scriptsize\itshape,
+  link/.style={-{Stealth[length=1.6mm]}, utfprcinza, thick},
+}
+
+%% ----------------------------------------------------------------------------
+%% 9. REPOSITORIO DE CODIGO
+%% \repositorio{https://github.com/usuario/projeto}
+%% Gera o endereco formatado em fonte monoespacada e com link.
+%% ----------------------------------------------------------------------------
+\newcommand{\repositorio}[1]{\href{#1}{\texttt{\nolinkurl{#1}}}}
+
+\endinput

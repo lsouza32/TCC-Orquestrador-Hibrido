@@ -1,0 +1,259 @@
+# EXP-02 — 5 Jobs concorrentes (baseline, sem nodeSelector)
+# O kube-scheduler decide o placement; o estresse em worker2 permanece ativo.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: exp2-baseline-script
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp2
+    arm: k8s-default
+data:
+  task_exp2_cpu.py: |
+    #!/usr/bin/env python3
+    """EXP-02 — carga CPU-bound ~18 s (leve, idêntica nas 5 tarefas)."""
+    from __future__ import annotations
+
+    import time
+
+    HOLD_SECONDS = 18.0
+
+
+    def cpu_bound_hold(seconds: float) -> int:
+        t0 = time.monotonic()
+        acc = 0
+        i = 0
+        while time.monotonic() - t0 < seconds:
+            acc += (i * i) ^ (i << 1)
+            i += 1
+        return acc
+
+
+    if __name__ == "__main__":
+        print(f"exp2_cpu: hold {HOLD_SECONDS}s...", flush=True)
+        t0 = time.monotonic()
+        result = cpu_bound_hold(HOLD_SECONDS)
+        elapsed = time.monotonic() - t0
+        print(f"exp2_cpu_ok result={result} hold_s={elapsed:.2f}", flush=True)
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exp2-baseline-1
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp2
+    arm: k8s-default
+    run: "1"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: tcc-baseline
+        experiment: exp2
+        arm: k8s-default
+        run: "1"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: task-runner
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - cd /app/scripts && python3 task_exp2_cpu.py
+          volumeMounts:
+            - name: task-scripts
+              mountPath: /app/scripts
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: task-scripts
+          configMap:
+            name: exp2-baseline-script
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exp2-baseline-2
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp2
+    arm: k8s-default
+    run: "2"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: tcc-baseline
+        experiment: exp2
+        arm: k8s-default
+        run: "2"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: task-runner
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - cd /app/scripts && python3 task_exp2_cpu.py
+          volumeMounts:
+            - name: task-scripts
+              mountPath: /app/scripts
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: task-scripts
+          configMap:
+            name: exp2-baseline-script
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exp2-baseline-3
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp2
+    arm: k8s-default
+    run: "3"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: tcc-baseline
+        experiment: exp2
+        arm: k8s-default
+        run: "3"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: task-runner
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - cd /app/scripts && python3 task_exp2_cpu.py
+          volumeMounts:
+            - name: task-scripts
+              mountPath: /app/scripts
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: task-scripts
+          configMap:
+            name: exp2-baseline-script
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exp2-baseline-4
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp2
+    arm: k8s-default
+    run: "4"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: tcc-baseline
+        experiment: exp2
+        arm: k8s-default
+        run: "4"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: task-runner
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - cd /app/scripts && python3 task_exp2_cpu.py
+          volumeMounts:
+            - name: task-scripts
+              mountPath: /app/scripts
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: task-scripts
+          configMap:
+            name: exp2-baseline-script
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exp2-baseline-5
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp2
+    arm: k8s-default
+    run: "5"
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: tcc-baseline
+        experiment: exp2
+        arm: k8s-default
+        run: "5"
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: task-runner
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - cd /app/scripts && python3 task_exp2_cpu.py
+          volumeMounts:
+            - name: task-scripts
+              mountPath: /app/scripts
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: task-scripts
+          configMap:
+            name: exp2-baseline-script

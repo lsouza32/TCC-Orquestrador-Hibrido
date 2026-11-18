@@ -1,0 +1,4231 @@
+{
+  "experiment": "llm_temperature_sensitivity",
+  "model": "LiquidAI/lfm2.5-1.2b-instruct",
+  "temps": [
+    0.0,
+    0.5,
+    1.0
+  ],
+  "reps": 10,
+  "layer_floors": {
+    "required_memory_gb": 0.5,
+    "required_cpu_threads": 1.0
+  },
+  "summary": {
+    "T=0.0|task_edge_light.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 10
+      },
+      "complexity_mean": 1,
+      "complexity_sd": 0.0,
+      "complexity_values": [
+        [
+          1,
+          10
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 10
+      },
+      "agree_nominal": 0.0,
+      "distinct_analyst_outputs": 1,
+      "distinct_strategist_outputs": 1,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 1.71
+    },
+    "T=0.0|task_fog_cpu.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 10
+      },
+      "complexity_mean": 3,
+      "complexity_sd": 0.0,
+      "complexity_values": [
+        [
+          3,
+          10
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 10
+      },
+      "agree_nominal": 1.0,
+      "distinct_analyst_outputs": 1,
+      "distinct_strategist_outputs": 1,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 1.92
+    },
+    "T=0.0|task_cloud_ml.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "ML-heavy": 10
+      },
+      "complexity_mean": 7,
+      "complexity_sd": 0.0,
+      "complexity_values": [
+        [
+          7,
+          10
+        ]
+      ],
+      "preferred_layer": {
+        "cloud": 10
+      },
+      "agree_nominal": 1.0,
+      "distinct_analyst_outputs": 1,
+      "distinct_strategist_outputs": 1,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 2.67
+    },
+    "T=0.0|task_exp1_memory.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 10
+      },
+      "complexity_mean": 2,
+      "complexity_sd": 0.0,
+      "complexity_values": [
+        [
+          2,
+          10
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 10
+      },
+      "agree_nominal": null,
+      "distinct_analyst_outputs": 1,
+      "distinct_strategist_outputs": 1,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 2.7
+    },
+    "T=0.5|task_edge_light.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 9,
+        "IO-bound": 1
+      },
+      "complexity_mean": 1.3,
+      "complexity_sd": 0.46,
+      "complexity_values": [
+        [
+          1,
+          7
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 9,
+        "edge": 1
+      },
+      "agree_nominal": 0.1,
+      "distinct_analyst_outputs": 6,
+      "distinct_strategist_outputs": 2,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 1.77
+    },
+    "T=0.5|task_fog_cpu.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 10
+      },
+      "complexity_mean": 4,
+      "complexity_sd": 0.77,
+      "complexity_values": [
+        [
+          3,
+          3
+        ],
+        [
+          4,
+          4
+        ],
+        [
+          5,
+          3
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 10
+      },
+      "agree_nominal": 1.0,
+      "distinct_analyst_outputs": 5,
+      "distinct_strategist_outputs": 3,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 2.04
+    },
+    "T=0.5|task_cloud_ml.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "ML-heavy": 10
+      },
+      "complexity_mean": 7,
+      "complexity_sd": 0.0,
+      "complexity_values": [
+        [
+          7,
+          10
+        ]
+      ],
+      "preferred_layer": {
+        "cloud": 10
+      },
+      "agree_nominal": 1.0,
+      "distinct_analyst_outputs": 1,
+      "distinct_strategist_outputs": 2,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 2.72
+    },
+    "T=0.5|task_exp1_memory.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 10
+      },
+      "complexity_mean": 2.2,
+      "complexity_sd": 0.4,
+      "complexity_values": [
+        [
+          2,
+          8
+        ],
+        [
+          3,
+          2
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 10
+      },
+      "agree_nominal": null,
+      "distinct_analyst_outputs": 2,
+      "distinct_strategist_outputs": 3,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 2.76
+    },
+    "T=1.0|task_edge_light.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 8,
+        "IO-bound": 2
+      },
+      "complexity_mean": 1.4,
+      "complexity_sd": 0.49,
+      "complexity_values": [
+        [
+          1,
+          6
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 8,
+        "edge": 2
+      },
+      "agree_nominal": 0.2,
+      "distinct_analyst_outputs": 6,
+      "distinct_strategist_outputs": 5,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 1.76
+    },
+    "T=1.0|task_fog_cpu.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 10
+      },
+      "complexity_mean": 4,
+      "complexity_sd": 1.26,
+      "complexity_values": [
+        [
+          2,
+          2
+        ],
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 10
+      },
+      "agree_nominal": 1.0,
+      "distinct_analyst_outputs": 8,
+      "distinct_strategist_outputs": 4,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 1.96
+    },
+    "T=1.0|task_cloud_ml.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "ML-heavy": 10
+      },
+      "complexity_mean": 6.9,
+      "complexity_sd": 0.54,
+      "complexity_values": [
+        [
+          6,
+          2
+        ],
+        [
+          7,
+          7
+        ],
+        [
+          8,
+          1
+        ]
+      ],
+      "preferred_layer": {
+        "cloud": 10
+      },
+      "agree_nominal": 1.0,
+      "distinct_analyst_outputs": 3,
+      "distinct_strategist_outputs": 6,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 2.66
+    },
+    "T=1.0|task_exp1_memory.py": {
+      "n": 10,
+      "analyst_valid_rate": 1.0,
+      "strategist_valid_rate": 1.0,
+      "task_type": {
+        "CPU-bound": 8,
+        "IO-bound": 2
+      },
+      "complexity_mean": 2.3,
+      "complexity_sd": 0.46,
+      "complexity_values": [
+        [
+          2,
+          7
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "preferred_layer": {
+        "fog": 8,
+        "edge": 2
+      },
+      "agree_nominal": null,
+      "distinct_analyst_outputs": 4,
+      "distinct_strategist_outputs": 5,
+      "invalid_reasons": {},
+      "latency_analyst_s_mean": 2.86
+    }
+  },
+  "results": [
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.753,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.98,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.737,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.957,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.691,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.977,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.695,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.995,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.709,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.024,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.703,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.986,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.702,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.983,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.714,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.013,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.705,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.977,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.722,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.024,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_edge_light.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.917,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.067,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.911,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.022,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.904,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.035,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.967,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.016,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.897,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.041,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.914,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.998,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.905,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.016,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.909,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.041,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.915,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.037,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.915,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop com n grande e operações aritméticas intensas indicam carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.044,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.0,
+      "script": "task_fog_cpu.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.697,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.097,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.651,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.062,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.641,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.139,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.669,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.092,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.655,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.101,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.656,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.067,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.701,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.077,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.648,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.079,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.656,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.087,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.688,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com carga computacional significativa."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.067,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_cloud_ml.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.751,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.064,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.69,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.094,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.706,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.071,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.694,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.079,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.672,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.077,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.684,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.156,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.715,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.144,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.698,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.116,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.68,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.091,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.674,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicando processamento computacional moderado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.15,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.0,
+      "script": "task_exp1_memory.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.725,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução, sem processamento complexo ou loops intensivos."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.016,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.792,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "sys"
+        ],
+        "pip_packages": [
+          "time",
+          "sys"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento intensivo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "5b5bc2af55",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.04,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.762,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "IO-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações de I/O simples com tempo de execução curto e sem processamento complexo."
+      },
+      "task_type": "IO-bound",
+      "complexity": 1,
+      "preferred_layer": "edge",
+      "analyst_digest": "181b0c49f6",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.102,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.757,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "__future__"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou machine learning."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.99,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.743,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "sys"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "95f7ab7293",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.022,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.743,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações simples com tempo de execução, mas não envolve processamento intenso ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "de0f075141",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.015,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.808,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto e sem processamento intensivo, indicando carga leve."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "7e81d8e0bb",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.054,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.791,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "__future__"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações simples com tempo de execução, mas envolve loops e I/O, justificando uma classificação intermediária."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "de0f075141",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.993,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.776,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples com tempo de execução direto e não envolve processamento intensivo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "7e81d8e0bb",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.071,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.816,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações básicas com tempo e saída simples, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "7e81d8e0bb",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.029,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_edge_light.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.978,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop de cálculo contém múltiplos de iteração e operações aritméticas, indicando carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.191,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.053,
+      "analyst": {
+        "detected_libraries": [
+          "sys",
+          "math",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O loop com operações aritméticas e exponenciais realiza trabalho significativo, justificando a classificação como CPU-bound."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "bac8285af8",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.089,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.943,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O loop com n grande e operações aritméticas intensas indica carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "d5fadeb591",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.015,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.008,
+      "analyst": {
+        "detected_libraries": [
+          "sys",
+          "math",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 5,
+        "rationale": "O código contém um loop com cálculos matemáticos repetitivos, indicando uso moderado de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 5,
+      "preferred_layer": "fog",
+      "analyst_digest": "94e64691ab",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.101,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.01,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "numpy",
+          "math"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O loop de cálculo contém operações aritméticas repetidas com alta intensidade computacional, indicando carga significativa de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "d5fadeb591",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.139,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.118,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop contém múltiplas operações aritméticas e uma estrutura iterativa que geram carga moderada, justificando a classificação."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.226,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.03,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "numpy",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 5,
+        "rationale": "O loop em 'cpu_bound_work' realiza uma operação iterativa que envolve cálculos matemáticos, indicando carga moderada de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 5,
+      "preferred_layer": "fog",
+      "analyst_digest": "d1f29ee369",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.236,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.13,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 5,
+        "rationale": "O loop com n grande e operações aritméticas intensas geram carga moderada, mas contínua, alinhando-se ao uso de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 5,
+      "preferred_layer": "fog",
+      "analyst_digest": "d1f29ee369",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.272,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.119,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O loop com uma quantidade significativa de iterações e operações aritméticas simples consome recursos CPU, justificando a classificação."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "d5fadeb591",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.304,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.961,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "future"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O loop no cálculo acumula valores com operações aritméticas intensivas, indicando uso moderado de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "46068e274f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.073,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_fog_cpu.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.682,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O código utiliza operações de matrizes intensivas com multiplicação densa, típicas de tarefas ML que exigem processamento computacional significativo."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.125,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.773,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops para simulação de treino/processamento define uma carga computacional moderada, alinhada com o uso de bibliotecas de ML."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.131,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.667,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O código utiliza operações matriciais intensivas com loops aninhados e multiplicação densa, indicativo de processamento computacional significativo."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.21,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.694,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz multiplicação e acumulação em loops fornece uma carga computacional significativa, justificando a classificação como ML-heavy."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.165,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.873,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso central do TensorFlow e do Scikit-learn, combinado com operações matriciais intensivas, justifica a classificação como ML-heavy. A carga computacional está presente na multiplicação de matrizes e na acumulação de valores."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.122,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.71,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso de TensorFlow e Scikit-learn no código indica uma carga computacional significativa, típica em tarefas de machine learning que envolvem operações matriciais intensivas."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.092,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.7,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops estruturados indica um caráter ML-heavy, com processamento significativo."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.116,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.641,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação) e loops estruturados indica carga computacional significativa, justificando classificação como ML-heavy."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.111,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.685,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações matriciais e loops na função heavy_matrix_work indica carga computacional significativa, justificando a classificação como ML-heavy."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.099,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.744,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz multiplicação em loops e a estrutura de dados 2D indicam um carregamento significativo, justificando a classificação ML-heavy."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.164,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_cloud_ml.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.878,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O código realiza operações matemáticas e manipula memória, indicativo de processamento computacional, com uso de bibliotecas padrão para manipulação de memória e tempo."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.137,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.786,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas simples e manipula memória, com chamadas diretas de funções do sistema e loop básico, indicando carga moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.057,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.596,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "sys",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza cálculos simples com matemática básica e manipulação de memória, sem processamento intensivo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.966,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.678,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, com chamadas diretas de CPU, justificando classificação como CPU-bound."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.987,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.741,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas simples e manipula memória, com uso moderado de CPU ao executar loops e cálculos."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.084,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.758,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações aritméticas e manipula memória de forma contínua, indicando carga de processamento contínuo; não envolve ML ou grandes I/O."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.072,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.822,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória de forma direta, com loop simples e cálculos básicos, não envolvendo processamento de dados complexo."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.092,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.701,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações matemáticas e manipula memória, indicativo de processamento computacional, sem uso intenso de ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.21,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.785,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow",
+          "numpy",
+          "tensorflow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O script realiza operações matemáticas e manipula memória de forma contínua, indicando carga computacional moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "cc4f6de25e",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.081,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.824,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O código realiza cálculos matemáticos simples e manipula memória, o que implica um processamento intensivo de CPU. A presença de loops e operações numéricas contribui para a carga computacional."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "cc4f6de25e",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.041,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 0.5,
+      "script": "task_exp1_memory.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.737,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script contém apenas operações simples de I/O e saída, sem processamento complexo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.915,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.815,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O uso de 'print' e 'time.sleep' envolve operações de saída e espera, indicando carga moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f98e6c280d",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.974,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.742,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza tarefas simples de I/O e I/O-bound com tempo de execução curto."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f98e6c280d",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.993,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.697,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações de time e prints simples, com carga leve e sem processamento intensivo."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.88,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.819,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "__future__",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza tarefas simples com saída e pausa, sem processamento intensivo ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "bd1c75c98c",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.021,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "314d1ca7c0",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.739,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza tarefas simples com loops e I/O, sem operações intensivas ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f98e6c280d",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.059,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.786,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "sys",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações leves com `time.sleep` e impressão de strings, não envolvendo lógica intensiva ou ML."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "de0f075141",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.925,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.681,
+      "analyst": {
+        "detected_libraries": [
+          "time"
+        ],
+        "pip_packages": [
+          "sys",
+          "time"
+        ],
+        "task_type": "IO-bound",
+        "complexity_score": 1,
+        "rationale": "O script utiliza funções de tempo e impressão simples, sem operações intensivas ou ML."
+      },
+      "task_type": "IO-bound",
+      "complexity": 1,
+      "preferred_layer": "edge",
+      "analyst_digest": "7daa398a2f",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.076,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "0f988ba65f",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.767,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza operações simples de I/O com tempo real e declarações curtas, indicativo de baixa complexidade."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 1,
+      "preferred_layer": "fog",
+      "analyst_digest": "7e81d8e0bb",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.069,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.773,
+      "analyst": {
+        "detected_libraries": [
+          "time",
+          "__future__"
+        ],
+        "pip_packages": [
+          "time"
+        ],
+        "task_type": "IO-bound",
+        "complexity_score": 1,
+        "rationale": "O script realiza tarefas leves de I/O e uso de tempo simples, sem processamento intensivo."
+      },
+      "task_type": "IO-bound",
+      "complexity": 1,
+      "preferred_layer": "edge",
+      "analyst_digest": "181b0c49f6",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.98,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_edge_light.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.875,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "python"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O loop com milhões de iterações e operações aritméticas intensas caracterizam uma carga moderada a alta de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "d5fadeb591",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.027,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.976,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 6,
+        "rationale": "O loop com operações aritméticas básicas e acessos de arquivo geram carga média, indicando uso moderado de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 6,
+      "preferred_layer": "fog",
+      "analyst_digest": "dd319a4a75",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.96,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.872,
+      "analyst": {
+        "detected_libraries": [
+          "math"
+        ],
+        "pip_packages": [
+          "__future__"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O código realiza um loop com cálculos aritméticos simples e uma única operação, indicando carga moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "b02f7aa0df",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.896,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.938,
+      "analyst": {
+        "detected_libraries": [
+          "sys",
+          "math",
+          "time"
+        ],
+        "pip_packages": [
+          "future"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O código realiza um loop com iterações em escala grande, aplicando operações aritméticas complexas, indicando carga significativa de processamento de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "bac8285af8",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.001,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.104,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "numpy",
+          "pandas",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O código contém um loop com iterações repetidas e operações aritméticas que geram carga computacional moderada, típica de tarefas CPU-bound."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "d5fadeb591",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.097,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.922,
+      "analyst": {
+        "detected_libraries": [],
+        "pip_packages": [
+          "__future__"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O código contém um loop que realiza operações aritméticas básicas com índice, o que indica carga significativa de processamento de dados."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "55e9700ec9",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.917,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.904,
+      "analyst": {
+        "detected_libraries": [
+          "sys",
+          "os",
+          "time"
+        ],
+        "pip_packages": [
+          "__future__"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O loop com `n` iterações e operações aritméticas intensivas geram carga significativa de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "66f040e6d7",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.029,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 1.932,
+      "analyst": {
+        "detected_libraries": [],
+        "pip_packages": [
+          "opencv-python-headless",
+          "numpy",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 4,
+        "rationale": "O loop iterativo com operações aritméticas intensas e cálculos de potências contribuem para uma carga moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 4,
+      "preferred_layer": "fog",
+      "analyst_digest": "55e9700ec9",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.075,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.045,
+      "analyst": {
+        "detected_libraries": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 6,
+        "rationale": "O loop com a operação de potência e multiplicação tem um caráter de CPU intensa, indicando carga moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 6,
+      "preferred_layer": "fog",
+      "analyst_digest": "d0728536a7",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.296,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.065,
+      "analyst": {
+        "detected_libraries": [
+          "__future__"
+        ],
+        "pip_packages": [
+          "sys",
+          "os",
+          "math",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O loop com uma quantidade moderada de iterações e operações matemáticas simples exige carga moderada, mas não intensa. A função não envolve ML ou I/O pesado."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "40fc8e64e6",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.035,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "cd5bf0394b",
+      "temperature": 1.0,
+      "script": "task_fog_cpu.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.578,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 6,
+        "rationale": "O script utiliza funções do tensorflow e sklearn, indicando processamento intenso de matrizes e operações numéricas, justificando classificação como ML-heavy."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 6,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a8fcc7c646",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.034,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.757,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intenso de operações matriciais em loop, especialmente com multiplicações densas, justifica a classificação como ML-heavy. O código simula cálculos semelhantes a um treino ou inferência em TensorFlow e Scikit-learn."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.255,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "125cb66dd4",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.74,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn",
+          "math",
+          "time"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz (multiplicação densa) e loops implica um carregamento significativo de cálculos, justificando classificação como ML-heavy."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.128,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "73e8d45084",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.692,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn",
+          "opencv-python-headless"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso intensivo de operações de matriz multiplicação e som no loop fortalece a classificação como ML-heavy devido à carga computacional da implementação."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.038,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "bdd3adb674",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.527,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 8,
+        "rationale": "O uso central do script envolve operações numéricas intensivas com matrizes, indicativo de processamento profundo de ML."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 8,
+      "preferred_layer": "cloud",
+      "analyst_digest": "8b6180e2b7",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.12,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "dbc50c7f52",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.71,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O uso central do script depende fortemente de TensorFlow e SciKit-Learn para operações de matriz, com loops intensivos durante a simulação de multiplicação e acumulação."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.038,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.608,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O código demonstra operações matriciais densas e intensivas, com múltiplos ciclos de multiplicação e adição, indicativo de processamento computacional significativo."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.017,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.601,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O código utiliza operações matriciais intensivas e loops que realizam cálculos pesados, característicos de tarefas de aprendizado de máquina."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.009,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "baedf546c6",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.739,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 7,
+        "rationale": "O código demonstra operações matriciais intensivas (multiplicação densa) com loops aninhados, típicas de workloads ML intensos. A presença de `tensorflow` e `sklearn` reforça essa classificação."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 7,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a093df9b98",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.063,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.608,
+      "analyst": {
+        "detected_libraries": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "pip_packages": [
+          "tensorflow",
+          "sklearn"
+        ],
+        "task_type": "ML-heavy",
+        "complexity_score": 6,
+        "rationale": "O uso intensivo de operações matriciais e de otimização de desempenho indica uma carga significativa, típica de tarefas de Machine Learning em processamento intensivo."
+      },
+      "task_type": "ML-heavy",
+      "complexity": 6,
+      "preferred_layer": "cloud",
+      "analyst_digest": "a8fcc7c646",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 3.98,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_cloud_ml.py",
+      "rep": 10
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.822,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow",
+          "numpy"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O código realiza operações de manipulação de memória e cálculos matemáticos simples, mas sem processamento intensivo ou I/O, justificando uma classificação como CPU-bound."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.144,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "831c9a2652",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 1
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.711,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O código manipula memória com buffer e realiza cálculos numéricos simples, apresentando carga média razoável e uso moderado de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "cc4f6de25e",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.103,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "831c9a2652",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 2
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.892,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O código realiza operações simples com manipulação de memória e cálculos numéricos, sem uso intensivo, mas exige manutenção contínua da memória e tempo de processamento."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.094,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 3
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.883,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "__future__",
+          "math",
+          "sys",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações aritméticas básicas e manipulações de memória, exigindo processamento contínuo do CPU, o que justifica a classificação como CPU-bound."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.115,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 4
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.863,
+      "analyst": {
+        "detected_libraries": [
+          "sys",
+          "time",
+          "math",
+          "string"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "sklearn",
+          "time"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O código realiza operações de alocação de memória e cálculos simples, mas contém estruturas de loops e manipulação de buffer que geram uso moderado de CPU."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "d7571bfe65",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.109,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "743046878b",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 5
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.942,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "IO-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações de manipulação de memória e cálculos matemáticos simples, mas o uso principal gira em torno de manipulação de bytes e temporização, com mínimo de processamento intensivo."
+      },
+      "task_type": "IO-bound",
+      "complexity": 2,
+      "preferred_layer": "edge",
+      "analyst_digest": "b8e3961274",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.153,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "b3391bf106",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 6
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.739,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O código realiza cálculos numéricos simples com operações matemáticas e manipulações de memória, indicando carga moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.038,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 7
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.819,
+      "analyst": {
+        "detected_libraries": [
+          "sys",
+          "time",
+          "math"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "Pillow",
+          "numpy",
+          "math",
+          "time"
+        ],
+        "task_type": "IO-bound",
+        "complexity_score": 2,
+        "rationale": "O código manipula memória de forma direta, realiza cálculos matemáticos simples e lida com I/O periódico, indicativo de operações que consomem tempo contínuo."
+      },
+      "task_type": "IO-bound",
+      "complexity": 2,
+      "preferred_layer": "edge",
+      "analyst_digest": "b8e3961274",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.12,
+      "strategist_image": "python:3.9-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "831c9a2652",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 8
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 2.712,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 2,
+        "rationale": "O script realiza operações de memória e cálculos simples com memória de acesso, característico de tarefas de CPU moderada."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 2,
+      "preferred_layer": "fog",
+      "analyst_digest": "f3f16b4a92",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.007,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "1Gi",
+      "cpu_limit": "1",
+      "strategist_digest": "4622e7a9f6",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 9
+    },
+    {
+      "analyst_valid": true,
+      "analyst_reason": "ok",
+      "analyst_latency_s": 3.259,
+      "analyst": {
+        "detected_libraries": [
+          "math",
+          "sys",
+          "time"
+        ],
+        "pip_packages": [
+          "opencv-python-headless",
+          "scikit-learn",
+          "Pillow",
+          "numpy",
+          "tensorflow"
+        ],
+        "task_type": "CPU-bound",
+        "complexity_score": 3,
+        "rationale": "O uso intensivo de operações matemáticas, manipulação de memória contínua e cálculos numéricos dentro de um loop simples justificam uma classificação alta. O envolvimento com bibliotecas de processamento numérico e otimização de memória reforça essa escolha."
+      },
+      "task_type": "CPU-bound",
+      "complexity": 3,
+      "preferred_layer": "fog",
+      "analyst_digest": "cc4f6de25e",
+      "strategist_valid": true,
+      "strategist_reason": "ok",
+      "strategist_latency_s": 4.38,
+      "strategist_image": "python:3.11-slim",
+      "memory_limit": "512Mi",
+      "cpu_limit": "500m",
+      "strategist_digest": "704b6cc32b",
+      "temperature": 1.0,
+      "script": "task_exp1_memory.py",
+      "rep": 10
+    }
+  ],
+  "at": "2026-11-16T23:04:02.329953+00:00"
+}

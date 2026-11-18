@@ -1,0 +1,464 @@
+{
+  "experiment": "exp4",
+  "arm": "hybrid",
+  "n": 3,
+  "sequence": [
+    "edge",
+    "fog",
+    "cloud",
+    "edge",
+    "fog",
+    "cloud",
+    "edge",
+    "fog",
+    "cloud"
+  ],
+  "cold_start": {
+    "n_tasks": 6,
+    "n_results": 5,
+    "uploads_removed": 6,
+    "backup": "C:\\Users\\lsouz\\Faculdade\\TCC\\data\\nodes.bak_1787081167.db",
+    "catalog_pin": {
+      "deleted_tf_rows": 1,
+      "slim_libraries": [
+        "requests",
+        "httpx",
+        "flask",
+        "fastapi",
+        "uvicorn",
+        "pydantic",
+        "json",
+        "datetime",
+        "schedule",
+        "tensorflow",
+        "keras",
+        "sklearn",
+        "scikit-learn"
+      ]
+    }
+  },
+  "runtime_image": "python:3.11-slim",
+  "prepull": {
+    "tcc-cluster-worker": {
+      "ok": true,
+      "detail": "Image is up to date for sha256:002792ac193538382f4aa5b2f696e5669c20e3c972e60d75e6df90d64d4e696e"
+    },
+    "tcc-cluster-worker2": {
+      "ok": true,
+      "detail": "Image is up to date for sha256:002792ac193538382f4aa5b2f696e5669c20e3c972e60d75e6df90d64d4e696e"
+    },
+    "tcc-cluster-worker3": {
+      "ok": true,
+      "detail": "Image is up to date for sha256:002792ac193538382f4aa5b2f696e5669c20e3c972e60d75e6df90d64d4e696e"
+    }
+  },
+  "note_image_control": "Imagem única python:3.11-slim nos 9 jobs após pin pós-planejamento; pré-pull nos 3 workers. Fator residual: w_i (warm) após a 1ª execução.",
+  "cluster_node_layers": [
+    {
+      "hostname": "tcc-cluster-control-plane",
+      "compute_layer": null,
+      "is_control_plane": true
+    },
+    {
+      "hostname": "tcc-cluster-worker",
+      "compute_layer": "edge",
+      "is_control_plane": false
+    },
+    {
+      "hostname": "tcc-cluster-worker2",
+      "compute_layer": "fog",
+      "is_control_plane": false
+    },
+    {
+      "hostname": "tcc-cluster-worker3",
+      "compute_layer": "cloud",
+      "is_control_plane": false
+    }
+  ],
+  "db_nodes_at_start": [
+    {
+      "node_id": "tcc-cluster-control-plane",
+      "hostname": "tcc-cluster-control-plane",
+      "compute_layer": "cloud",
+      "is_active": 1,
+      "provider_type": "kubernetes",
+      "cpu_used_percent": 0.81,
+      "memory_used_percent": 8.85
+    },
+    {
+      "node_id": "tcc-cluster-worker",
+      "hostname": "tcc-cluster-worker",
+      "compute_layer": "edge",
+      "is_active": 1,
+      "provider_type": "kubernetes",
+      "cpu_used_percent": 0.15,
+      "memory_used_percent": 3.24
+    },
+    {
+      "node_id": "tcc-cluster-worker2",
+      "hostname": "tcc-cluster-worker2",
+      "compute_layer": "fog",
+      "is_active": 1,
+      "provider_type": "kubernetes",
+      "cpu_used_percent": 0.11,
+      "memory_used_percent": 2.52
+    },
+    {
+      "node_id": "cloud-highspec-worker",
+      "hostname": "cloud-highspec-worker",
+      "compute_layer": "cloud",
+      "is_active": 0,
+      "provider_type": "kubernetes",
+      "cpu_used_percent": 0.0,
+      "memory_used_percent": 25.0
+    },
+    {
+      "node_id": "tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "compute_layer": "cloud",
+      "is_active": 1,
+      "provider_type": "kubernetes",
+      "cpu_used_percent": 0.11,
+      "memory_used_percent": 2.46
+    }
+  ],
+  "hits": 1,
+  "hit_rate": 0.3333,
+  "hits_vs_regra": 1,
+  "hit_rate_vs_regra": 0.3333,
+  "hits_adjacent": 2,
+  "hit_rate_adjacent": 0.6667,
+  "baseline_hit_rate": 0.2222,
+  "beat_baseline": true,
+  "hit_by_preferred_ia": {
+    "edge": {
+      "n": 1,
+      "hits": 0,
+      "hit_rate": 0.0
+    },
+    "fog": {
+      "n": 1,
+      "hits": 1,
+      "hit_rate": 1.0
+    },
+    "cloud": {
+      "n": 0,
+      "hits": 0,
+      "hit_rate": 0.0
+    }
+  },
+  "confusion_matrix_preferred_ia_vs_allocated": {
+    "edge": {
+      "edge": 0,
+      "fog": 1,
+      "cloud": 0
+    },
+    "fog": {
+      "edge": 0,
+      "fog": 1,
+      "cloud": 0
+    },
+    "cloud": {
+      "edge": 0,
+      "fog": 0,
+      "cloud": 0
+    }
+  },
+  "confusion_matrix_preferred_regra_vs_allocated": {
+    "edge": {
+      "edge": 0,
+      "fog": 1,
+      "cloud": 0
+    },
+    "fog": {
+      "edge": 0,
+      "fog": 1,
+      "cloud": 0
+    },
+    "cloud": {
+      "edge": 0,
+      "fog": 0,
+      "cloud": 0
+    }
+  },
+  "allocated_layer_distribution": {
+    "fog": 2,
+    "unknown": 1
+  },
+  "profile_counts": {
+    "edge": 1,
+    "fog": 1,
+    "cloud": 1
+  },
+  "ml_on_cloud": 0,
+  "light_on_edge": 0,
+  "light_on_cloud_opposite": 0,
+  "ml_on_edge_opposite": 0,
+  "layer_logs": [
+    {
+      "run": 1,
+      "task_id": "d7a64332-5da4-4ccb-ba00-f581f640ce99",
+      "preferred": "edge",
+      "chosen": "fog",
+      "hostname": "tcc-cluster-worker2",
+      "score_layer": 10.0,
+      "score_total": 65.0,
+      "raw": "19:26:42 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=edge chosen=fog hostname=tcc-cluster-worker2 score_layer=10.00 score_total=65.00"
+    },
+    {
+      "run": 2,
+      "task_id": "f0d0b216-ee66-44cd-b12a-73125c6facec",
+      "preferred": "fog",
+      "chosen": "fog",
+      "hostname": "tcc-cluster-worker2",
+      "score_layer": 20.0,
+      "score_total": 94.29,
+      "raw": "19:28:50 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=fog chosen=fog hostname=tcc-cluster-worker2 score_layer=20.00 score_total=94.29"
+    }
+  ],
+  "runs": [
+    {
+      "run": 1,
+      "profile": "edge",
+      "script": "task_edge_light.py",
+      "task_id": "d7a64332-5da4-4ccb-ba00-f581f640ce99",
+      "status": "concluida",
+      "docker_image": "python:3.11-slim",
+      "image_pin": {
+        "pinned_image": "python:3.11-slim",
+        "skipped": true,
+        "docker_image_before": "python:3.11-slim",
+        "status_before": "executando"
+      },
+      "preferred_regra": "edge",
+      "preferred_ia": "edge",
+      "preferred_compute_layer": "edge",
+      "allocated_compute_layer": "fog",
+      "allocated_node_id": "k8s:tcc-cluster-worker2",
+      "hostname": "tcc-cluster-worker2",
+      "hit_exact": false,
+      "hit_exact_vs_regra": false,
+      "hit_adjacent": true,
+      "layer_distance": 1,
+      "layer_distance_vs_regra": 1,
+      "score_layer": 10.0,
+      "score_total": 65.0,
+      "score_image_affinity": 0.0,
+      "warm_task_count": 0,
+      "ranker_winner": {
+        "preferred_layer": "edge",
+        "compute_layer": "fog",
+        "hostname": "tcc-cluster-worker2",
+        "score_layer": 10.0,
+        "score_total": 65.0,
+        "score_image_affinity": 0.0,
+        "score_resources": 40.0,
+        "score_disk": 15.0,
+        "warm_task_count": 0
+      },
+      "ranker_top_nodes": [
+        {
+          "hostname": "tcc-cluster-worker2",
+          "compute_layer": "fog",
+          "score_total": 65.0,
+          "score_layer": 10.0,
+          "score_image_affinity": 0.0,
+          "score_resources": 40.0,
+          "warm_task_count": 0
+        },
+        {
+          "hostname": "tcc-cluster-worker3",
+          "compute_layer": "cloud",
+          "score_total": 55.0,
+          "score_layer": 0.0,
+          "score_image_affinity": 0.0,
+          "score_resources": 40.0,
+          "warm_task_count": 0
+        },
+        {
+          "hostname": "tcc-cluster-worker",
+          "compute_layer": "edge",
+          "score_total": 35.0,
+          "score_layer": 20.0,
+          "score_image_affinity": 0.0,
+          "score_resources": 0.0,
+          "warm_task_count": 0
+        }
+      ],
+      "analyst_task_type": "IO-bound",
+      "analyst_complexity_score": 2,
+      "layer_log": {
+        "preferred": "edge",
+        "chosen": "fog",
+        "hostname": "tcc-cluster-worker2",
+        "score_layer": 10.0,
+        "score_total": 65.0,
+        "raw": "19:26:42 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=edge chosen=fog hostname=tcc-cluster-worker2 score_layer=10.00 score_total=65.00"
+      },
+      "layer_log_all_in_window": [
+        {
+          "preferred": "edge",
+          "chosen": "fog",
+          "hostname": "tcc-cluster-worker2",
+          "score_layer": 10.0,
+          "score_total": 65.0,
+          "raw": "19:26:25 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=edge chosen=fog hostname=tcc-cluster-worker2 score_layer=10.00 score_total=65.00"
+        },
+        {
+          "preferred": "edge",
+          "chosen": "fog",
+          "hostname": "tcc-cluster-worker2",
+          "score_layer": 10.0,
+          "score_total": 65.0,
+          "raw": "19:26:42 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=edge chosen=fog hostname=tcc-cluster-worker2 score_layer=10.00 score_total=65.00"
+        }
+      ],
+      "schedinspector_lines": [
+        "19:26:25 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][SCHEDINSPECTOR] Vetor NodeRanker (Top 3) -> 1? tcc-cluster-worker2 [fog] (Score: 65.0, layer=10.0, dvCpu=0.017, dvMem=0.227, lCpu=0.16%, lMem=2.52%) | 2? tcc-cluster-worker3 [cloud] (Score: 55.0, layer=0.0, dvCpu=0.017, dvMem=0.287, lCpu=0.16%, lMem=2.46%) | 3? tcc-cluster-worker [edge] (Score: 35.0, layer=20.0, dvCpu=-0.033, dvMem=-0.513, lCpu=0.21%, lMem=3.26%)",
+        "19:26:25 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=edge chosen=fog hostname=tcc-cluster-worker2 score_layer=10.00 score_total=65.00",
+        "19:26:42 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][SCHEDINSPECTOR] Final Top 3 Ranking -> 1? tcc-cluster-worker2 (Score: 65.0), 2? tcc-cluster-worker3 (Score: 55.0), 3? tcc-cluster-worker (Score: 35.0). Decis?o IA Validada para: tcc-cluster-worker2",
+        "19:26:42 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][SCHEDINSPECTOR] Vetor NodeRanker (Top 3) -> 1? tcc-cluster-worker2 [fog] (Score: 65.0, layer=10.0, dvCpu=0.023, dvMem=0.22, lCpu=0.17%, lMem=2.52%) | 2? tcc-cluster-worker3 [cloud] (Score: 55.0, layer=0.0, dvCpu=0.033, dvMem=0.28, lCpu=0.16%, lMem=2.46%) | 3? tcc-cluster-worker [edge] (Score: 35.0, layer=20.0, dvCpu=-0.057, dvMem=-0.5, lCpu=0.25%, lMem=3.24%)",
+        "19:26:42 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=edge chosen=fog hostname=tcc-cluster-worker2 score_layer=10.00 score_total=65.00"
+      ],
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 81.05486,
+        "cpu_peak_percent": 0.77,
+        "ram_peak_mb": 1.73,
+        "prediction_delta_ram": 0.4983,
+        "detected_libraries": "[\"__future__\", \"time\"]"
+      },
+      "ram_peak_mb": 1.73,
+      "cpu_peak_percent": 0.77,
+      "duration_wall_s": 116.107,
+      "at": "2026-08-18T19:28:06.543294+00:00"
+    },
+    {
+      "run": 2,
+      "profile": "fog",
+      "script": "task_fog_cpu.py",
+      "task_id": "f0d0b216-ee66-44cd-b12a-73125c6facec",
+      "status": "concluida",
+      "docker_image": "python:3.11-slim",
+      "image_pin": {
+        "pinned_image": "python:3.11-slim",
+        "skipped": true,
+        "docker_image_before": "python:3.11-slim",
+        "status_before": "executando"
+      },
+      "preferred_regra": "fog",
+      "preferred_ia": "fog",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "fog",
+      "allocated_node_id": "k8s:tcc-cluster-worker2",
+      "hostname": "tcc-cluster-worker2",
+      "hit_exact": true,
+      "hit_exact_vs_regra": true,
+      "hit_adjacent": true,
+      "layer_distance": 0,
+      "layer_distance_vs_regra": 0,
+      "score_layer": 20.0,
+      "score_total": 94.29,
+      "score_image_affinity": 25.0,
+      "warm_task_count": 1,
+      "ranker_winner": {
+        "preferred_layer": "fog",
+        "compute_layer": "fog",
+        "hostname": "tcc-cluster-worker2",
+        "score_layer": 20.0,
+        "score_total": 94.286,
+        "score_image_affinity": 25.0,
+        "score_resources": 34.286,
+        "score_disk": 15.0,
+        "warm_task_count": 1
+      },
+      "ranker_top_nodes": [
+        {
+          "hostname": "tcc-cluster-worker2",
+          "compute_layer": "fog",
+          "score_total": 94.286,
+          "score_layer": 20.0,
+          "score_image_affinity": 25.0,
+          "score_resources": 34.286,
+          "warm_task_count": 1
+        },
+        {
+          "hostname": "tcc-cluster-worker3",
+          "compute_layer": "cloud",
+          "score_total": 65.0,
+          "score_layer": 10.0,
+          "score_image_affinity": 0.0,
+          "score_resources": 40.0,
+          "warm_task_count": 0
+        },
+        {
+          "hostname": "tcc-cluster-worker",
+          "compute_layer": "edge",
+          "score_total": 25.0,
+          "score_layer": 10.0,
+          "score_image_affinity": 0.0,
+          "score_resources": 0.0,
+          "warm_task_count": 0
+        }
+      ],
+      "analyst_task_type": "CPU-bound",
+      "analyst_complexity_score": 5,
+      "layer_log": {
+        "preferred": "fog",
+        "chosen": "fog",
+        "hostname": "tcc-cluster-worker2",
+        "score_layer": 20.0,
+        "score_total": 94.29,
+        "raw": "19:28:50 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=fog chosen=fog hostname=tcc-cluster-worker2 score_layer=20.00 score_total=94.29"
+      },
+      "layer_log_all_in_window": [
+        {
+          "preferred": "fog",
+          "chosen": "fog",
+          "hostname": "tcc-cluster-worker2",
+          "score_layer": 20.0,
+          "score_total": 94.29,
+          "raw": "19:28:33 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=fog chosen=fog hostname=tcc-cluster-worker2 score_layer=20.00 score_total=94.29"
+        },
+        {
+          "preferred": "fog",
+          "chosen": "fog",
+          "hostname": "tcc-cluster-worker2",
+          "score_layer": 20.0,
+          "score_total": 94.29,
+          "raw": "19:28:50 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=fog chosen=fog hostname=tcc-cluster-worker2 score_layer=20.00 score_total=94.29"
+        }
+      ],
+      "schedinspector_lines": [
+        "19:28:33 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][SCHEDINSPECTOR] Vetor NodeRanker (Top 3) -> 1? tcc-cluster-worker2 [fog] (Score: 94.286, layer=20.0, dvCpu=-0.003, dvMem=0.237, lCpu=0.16%, lMem=2.51%) | 2? tcc-cluster-worker3 [cloud] (Score: 65.0, layer=10.0, dvCpu=0.027, dvMem=0.267, lCpu=0.13%, lMem=2.48%) | 3? tcc-cluster-worker [edge] (Score: 25.0, layer=10.0, dvCpu=-0.023, dvMem=-0.503, lCpu=0.18%, lMem=3.25%)",
+        "19:28:33 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=fog chosen=fog hostname=tcc-cluster-worker2 score_layer=20.00 score_total=94.29",
+        "19:28:50 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][SCHEDINSPECTOR] Final Top 3 Ranking -> 1? tcc-cluster-worker2 (Score: 94.286), 2? tcc-cluster-worker3 (Score: 65.0), 3? tcc-cluster-worker (Score: 25.0). Decis?o IA Validada para: tcc-cluster-worker2",
+        "19:28:50 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][SCHEDINSPECTOR] Vetor NodeRanker (Top 3) -> 1? tcc-cluster-worker2 [fog] (Score: 94.286, layer=20.0, dvCpu=-0.003, dvMem=0.237, lCpu=0.16%, lMem=2.51%) | 2? tcc-cluster-worker3 [cloud] (Score: 65.0, layer=10.0, dvCpu=0.027, dvMem=0.267, lCpu=0.13%, lMem=2.48%) | 3? tcc-cluster-worker [edge] (Score: 25.0, layer=10.0, dvCpu=-0.023, dvMem=-0.503, lCpu=0.18%, lMem=3.25%)",
+        "19:28:50 | \u001b[32mINFO\u001b[0m | context_server.services.node_ranker | [TCC-METRICS][LAYER] preferred=fog chosen=fog hostname=tcc-cluster-worker2 score_layer=20.00 score_total=94.29"
+      ],
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 73.046801,
+        "cpu_peak_percent": 24.07,
+        "ram_peak_mb": 10.36,
+        "prediction_delta_ram": 0.4899,
+        "detected_libraries": "[\"__future__\", \"future\"]"
+      },
+      "ram_peak_mb": 10.36,
+      "cpu_peak_percent": 24.07,
+      "duration_wall_s": 110.089,
+      "at": "2026-08-18T19:30:04.760074+00:00"
+    },
+    {
+      "run": 3,
+      "profile": "cloud",
+      "script": "task_cloud_ml.py",
+      "task_id": "466c7ba2-db2c-4f7c-a129-9d87e000b7b1",
+      "preferred_regra": "cloud",
+      "status": "Timeout",
+      "duration_wall_s": 645.278,
+      "at": "2026-08-18T19:40:58.038123+00:00"
+    }
+  ],
+  "at": "2026-08-18T19:40:58.038254+00:00"
+}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login - Context Server</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="users.js"></script>
+  </head>
+  <body class="login-page">
+    <div class="container">
+      <div class="card">
+        <div class="header">
+          <h1>Entrar</h1>
+          <p>Faça login para acessar o Broker Context Server</p>
+        </div>
+
+        <form id="loginForm" action="#" method="post" novalidate>
+          <div class="form-group">
+            <label for="username">Usuário</label>
+            <input id="username" name="username" type="text" placeholder="Digite seu usuário" autocomplete="username" required />
+          </div>
+          
+          <button type="submit" id="loginBtn" class="btn btn-primary">Entrar</button>
+          
+          <div class="checkbox-group">
+            <input type="checkbox" id="remember" name="remember" />
+            <label for="remember">Lembrar-me</label>
+          </div>
+        </form>
+        
+        <div id="message" class="message" style="display: none;"></div>
+      </div>
+    </div>
+
+    <script>
+      // Sistema de Rotas Simplificado para arquivos locais
+      class Router {
+        constructor() {
+          this.init();
+        }
+
+        init() {
+          // Verifica se há um usuário autenticado no localStorage
+          const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+          const currentUser = localStorage.getItem('currentUser');
+          
+          // Se não estiver autenticado, mantém na página de login
+          if (!isAuthenticated || !currentUser) {
+            this.showLoginPage();
+            return;
+          }
+
+          // Se estiver autenticado, vai para a página principal
+          this.showIndexPage();
+        }
+
+        showLoginPage() {
+          // Mostra a página de login (já está visível)
+          document.body.style.display = 'block';
+        }
+
+        async showIndexPage() {
+          // Verifica se o usuário ainda está autenticado
+          const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+          if (!isAuthenticated) {
+            this.showLoginPage();
+            return;
+          }
+
+          // Redireciona para a página index.html
+          window.location.href = 'index.html';
+        }
+
+        logout() {
+          localStorage.removeItem('authenticated');
+          localStorage.removeItem('currentUser');
+          localStorage.removeItem('isAdmin');
+          window.location.href = 'login.html';
+        }
+      }
+
+      // Inicializa o sistema de rotas
+      const router = new Router();
+
+      const form = document.getElementById('loginForm');
+      const btn = document.getElementById('loginBtn');
+
+      // Função para verificar se o usuário existe
+      function checkUser(username) {
+        return isValidUser(username);
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = form.username.value.trim();
+
+        if (!username) {
+            alert('Preencha o usuário.');
+            return;
+        }
+
+        // Desabilita o botão durante a verificação
+        btn.disabled = true;
+        btn.classList.add('loading');
+        btn.textContent = 'Verificando...';
+
+        // Esconde mensagens anteriores
+        const messageDiv = document.getElementById('message');
+        messageDiv.style.display = 'none';
+
+        // Simula um pequeno delay para mostrar o loading
+        setTimeout(() => {
+          // Verifica se o usuário está na lista de usuários válidos
+          const isValidUser = checkUser(username);
+          
+          if (isValidUser) {
+            const isAdmin = typeof window.isAdminUser === 'function' ? window.isAdminUser(username) : false;
+            // Usuário autenticado com sucesso
+            localStorage.setItem('authenticated', 'true');
+            localStorage.setItem('currentUser', username);
+            localStorage.setItem('isAdmin', isAdmin ? 'true' : 'false');
+            
+            // Mostra mensagem de sucesso
+            messageDiv.textContent = 'Login realizado com sucesso! Redirecionando...';
+            messageDiv.className = 'message success';
+            messageDiv.style.display = 'block';
+            
+            // Navega para a página principal
+            setTimeout(() => {
+              router.showIndexPage();
+            }, 1500);
+          } else {
+            // Usuário não encontrado
+            messageDiv.textContent = 'Usuário não encontrado. Verifique o nome de usuário e tente novamente.';
+            messageDiv.className = 'message error';
+            messageDiv.style.display = 'block';
+          }
+
+          // Reabilita o botão
+          btn.disabled = false;
+          btn.classList.remove('loading');
+          btn.textContent = 'Entrar';
+        }, 800);
+      });
+
+      // Torna o router globalmente acessível para logout
+      window.router = router;
+    </script>
+  </body>
+</html>

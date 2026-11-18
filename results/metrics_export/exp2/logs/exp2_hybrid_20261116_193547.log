@@ -1,0 +1,188 @@
+================================================================
+EXP-02 — Orquestrador Híbrido (noisy neighbor)
+API=http://127.0.0.1:5000  runs=5  hot_node=tcc-cluster-worker2  warmup=55s
+================================================================
+Stress pod exp2-noisy-neighbor removido (ns=tcc-baseline)
+Cold start backup: C:\Users\lsouz\Faculdade\TCC\data\nodes.bak_1794868550.db
+Cold start: removidos 0 tasks, 0 results
+Cold start: uploads removidos=0
+
+[1/5] Aplicando Pod de estresse...
+pod/exp2-noisy-neighbor created
+  [19:35:50] stress pod phase=Pending
+  [19:35:52] stress pod phase=Running
+
+[2/5] Warm-up 55s (Metrics Server / watcher refletirem CPU alta)...
+kubectl top nodes:
+NAME                        CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+tcc-cluster-control-plane   127m         1%       657Mi           8%          
+tcc-cluster-worker          21m          0%       179Mi           2%          
+tcc-cluster-worker2         1783m        14%      144Mi           1%          
+tcc-cluster-worker3         22m          0%       137Mi           1%
+
+[3/5] Submetendo 5 tarefas em rajada via /submit_task...
+  run1 submetida: b70732ad-2e82-4203-9a4e-4f9959d93479
+  run2 submetida: a6faa0fb-d056-4489-877f-66090c1c2ef7
+  run3 submetida: ebff0d8a-58cb-4919-ac60-4bc8dca97c7c
+  run4 submetida: a74b969c-a213-4d91-bfec-4f153db46842
+  run5 submetida: 4b773a36-c318-4a83-a1d9-e8333c69e32b
+
+[4/5] Monitorando tarefas até status terminal...
+  [19:36:47] b70732ad… status=analisando_ia node=—
+  [19:36:47] a6faa0fb… status=analisando_ia node=—
+  [19:36:47] ebff0d8a… status=analisando_ia node=—
+  [19:36:47] a74b969c… status=analisando_ia node=—
+  [19:36:47] 4b773a36… status=analisando_ia node=—
+  [19:36:52] b70732ad… status=analisando_ia node=—
+  [19:36:52] a6faa0fb… status=analisando_ia node=—
+  [19:36:52] ebff0d8a… status=analisando_ia node=—
+  [19:36:52] a74b969c… status=analisando_ia node=—
+  [19:36:52] 4b773a36… status=analisando_ia node=—
+  [19:36:57] b70732ad… status=analisando_ia node=—
+  [19:36:57] a6faa0fb… status=analisando_ia node=—
+  [19:36:57] ebff0d8a… status=analisando_ia node=—
+  [19:36:57] a74b969c… status=analisando_ia node=—
+  [19:36:57] 4b773a36… status=analisando_ia node=—
+  [19:37:02] b70732ad… status=analisando_ia node=—
+  [19:37:02] a6faa0fb… status=analisando_ia node=—
+  [19:37:02] ebff0d8a… status=analisando_ia node=—
+  [19:37:02] a74b969c… status=analisando_ia node=—
+  [19:37:02] 4b773a36… status=analisando_ia node=—
+  [19:37:07] b70732ad… status=analisando_ia node=—
+  [19:37:07] a6faa0fb… status=analisando_ia node=—
+  [19:37:07] ebff0d8a… status=analisando_ia node=—
+  [19:37:07] a74b969c… status=analisando_ia node=—
+  [19:37:07] 4b773a36… status=analisando_ia node=—
+  [19:37:12] b70732ad… status=analisando_ia node=—
+  [19:37:12] a6faa0fb… status=analisando_ia node=—
+  [19:37:12] ebff0d8a… status=analisando_ia node=—
+  [19:37:12] a74b969c… status=analisando_ia node=—
+  [19:37:12] 4b773a36… status=analisando_ia node=—
+  [19:37:17] b70732ad… status=analisando_ia node=—
+  [19:37:17] a6faa0fb… status=analisando_ia node=—
+  [19:37:17] ebff0d8a… status=analisando_ia node=—
+  [19:37:17] a74b969c… status=analisando_ia node=—
+  [19:37:17] 4b773a36… status=analisando_ia node=—
+  [19:37:22] b70732ad… status=analisando_ia node=—
+  [19:37:22] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:22] ebff0d8a… status=analisando_ia node=—
+  [19:37:22] a74b969c… status=analisando_ia node=—
+  [19:37:22] 4b773a36… status=analisando_ia node=—
+  [19:37:27] b70732ad… status=analisando_ia node=—
+  [19:37:27] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:27] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:27] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:27] 4b773a36… status=analisando_ia node=—
+  [19:37:32] b70732ad… status=analisando_ia node=—
+  [19:37:32] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:32] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:32] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:32] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:37] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:37] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:37] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:37] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:37] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:42] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:42] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:42] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:42] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:42] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:47] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:47] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:47] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:47] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:47] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:52] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:52] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:52] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:52] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:52] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:57] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:57] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:57] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:57] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:37:57] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:02] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:02] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:02] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:02] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:02] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:07] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:07] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:07] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:07] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:07] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:12] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:12] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:12] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:12] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:12] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:17] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:17] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:17] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:17] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:17] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:22] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:22] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:22] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:22] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:22] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:27] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:27] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:28] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:28] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:28] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:33] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:33] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:33] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:33] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:33] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:38] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:38] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:38] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:38] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:38] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:43] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:43] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:43] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:43] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:43] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:48] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:48] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:48] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:48] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:48] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:53] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:53] a6faa0fb… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:53] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:53] a74b969c… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:53] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:58] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:58] a6faa0fb… status=concluida node=k8s:tcc-cluster-worker3
+  [19:38:58] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:38:58] a74b969c… status=concluida node=k8s:tcc-cluster-worker3
+  [19:38:58] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:39:03] b70732ad… status=executando node=k8s:tcc-cluster-worker3
+  [19:39:03] ebff0d8a… status=executando node=k8s:tcc-cluster-worker3
+  [19:39:03] 4b773a36… status=executando node=k8s:tcc-cluster-worker3
+  [19:39:08] b70732ad… status=concluida node=k8s:tcc-cluster-worker3
+  [19:39:08] ebff0d8a… status=concluida node=k8s:tcc-cluster-worker3
+  [19:39:08] 4b773a36… status=concluida node=k8s:tcc-cluster-worker3
+
+[5/5] Cleanup do estresse...
+Stress pod exp2-noisy-neighbor removido (ns=tcc-baseline)
+
+================================================================
+RESUMO EXP-02 HÍBRIDO
+  Makespan (ponta a ponta): 140.39s
+  Tarefas no nó sobrecarregado (tcc-cluster-worker2): 0/5
+  Distribuição por nó:
+    tcc-cluster-worker3: 5
+  run1: status=concluida node=k8s:tcc-cluster-worker3 dur=94.518521 hot=False
+  run2: status=concluida node=k8s:tcc-cluster-worker3 dur=95.316257 hot=False
+  run3: status=concluida node=k8s:tcc-cluster-worker3 dur=98.735896 hot=False
+  run4: status=concluida node=k8s:tcc-cluster-worker3 dur=92.53187 hot=False
+  run5: status=concluida node=k8s:tcc-cluster-worker3 dur=94.301113 hot=False
+
+JSON: C:\Users\lsouz\Faculdade\TCC\results\metrics_export\exp2\hibrido\exp2_hybrid_1794868781.json

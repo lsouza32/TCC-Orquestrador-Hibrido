@@ -1,0 +1,44 @@
+{
+  "tasks_total": 77,
+  "results_total": 60,
+  "by_status": {
+    "falha": 35,
+    "pendente": 6,
+    "falha_alocacao": 4,
+    "concluida": 24,
+    "erro_agente": 1,
+    "cancelada": 6,
+    "na_fila": 1
+  },
+  "with_result": 60,
+  "telemetry_cpu": 2,
+  "telemetry_ram": 2,
+  "prediction_delta_ram": 2,
+  "k8s_with_hostname": 0,
+  "k8s_legacy_uuid": 8,
+  "reallocation_tasks": 1,
+  "nodes": 5,
+  "nodes_by_layer": {
+    "cloud": 3,
+    "fog": 1,
+    "edge": 1
+  },
+  "field_coverage": {
+    "submitted_at": 77,
+    "allocated_node_id": 64,
+    "docker_image": 31,
+    "required_cpu_threads": 52,
+    "required_memory_gb": 52,
+    "ai_raw_response": 21,
+    "duration_seconds": 60,
+    "completed_at": 60
+  },
+  "gaps": [
+    "Telemetria CPU ausente em 58/60 resultados",
+    "Telemetria RAM ausente em 58/60 resultados",
+    "prediction_delta_ram ausente em 58/60 resultados",
+    "8 alocações K8s no formato legado k8s:{task_id} (sem hostname)",
+    "1 tarefa(s) em estado intermediário (executando/alocada/na_fila)"
+  ],
+  "csv": "C:\\Users\\lsouz\\Faculdade\\TCC\\results\\metrics_export\\tcc_metrics_20260718_221603.csv"
+}

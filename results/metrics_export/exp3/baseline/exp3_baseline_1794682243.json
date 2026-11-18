@@ -1,0 +1,164 @@
+{
+  "experiment": "exp3",
+  "arm": "k8s-default",
+  "started_at": "2026-11-14T18:49:12.676636+00:00",
+  "ended_at": "2026-11-14T18:50:43.049836+00:00",
+  "monitor_s": 90.0,
+  "workers": [
+    {
+      "name": "tcc-cluster-worker",
+      "allocatable_raw": "8090832Ki",
+      "allocatable_bytes": 8285011968,
+      "allocatable_gi": 7.716,
+      "compute_layer": "edge"
+    },
+    {
+      "name": "tcc-cluster-worker2",
+      "allocatable_raw": "8090832Ki",
+      "allocatable_bytes": 8285011968,
+      "allocatable_gi": 7.716,
+      "compute_layer": "fog"
+    },
+    {
+      "name": "tcc-cluster-worker3",
+      "allocatable_raw": "8090832Ki",
+      "allocatable_bytes": 8285011968,
+      "allocatable_gi": 7.716,
+      "compute_layer": "cloud"
+    }
+  ],
+  "r_max_node": "tcc-cluster-worker",
+  "r_max_gi": 7.716,
+  "memory_request_gi": 9.45,
+  "memory_request": "9676Mi",
+  "pod_name": "exp3-baseline-oversize-kzg6f",
+  "final_phase": "Pending",
+  "final_nodeName": null,
+  "stayed_pending": true,
+  "failed_scheduling_seen": true,
+  "insufficient_memory_seen": true,
+  "event_lines": [
+    "Warning  FailedScheduling  88s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod."
+  ],
+  "condition_evidence": [
+    {
+      "source": "pod.condition",
+      "type": "PodScheduled",
+      "reason": "Unschedulable",
+      "message": "0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.",
+      "status": "False"
+    }
+  ],
+  "samples": [
+    {
+      "t_s": 0.1,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 5.3,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 10.4,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 15.58,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 20.66,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 25.75,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 30.94,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 36.09,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 41.2,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 46.39,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 51.47,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 56.56,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 61.74,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 66.82,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 71.91,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 77.1,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 82.19,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    },
+    {
+      "t_s": 87.28,
+      "pod": "exp3-baseline-oversize-kzg6f",
+      "phase": "Pending",
+      "nodeName": null
+    }
+  ],
+  "describe_excerpt": "Warning  FailedScheduling  88s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.",
+  "yaml_path": "C:\\Users\\lsouz\\Faculdade\\TCC\\docs\\experimentos\\exp3_baseline_job.yaml"
+}

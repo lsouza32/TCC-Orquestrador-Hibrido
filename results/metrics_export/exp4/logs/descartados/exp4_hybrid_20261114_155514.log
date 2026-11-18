@@ -1,0 +1,28 @@
+================================================================
+EXP-04 — Orquestrador Híbrido (topologia inteligente)
+API=http://127.0.0.1:5000  N=9  ordem=['edge', 'fog', 'cloud', 'edge', 'fog', 'cloud', 'edge', 'fog', 'cloud']
+================================================================
+
+[0/5] Preflight: limpar estresse EXP-02 + snapshot de labels...
+  kubectl nodes -L compute-layer:
+    tcc-cluster-control-plane: layer=None (control-plane)
+    tcc-cluster-worker: layer=edge (worker)
+    tcc-cluster-worker2: layer=fog (worker)
+    tcc-cluster-worker3: layer=cloud (worker)
+
+[1/5] Pré-pull python:3.11-slim nos 3 workers (cache inicial)...
+  pre-pull python:3.11-slim @ tcc-cluster-worker: ok Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70
+  pre-pull python:3.11-slim @ tcc-cluster-worker2: ok Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70
+  pre-pull python:3.11-slim @ tcc-cluster-worker3: ok Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70
+
+[2/5] Cold Start SQLite (tasks + task_results) — OBRIGATÓRIO...
+Cold start backup: C:\Users\lsouz\Faculdade\TCC\data\nodes.bak_1794682517.db
+Cold start: removidos 1 tasks, 1 results
+Cold start: uploads removidos=1
+  catálogo TF redirecionado para python:3.11-slim: {'deleted_tf_rows': 1, 'slim_libraries': ['requests', 'httpx', 'flask', 'fastapi', 'uvicorn', 'pydantic', 'json', 'datetime', 'schedule', 'tensorflow', 'keras', 'sklearn', 'scikit-learn']}
+
+[3/5] Submetendo lote intercalado via /submit_task (serial)...
+
+--- Run 1/9 profile=edge preferred_regra=edge script=task_edge_light.py ---
+  submetida: dba372aa-7f54-43b8-9dda-cf0e01c6998c
+  ERRO no pin de imagem: dba372aa-7f54-43b8-9dda-cf0e01c6998c terminou com imagem 'python:3.9-slim' antes do pin

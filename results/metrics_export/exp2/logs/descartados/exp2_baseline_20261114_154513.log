@@ -1,0 +1,61 @@
+================================================================
+EXP-02 — Baseline Kubernetes Padrão (noisy neighbor)
+ns=tcc-baseline  hot_node=tcc-cluster-worker2
+================================================================
+
+[1/5] Aplicando Pod de estresse...
+pod/exp2-noisy-neighbor created
+  [15:45:16] stress pod phase=Pending
+  [15:45:18] stress pod phase=Running
+
+[2/5] Warm-up 10s para o estresse bater no nó...
+kubectl top nodes:
+NAME                        CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+tcc-cluster-control-plane   105m         0%       668Mi           8%          
+tcc-cluster-worker          18m          0%       197Mi           2%          
+tcc-cluster-worker2         14m          0%       146Mi           1%          
+tcc-cluster-worker3         27m          0%       170Mi           2%
+
+[3/5] Aplicando 5 Jobs concorrentes (rajada)...
+configmap/exp2-baseline-script created
+job.batch/exp2-baseline-1 created
+job.batch/exp2-baseline-2 created
+job.batch/exp2-baseline-3 created
+job.batch/exp2-baseline-4 created
+job.batch/exp2-baseline-5 created
+
+[4/5] Monitorando Jobs...
+  [15:45:29] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:31] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:33] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:36] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:38] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:41] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:43] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:46] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:48] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:51] aguardando 5 Job(s): exp2-baseline-1, exp2-baseline-2, exp2-baseline-3, exp2-baseline-4, exp2-baseline-5
+  [15:45:53] exp2-baseline-1 -> Succeeded
+  [15:45:53] exp2-baseline-3 -> Succeeded
+  [15:45:53] exp2-baseline-4 -> Succeeded
+  [15:45:53] exp2-baseline-5 -> Succeeded
+  [15:45:53] aguardando 1 Job(s): exp2-baseline-2
+  [15:45:55] exp2-baseline-2 -> Succeeded
+
+[5/5] Cleanup...
+
+================================================================
+RESUMO EXP-02 BASELINE
+  Makespan: 27.57s
+  Jobs no nó sobrecarregado (tcc-cluster-worker2): 2/5
+  Distribuição por nó:
+    tcc-cluster-worker2: 2 <-- HOT
+    tcc-cluster-worker3: 2
+    tcc-cluster-worker: 1
+  run1: pod=exp2-baseline-1-955z7 node=tcc-cluster-worker3 phase=Succeeded
+  run2: pod=exp2-baseline-2-c7nwc node=tcc-cluster-worker2 phase=Succeeded
+  run3: pod=exp2-baseline-3-qdnkh node=tcc-cluster-worker3 phase=Succeeded
+  run4: pod=exp2-baseline-4-wnw8x node=tcc-cluster-worker2 phase=Succeeded
+  run5: pod=exp2-baseline-5-c75bt node=tcc-cluster-worker phase=Succeeded
+
+JSON: C:\Users\lsouz\Faculdade\TCC\results\metrics_export\exp2\baseline\exp2_baseline_1794681956.json

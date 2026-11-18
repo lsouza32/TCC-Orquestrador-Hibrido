@@ -1,0 +1,2 @@
+task_id;task_type;filename;user_id;status_final;duration_seconds;submitted_at;completed_at;allocated_node_id;required_cpu_threads;required_memory_gb;required_disk_gb
+a83f7336-8f8e-4cc8-a296-892fd00a8ba8;pesado;task-cnn-training.py;lsouza;concluida;974.6;2026-03-03 23:40:06;2026-03-03 23:56:22;61cc1384-ba1a-4420-9a6d-6bae86cc50dd;1.0;1.0;20.0

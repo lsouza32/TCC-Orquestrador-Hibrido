@@ -1,0 +1,45 @@
+# Publica apenas o código, os scripts de avaliação, os resultados e o artigo.
+# Tudo o que não está liberado abaixo fica de fora.
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/docker-compose.yml
+!/kind-multi-node.yaml
+!/metrics-server.yaml
+!/context_server/
+!/node_agent/
+!/web_interface/
+!/scripts/
+!/tests/
+!/results/
+!/docs/
+!/data/
+/docs/*
+!/docs/experimentos/
+!/docs/artigo-TCC-final/
+/docs/artigo-TCC-final/*
+!/docs/artigo-TCC-final/artigo.tex
+!/docs/artigo-TCC-final/referencias.bib
+!/docs/artigo-TCC-final/coenc-utfpr.sty
+!/docs/artigo-TCC-final/figuras/
+/data/*
+!/data/.gitkeep
+
+# Ferramentas de editor/IA e artefatos locais
+.cursor/
+.cursorrules
+.claude/
+CLAUDE.md
+AGENTS.md
+.pytest_cache/
+__pycache__/
+*.pyc
+*.log
+*.db
+.env
+.env.*
+node_modules/
+
+# Logs de execucao dos experimentos fazem parte dos resultados
+!/results/**/*.log

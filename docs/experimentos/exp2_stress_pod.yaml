@@ -1,0 +1,35 @@
+# EXP-02 — Vizinho ruidoso (noisy neighbor) pinado no Fog
+# Requests baixos de propósito: o kube-scheduler ainda vê capacidade "livre".
+# Imagem distinta da carga útil (evita ImageLocality enviesando para o nó sobrecarregado).
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: exp2-noisy-neighbor
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp2
+    arm: k8s-default
+    role: stress
+spec:
+  restartPolicy: Always
+  nodeSelector:
+    kubernetes.io/hostname: tcc-cluster-worker2
+  containers:
+    - name: stress
+      image: polinux/stress
+      imagePullPolicy: IfNotPresent
+      command: ["stress"]
+      args:
+        - "--cpu"
+        - "2"
+        - "--timeout"
+        - "3600s"
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          cpu: "2"
+          memory: 128Mi

@@ -1,0 +1,51 @@
+# Configuração de Logging para o Context Server
+# Este arquivo permite ajustar os níveis de log por módulo
+
+# Níveis disponíveis: DEBUG, INFO, WARNING, ERROR, CRITICAL
+# DEBUG: Mostra todas as mensagens (mais verboso)
+# INFO: Mostra informações importantes (padrão recomendado)
+# WARNING: Mostra apenas avisos e erros
+# ERROR: Mostra apenas erros
+# CRITICAL: Mostra apenas erros críticos
+
+# Configuração por módulo
+modules:
+  # Context Server principal
+  context_server.main: INFO
+  
+  # Monitoramento de nós (reduzido para evitar spam)
+  context_server.discovery_monitor.node_monitor: WARNING
+  
+  # APIs
+  context_server.api.nodes_routes: INFO
+  context_server.api.tasks_routes: INFO
+  
+  # Alocador de nós
+  context_server.node_allocator.allocator: INFO
+  
+  # Banco de dados (reduzido para evitar spam)
+  context_server.database.crud: WARNING
+  
+  # Bibliotecas externas (reduzido para evitar spam)
+  werkzeug: WARNING
+  urllib3: WARNING
+  requests: WARNING
+  flask: WARNING
+
+# Configuração global
+global:
+  level: INFO
+  format: "%(asctime)s | %(levelname)-8s | %(name)-20s | %(message)s"
+  date_format: "%H:%M:%S"
+  
+  # Salvar logs em arquivo
+  file_logging: true
+  log_file: "context_server.log"
+  
+  # Cores no console (apenas em sistemas que suportam)
+  colored_output: true
+  
+  # Filtro de frequência (em segundos)
+  # Evita spam de mensagens repetitivas
+  frequency_filter: 30
+

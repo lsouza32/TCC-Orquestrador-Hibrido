@@ -1,0 +1,108 @@
+================================================================
+EXP-03 - Orquestrador Hibrido (anti-deadlock / clamp 80%)
+API=http://127.0.0.1:5000  desired_oversize=9.45Gi  script=task_exp3_hello.py
+================================================================
+Cold start backup: C:\Users\lsouz\Faculdade\TCC\data\nodes.bak_1794682243.db
+Cold start: removidos 5 tasks, 5 results
+Cold start: uploads removidos=5
+
+R_max efetivo (workers K8s): 7.567 GiB
+  tcc-cluster-worker: eff=7.52 total=7.716 layer=edge
+  tcc-cluster-worker2: eff=7.567 total=7.716 layer=fog
+  tcc-cluster-worker3: eff=7.547 total=7.716 layer=cloud
+Janela 80%: (7.567, 9.459] GiB | injetar=9.45Gi (desired_in_window)
+
+[1/5] Submetendo sonda leve (planejamento IA)...
+  task_id=07725920-bf40-40b3-b64b-a03c45cd8a5e
+
+[2/5] Aguardando fim do planejamento (IA escreve na_fila/despacha)...
+  [15:50:55] 07725920... status=analisando_ia
+  [15:50:56] 07725920... status=analisando_ia
+  [15:50:56] 07725920... status=analisando_ia
+  [15:50:57] 07725920... status=analisando_ia
+  [15:50:57] 07725920... status=analisando_ia
+  [15:50:58] 07725920... status=analisando_ia
+  [15:50:58] 07725920... status=analisando_ia
+  [15:50:59] 07725920... status=analisando_ia
+  [15:50:59] 07725920... status=analisando_ia
+  [15:51:00] 07725920... status=analisando_ia
+  [15:51:00] 07725920... status=analisando_ia
+  [15:51:01] 07725920... status=analisando_ia
+  [15:51:01] 07725920... status=analisando_ia
+  [15:51:02] 07725920... status=analisando_ia
+  [15:51:02] 07725920... status=analisando_ia
+  [15:51:03] 07725920... status=analisando_ia
+  [15:51:03] 07725920... status=analisando_ia
+  [15:51:04] 07725920... status=analisando_ia
+  [15:51:04] 07725920... status=analisando_ia
+  [15:51:05] 07725920... status=analisando_ia
+  [15:51:05] 07725920... status=analisando_ia
+  [15:51:06] 07725920... status=executando
+  pos-IA: status=executando req_ram=0.5 node=k8s:tcc-cluster-worker2
+
+[3/5] Reset laboratorio + injecao oversize (pedido que a fila deve clamar)...
+  injection={'injected_memory_gi': 9.45, 'injected_memory_qty': '9676Mi', 'injected_cpu': 1.0, 'status_before': 'pendente', 'required_memory_gb_before': 0.5}
+  confirmado required_memory_gb=9.45 status=na_fila
+
+[4/5] Aguardando despacho / status terminal (pos-clamp)...
+  [15:51:08] 07725920... status=na_fila node=- req_ram=9.45
+  [15:51:11] 07725920... status=na_fila node=- req_ram=9.45
+  [15:51:14] 07725920... status=na_fila node=- req_ram=9.45
+  [15:51:17] 07725920... status=na_fila node=- req_ram=9.45
+  [15:51:20] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:23] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:26] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:29] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:32] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:35] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:38] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:41] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:44] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:47] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:50] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:53] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:56] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:51:59] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:02] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:05] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:08] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:11] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:14] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:17] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:20] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:23] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:26] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:29] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:32] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:35] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:38] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:41] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:44] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:47] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:50] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:53] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:56] 07725920... status=executando node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+  [15:52:59] 07725920... status=concluida node=k8s:tcc-cluster-worker2 req_ram=7.56640625
+
+================================================================
+RESUMO EXP-03 HIBRIDO
+  status=concluida
+  node=k8s:tcc-cluster-worker2
+  injected=9.45Gi  R_max=7.567Gi
+  memory_limit efetivo=7748Mi
+  best_effort=True  clamp_log_seen=True
+  --- logs fila/clamp ---
+  18:51:06 | [32mINFO[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | planning_s=9.373 | queue_wait_s=0.000 | submit_to_dispatch_s=9.242 | preferred_layer=fog | allocated_layer=fog | hostname=tcc-cluster-worker2
+  18:51:06 | [32mINFO[0m | context_server.queue_processor | ? SUCESSO | Tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e despachada como Job Kubernetes | job=task-job-07725920bf4040b3b64ba03c45cd8a5e imagem=python:3.9-slim node=tcc-cluster-worker2 layer=fog
+  18:51:19 | [32mINFO[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? 1 node_agent ignorado(s) no ranking K8s (apenas provider_type=kubernetes).
+  18:51:19 | [33mWARNING[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? aloca??o ajustada dentro da toler?ncia de 80% do piso cpu=1.00->1.00 ram=9.45->7.57
+  18:51:19 | [32mINFO[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? nodeSelector injetado hostname=tcc-cluster-worker2 (source=ranked_winner)
+  18:51:19 | [32mINFO[0m | context_server.services.k8s_job_executor | Job 07725920-bf40-40b3-b64b-a03c45cd8a5e: preservando nodeSelector fresco do caller hostname=tcc-cluster-worker2
+  18:51:19 | [32mINFO[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-07725920bf4040b3b64ba03c45cd8a5e cm=task-cm-07725920bf4040b3b64ba03c45cd8a5e image=python:3.9-slim
+  18:51:19 | [32mINFO[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | planning_s=9.373 | queue_wait_s=13.600 | submit_to_dispatch_s=22.974 | preferred_layer=cloud | allocated_layer=fog | hostname=tcc-cluster-worker2
+  18:51:19 | [32mINFO[0m | context_server.queue_processor | ? SUCESSO | Tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e despachada como Job Kubernetes | job=task-job-07725920bf4040b3b64ba03c45cd8a5e imagem=python:3.9-slim node=tcc-cluster-worker2 layer=fog
+  18:52:59 | [32mINFO[0m | context_server.services.tcc_metrics | [TCC-METRICS][EXECUCAO-FIM] Task ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | Status: concluida | Dura??o: 74.966s
+  18:53:00 | [32mINFO[0m | context_server.services.task_export | Exporta??o da tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e salva em /app/exports/07725920-bf40-40b3-b64b-a03c45cd8a5e
+  18:53:00 | [32mINFO[0m | context_server.services.k8s_watcher | K8s watcher: telemetria task_id=07725920-bf40-40b3-b64b-a03c45cd8a5e cpu_peak=0.34 ram_peak_mb=1.05 ? removendo Job (sinal Broker)
+
+JSON: C:\Users\lsouz\Faculdade\TCC\results\metrics_export\exp3\hibrido\exp3_hybrid_1794682379.json

@@ -1,0 +1,24 @@
+================================================================
+EXP-02 — Baseline Kubernetes Padrão (noisy neighbor)
+ns=tcc-baseline  hot_node=tcc-cluster-worker2
+================================================================
+
+[1/5] Aplicando Pod de estresse...
+Traceback (most recent call last):
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_baseline.py", line 313, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_baseline.py", line 227, in main
+    apply_manifest(args.stress_yaml, args.namespace)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_baseline.py", line 44, in apply_manifest
+    r = kubectl(["apply", "-f", str(yaml_path), "-n", namespace])
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_baseline.py", line 40, in kubectl
+    return _run(["kubectl", *args], check=check)
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_baseline.py", line 36, in _run
+    return subprocess.run(cmd, check=check, text=True, capture_output=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lsouz\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['kubectl', 'apply', '-f', 'C:\\Users\\lsouz\\Faculdade\\TCC\\docs\\experimentos\\exp2_stress_pod.yaml', '-n', 'tcc-baseline']' returned non-zero exit status 1.

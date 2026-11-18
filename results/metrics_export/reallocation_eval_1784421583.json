@@ -1,0 +1,33 @@
+{
+  "task_id": "d4139056-29d6-4b9d-b2f5-6df886a1f14f",
+  "final_status": "concluida",
+  "first_node": "k8s:tcc-cluster-worker",
+  "final_node": "k8s:tcc-cluster-control-plane",
+  "killed": true,
+  "reallocation": {
+    "attempts": 1,
+    "excluded_hostnames": [
+      "tcc-cluster-worker"
+    ],
+    "history": [
+      {
+        "hostname": "tcc-cluster-worker",
+        "reason": "JobFailedNoPod",
+        "phase": "Failed",
+        "at": 1784419940.1994567,
+        "attempt": 1
+      }
+    ],
+    "last_reason": "JobFailedNoPod"
+  },
+  "result": {
+    "status_final": "concluida",
+    "duration_seconds": 84.288033,
+    "cpu_peak_percent": 0.64,
+    "ram_peak_mb": 0.75
+  },
+  "success": true,
+  "success_reallocated": true,
+  "at": "2026-07-19T00:39:43.020483+00:00",
+  "note": "Pod apagado no worker; Job Failed sem Pod → realocação (fix watcher); concluiu no control-plane."
+}

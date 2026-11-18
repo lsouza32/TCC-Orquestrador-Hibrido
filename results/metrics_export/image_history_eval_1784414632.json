@@ -1,0 +1,94 @@
+[
+  {
+    "run": 1,
+    "task_id": "514b548b-a154-46c0-8334-dd9ae71d0521",
+    "status": "concluida",
+    "docker_image": "joyzoursky/python-chromedriver:latest",
+    "ai_image_source": "ai",
+    "ai_category": "scripting_geral",
+    "ai_detected_libraries": "[\"requests\"]",
+    "preferred_compute_layer": "edge",
+    "allocated_compute_layer": "edge",
+    "allocated_node_id": "k8s:tcc-cluster-worker2",
+    "librarian_best_image": "joyzoursky/python-chromedriver:latest",
+    "librarian_alignment": "A imagem escolhida está no catálogo com match_score 1.0 e atende às bibliotecas necessárias.",
+    "result": {
+      "status_final": "concluida",
+      "duration_seconds": 162.19922,
+      "cpu_peak_percent": 100.0,
+      "ram_peak_mb": 140.96,
+      "prediction_delta_ram": 0.8623,
+      "detected_libraries": "[\"requests\"]"
+    },
+    "at": "2026-07-18T22:30:11.773007+00:00"
+  },
+  {
+    "run": 2,
+    "task_id": "5fafc2e6-20f4-40a4-9b47-af3611e3dadc",
+    "status": "concluida",
+    "docker_image": "joyzoursky/python-chromedriver:latest",
+    "ai_image_source": "ai",
+    "ai_category": "scripting_geral",
+    "ai_detected_libraries": "[\"requests\"]",
+    "preferred_compute_layer": "edge",
+    "allocated_compute_layer": "edge",
+    "allocated_node_id": "k8s:tcc-cluster-worker2",
+    "librarian_best_image": "joyzoursky/python-chromedriver:latest",
+    "librarian_alignment": "A imagem 'joyzoursky/python-chromedriver:latest' está alinhada com as bibliotecas 'requests' e tem um match_score de 1.0, além de ter sucesso histórico de 100%. O piso de hardware foi ajustado devido ao near_ceiling detectado no histórico.",
+    "result": {
+      "status_final": "concluida",
+      "duration_seconds": 84.225063,
+      "cpu_peak_percent": 0.16,
+      "ram_peak_mb": 6.83,
+      "prediction_delta_ram": 1.2433,
+      "detected_libraries": "[\"requests\"]"
+    },
+    "at": "2026-07-18T22:34:31.911659+00:00"
+  },
+  {
+    "run": 3,
+    "task_id": "42c6d869-3e60-4179-ad5e-a93460c7eb97",
+    "status": "concluida",
+    "docker_image": "joyzoursky/python-chromedriver:latest",
+    "ai_image_source": "ai",
+    "ai_category": "scripting_geral",
+    "ai_detected_libraries": "[\"requests\"]",
+    "preferred_compute_layer": "edge",
+    "allocated_compute_layer": "edge",
+    "allocated_node_id": "k8s:tcc-cluster-worker2",
+    "librarian_best_image": "joyzoursky/python-chromedriver:latest",
+    "librarian_alignment": "A imagem 'joyzoursky/python-chromedriver:latest' está no catálogo com match_score 1.0 e success_rate 1.0, atendendo às bibliotecas 'requests' e outras necessárias.",
+    "result": {
+      "status_final": "concluida",
+      "duration_seconds": 81.175568,
+      "cpu_peak_percent": 29.39,
+      "ram_peak_mb": 8.28,
+      "prediction_delta_ram": 1.2419,
+      "detected_libraries": "[\"requests\"]"
+    },
+    "at": "2026-07-18T22:39:42.060821+00:00"
+  },
+  {
+    "run": 4,
+    "task_id": "9b248807-bece-4540-9a09-cba4e430982b",
+    "status": "concluida",
+    "docker_image": "joyzoursky/python-chromedriver:latest",
+    "ai_image_source": "ai",
+    "ai_category": "scripting_geral",
+    "ai_detected_libraries": "[\"requests\"]",
+    "preferred_compute_layer": "edge",
+    "allocated_compute_layer": "edge",
+    "allocated_node_id": "k8s:tcc-cluster-worker2",
+    "librarian_best_image": "joyzoursky/python-chromedriver:latest",
+    "librarian_alignment": "A imagem 'joyzoursky/python-chromedriver:latest' está alinhada com as bibliotecas 'requests' e tem um match_score de 1.0, além de um success_rate de 100%.",
+    "result": {
+      "status_final": "concluida",
+      "duration_seconds": 77.178253,
+      "cpu_peak_percent": 5.81,
+      "ram_peak_mb": 8.64,
+      "prediction_delta_ram": 1.2123,
+      "detected_libraries": "[\"requests\"]"
+    },
+    "at": "2026-07-18T22:43:52.177583+00:00"
+  }
+]

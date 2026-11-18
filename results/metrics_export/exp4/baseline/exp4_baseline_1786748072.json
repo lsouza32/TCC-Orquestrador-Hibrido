@@ -1,0 +1,181 @@
+{
+  "experiment": "exp4",
+  "arm": "k8s-default",
+  "n": 9,
+  "sequence": [
+    "edge",
+    "fog",
+    "cloud",
+    "edge",
+    "fog",
+    "cloud",
+    "edge",
+    "fog",
+    "cloud"
+  ],
+  "hits": 2,
+  "hit_rate": 0.2222,
+  "hit_by_preferred": {
+    "edge": {
+      "n": 3,
+      "hits": 0,
+      "hit_rate": 0.0
+    },
+    "fog": {
+      "n": 3,
+      "hits": 0,
+      "hit_rate": 0.0
+    },
+    "cloud": {
+      "n": 3,
+      "hits": 2,
+      "hit_rate": 0.6666666666666666
+    }
+  },
+  "confusion_matrix_preferred_vs_allocated": {
+    "edge": {
+      "edge": 0,
+      "fog": 1,
+      "cloud": 2
+    },
+    "fog": {
+      "edge": 0,
+      "fog": 0,
+      "cloud": 3
+    },
+    "cloud": {
+      "edge": 0,
+      "fog": 1,
+      "cloud": 2
+    }
+  },
+  "allocated_layer_distribution": {
+    "cloud": 7,
+    "fog": 2
+  },
+  "profile_counts": {
+    "edge": 3,
+    "fog": 3,
+    "cloud": 3
+  },
+  "runs": [
+    {
+      "run": 1,
+      "profile": "edge",
+      "script": "task_edge_light.py",
+      "preferred_layer": "edge",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-zjsnm",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "duration_s": 10.823,
+      "at": "2026-08-14T22:53:00.301993+00:00"
+    },
+    {
+      "run": 2,
+      "profile": "fog",
+      "script": "task_fog_cpu.py",
+      "preferred_layer": "fog",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-b52b9",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "duration_s": 6.642,
+      "at": "2026-08-14T22:53:11.306723+00:00"
+    },
+    {
+      "run": 3,
+      "profile": "cloud",
+      "script": "task_cloud_ml.py",
+      "preferred_layer": "cloud",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-z76c6",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": true,
+      "duration_s": 4.593,
+      "at": "2026-08-14T22:53:20.254074+00:00"
+    },
+    {
+      "run": 4,
+      "profile": "edge",
+      "script": "task_edge_light.py",
+      "preferred_layer": "edge",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-zfppd",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "duration_s": 10.829,
+      "at": "2026-08-14T22:53:35.442945+00:00"
+    },
+    {
+      "run": 5,
+      "profile": "fog",
+      "script": "task_fog_cpu.py",
+      "preferred_layer": "fog",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-7k8k6",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "duration_s": 6.682,
+      "at": "2026-08-14T22:53:46.479198+00:00"
+    },
+    {
+      "run": 6,
+      "profile": "cloud",
+      "script": "task_cloud_ml.py",
+      "preferred_layer": "cloud",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-q79qn",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": true,
+      "duration_s": 6.654,
+      "at": "2026-08-14T22:53:57.480527+00:00"
+    },
+    {
+      "run": 7,
+      "profile": "edge",
+      "script": "task_edge_light.py",
+      "preferred_layer": "edge",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-4rpwr",
+      "nodeName": "tcc-cluster-worker2",
+      "allocated_layer": "fog",
+      "hit": false,
+      "duration_s": 10.821,
+      "at": "2026-08-14T22:54:12.696997+00:00"
+    },
+    {
+      "run": 8,
+      "profile": "fog",
+      "script": "task_fog_cpu.py",
+      "preferred_layer": "fog",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-tknsl",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "duration_s": 6.733,
+      "at": "2026-08-14T22:54:23.775166+00:00"
+    },
+    {
+      "run": 9,
+      "profile": "cloud",
+      "script": "task_cloud_ml.py",
+      "preferred_layer": "cloud",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-66j9j",
+      "nodeName": "tcc-cluster-worker2",
+      "allocated_layer": "fog",
+      "hit": false,
+      "duration_s": 4.559,
+      "at": "2026-08-14T22:54:32.689674+00:00"
+    }
+  ],
+  "at": "2026-08-14T22:54:32.948012+00:00"
+}

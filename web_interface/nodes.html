@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nós disponíveis - Context Server</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+</head>
+<body class="task-details-page">
+    <div class="container details-page">
+        <div class="card details-card">
+            <div class="header-with-back">
+                <div class="header-left">
+                    <button id="backBtn" class="btn btn-secondary" aria-label="Voltar para submissão de tarefas">
+                        <span aria-hidden="true">←</span>
+                        <span>Voltar</span>
+                    </button>
+                    <div class="page-title">
+                        <p>Recursos da rede</p>
+                        <h1>Nós disponíveis</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div id="nodesContainer" class="nodes-container" role="region" aria-live="polite">
+                <div class="loading-details">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando nós...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const nodesContainer = document.getElementById('nodesContainer');
+        const backBtn = document.getElementById('backBtn');
+        const { buildApiUrl } = window.APP_CONFIG;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+
+            if (!isAuthenticated || !currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            loadNodes();
+            backBtn.addEventListener('click', () => { window.location.href = 'index.html'; });
+        });
+
+        async function loadNodes() {
+            try {
+                const response = await fetch(buildApiUrl('/nodes/status_live'));
+                const nodes = await response.json();
+
+                if (response.ok && Array.isArray(nodes)) {
+                    displayNodes(nodes);
+                } else {
+                    const msg = typeof nodes === 'object' && nodes.message ? nodes.message : 'Resposta inválida';
+                    showError('Erro ao carregar nós: ' + msg);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar nós:', error);
+                showError('Erro de conexão ao carregar nós.');
+            }
+        }
+
+        function displayNodes(nodes) {
+            if (nodes.length === 0) {
+                nodesContainer.innerHTML = `
+                    <div class="no-nodes">
+                        <p>Nenhum nó registrado.</p>
+                        <p>Verifique se os agentes estão rodando e registrados no Context Server.</p>
+                        <a href="index.html" class="btn btn-secondary">Voltar</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const reachable = nodes.filter(n => n.is_reachable).length;
+            nodesContainer.innerHTML = `
+                <div class="nodes-summary">
+                    <p><strong>${reachable}</strong> de <strong>${nodes.length}</strong> nó(s) alcançável(eis) agora (dados em tempo real).</p>
+                    <button type="button" id="refreshNodesBtn" class="btn btn-secondary btn-sm">Atualizar</button>
+                </div>
+                <div class="nodes-list">
+                    ${nodes.map(node => renderNodeCard(node)).join('')}
+                </div>
+            `;
+            const refreshBtn = document.getElementById('refreshNodesBtn');
+            if (refreshBtn) refreshBtn.addEventListener('click', loadNodes);
+        }
+
+        function renderNodeCard(node) {
+            const hostname = escapeHTML(node.hostname || node.node_id || '—');
+            const ip = escapeHTML(node.ip_address || '—');
+            const port = node.agent_port != null ? node.agent_port : '—';
+            const reachable = !!node.is_reachable;
+            const status = reachable ? 'Online' : (node.live_status_message || 'Offline');
+            const statusClass = reachable ? 'active' : 'inactive';
+
+            const cpuTotal = formatNumber(node.cpu_total_threads);
+            const cpuAvail = reachable ? formatNumber(node.cpu_available_percent) : '—';
+            const reserved = node.reserved_resources || {};
+            const cpuReserved = formatNumber(reserved.cpu_threads ?? node.cpu_reserved_threads);
+
+            const ramTotal = formatNumber(node.memory_total_gb);
+            const ramAvail = reachable ? formatNumber(node.memory_available_gb) : '—';
+            const ramReserved = formatNumber(reserved.memory_gb ?? node.memory_reserved_gb);
+
+            const diskTotal = formatNumber(node.disk_total_gb);
+            const diskAvail = reachable ? formatNumber(node.disk_available_gb) : '—';
+            const diskReserved = formatNumber(reserved.disk_gb ?? node.disk_reserved_gb);
+
+            const lastCheck = node.live_checked_at != null ? formatDate(node.live_checked_at) : (node.last_resource_check ? formatDate(node.last_resource_check) : '—');
+            const layerRaw = (node.compute_layer || '').toString().toLowerCase();
+            const layerLabel = formatLayerLabel(layerRaw);
+            const layerClass = ['edge', 'fog', 'cloud'].includes(layerRaw) ? layerRaw : 'unknown';
+            const provider = (node.provider_type || 'node_agent') === 'kubernetes' ? 'Kubernetes' : 'Voluntário';
+
+            return `
+                <div class="node-card ${statusClass}">
+                    <div class="node-card-header">
+                        <span class="node-hostname">${hostname}</span>
+                        <div class="node-header-badges">
+                            <span class="node-layer-badge layer-${layerClass}">${escapeHTML(layerLabel)}</span>
+                            <span class="node-status-badge ${statusClass}">${escapeHTML(status)}</span>
+                        </div>
+                    </div>
+                    <div class="node-card-meta">
+                        <span>${ip}:${port}</span>
+                        <span class="node-provider">${escapeHTML(provider)}</span>
+                        ${!reachable && node.live_status_message ? `<span class="node-status-msg">${escapeHTML(node.live_status_message)}</span>` : ''}
+                    </div>
+                    <div class="node-resources">
+                        <div class="resource-row">
+                            <span class="resource-label">CPU</span>
+                            <span class="resource-value">${cpuTotal} thread(s) total</span>
+                            <span class="resource-avail">${cpuAvail}${reachable ? '% disp.' : ''}</span>
+                            ${(cpuReserved !== '—' && parseFloat(String(cpuReserved).replace(',', '.')) > 0) ? `<span class="resource-reserved">${cpuReserved} res.</span>` : ''}
+                        </div>
+                        <div class="resource-row">
+                            <span class="resource-label">RAM</span>
+                            <span class="resource-value">${ramTotal} GB total</span>
+                            <span class="resource-avail">${ramAvail}${reachable ? ' GB disp.' : ''}</span>
+                            ${(ramReserved !== '—' && parseFloat(String(ramReserved).replace(',', '.')) > 0) ? `<span class="resource-reserved">${ramReserved} GB res.</span>` : ''}
+                        </div>
+                        <div class="resource-row">
+                            <span class="resource-label">Disco</span>
+                            <span class="resource-value">${diskTotal} GB total</span>
+                            <span class="resource-avail">${diskAvail}${reachable ? ' GB disp.' : ''}</span>
+                            ${(diskReserved !== '—' && parseFloat(String(diskReserved).replace(',', '.')) > 0) ? `<span class="resource-reserved">${diskReserved} GB res.</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="node-card-footer">
+                        Verificação: ${lastCheck} ${reachable ? '<span class="live-badge">tempo real</span>' : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        function formatLayerLabel(layer) {
+            const map = { edge: 'Edge', fog: 'Fog', cloud: 'Cloud' };
+            const key = String(layer || '').toLowerCase();
+            return map[key] || (layer ? String(layer) : '—');
+        }
+
+        function formatNumber(val) {
+            if (val == null || val === '') return '—';
+            const n = parseFloat(val);
+            return isNaN(n) ? '—' : (Number.isInteger(n) ? n : n.toFixed(2));
+        }
+
+        function formatDate(timestamp) {
+            if (timestamp == null) return '—';
+            const t = typeof timestamp === 'number' ? timestamp * 1000 : timestamp;
+            return new Date(t).toLocaleString('pt-BR');
+        }
+
+        function escapeHTML(str) {
+            if (str == null) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function showError(message) {
+            nodesContainer.innerHTML = `
+                <div class="error-nodes">
+                    <p>❌ ${escapeHTML(message)}</p>
+                    <button type="button" onclick="window.location.reload()" class="btn btn-secondary">Tentar novamente</button>
+                    <a href="index.html" class="btn btn-secondary">Voltar</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

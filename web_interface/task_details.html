@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Tarefa - Context Server</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+</head>
+<body class="task-details-page">
+    <div class="container details-page">
+        <div class="card details-card">
+            <div class="header-with-back">
+                <div class="header-left">
+                    <button id="backBtn" class="btn btn-secondary" aria-label="Voltar para a lista de tarefas">
+                        <span aria-hidden="true">←</span>
+                        <span>Voltar</span>
+                    </button>
+                    <div class="page-title">
+                        <p>Visão geral</p>
+                        <h1>Detalhes da Tarefa</h1>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="taskDetails" class="task-details-container" role="region" aria-live="polite">
+                <div class="loading-details">
+                    <div class="loading-spinner"></div>
+                    <p>Carregando detalhes da tarefa...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos do DOM
+        const backBtn = document.getElementById('backBtn');
+        const taskDetails = document.getElementById('taskDetails');
+        const { buildApiUrl } = window.APP_CONFIG;
+
+        let detailsEventSource = null;
+        let detailsReloadTimer = null;
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verifica autenticação
+            const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+            
+            if (!isAuthenticated || !currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Obtém o task_id da URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const taskId = urlParams.get('task_id');
+            
+            if (!taskId) {
+                showError('ID da tarefa não fornecido');
+                return;
+            }
+
+            // Carrega os detalhes da tarefa e abre SSE para atualizar status em tempo real
+            loadTaskDetails(taskId).then(() => connectDetailsStream(taskId));
+        });
+
+        function scheduleDetailsReload(taskId) {
+            if (detailsReloadTimer) clearTimeout(detailsReloadTimer);
+            detailsReloadTimer = setTimeout(() => loadTaskDetails(taskId), 400);
+        }
+
+        function connectDetailsStream(taskId) {
+            const userId = localStorage.getItem('currentUser');
+            if (!userId) return;
+            if (detailsEventSource) {
+                detailsEventSource.close();
+                detailsEventSource = null;
+            }
+            const url = buildApiUrl('/user_tasks/stream?user_id=' + encodeURIComponent(userId));
+            try {
+                detailsEventSource = new EventSource(url);
+            } catch (e) {
+                return;
+            }
+            detailsEventSource.onmessage = (ev) => {
+                try {
+                    const d = JSON.parse(ev.data);
+                    if (d.type === 'connected') return;
+                    if (d.type === 'task_update' && d.task_id === taskId) {
+                        scheduleDetailsReload(taskId);
+                    }
+                } catch (_) { /* ignore */ }
+            };
+            detailsEventSource.onerror = () => {
+                detailsEventSource.close();
+                detailsEventSource = null;
+                setTimeout(() => connectDetailsStream(taskId), 3500);
+            };
+        }
+
+        // Carrega os detalhes da tarefa
+        async function loadTaskDetails(taskId) {
+            try {
+                const userId = localStorage.getItem('currentUser');
+                const response = await fetch(buildApiUrl(`/user_tasks?user_id=${encodeURIComponent(userId)}`));
+                const data = await response.json();
+
+                if (response.ok) {
+                    const task = data.tasks.find(t => t.task_id === taskId);
+                    if (task) {
+                        displayTaskDetails(task);
+                    } else {
+                        showError('Tarefa não encontrada');
+                    }
+                } else {
+                    showError('Erro ao carregar detalhes: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar detalhes:', error);
+                showError('Erro de conexão ao carregar detalhes');
+            }
+        }
+
+        function renderAIPlanSection(task) {
+            const libs = Array.isArray(task.ai_detected_libraries) ? task.ai_detected_libraries : [];
+            const libsHtml = libs.length
+                ? `<ul class="ai-libs-list">${libs.map((l) => `<li>${escapeHTML(String(l))}</li>`).join('')}</ul>`
+                : '<p class="muted-text">Nenhuma biblioteca listada pela IA nesta submissão.</p>';
+            const cpu = task.required_cpu_threads != null ? String(task.required_cpu_threads) : '—';
+            const ram = task.required_memory_gb != null ? String(task.required_memory_gb) : '—';
+            const disk = task.required_disk_gb != null ? String(task.required_disk_gb) : '—';
+            const img = task.docker_image ? escapeHTML(task.docker_image) : '—';
+            return `
+                <section class="info-section">
+                    <h3>Plano sugerido pela IA (submissão)</h3>
+                    <div class="info-grid">
+                        ${renderInfoItem('CPU (threads)', cpu)}
+                        ${renderInfoItem('RAM (GB)', ram)}
+                        ${renderInfoItem('Disco (GB)', disk)}
+                        ${renderInfoItem('Imagem Docker', img)}
+                    </div>
+                    <h4 class="subsection-title">Bibliotecas detectadas pela IA</h4>
+                    ${libsHtml}
+                </section>
+            `;
+        }
+
+        // Exibe os detalhes da tarefa
+        function displayTaskDetails(task) {
+            const statusText = getStatusText(task.status);
+            const taskType = formatTaskType(task.task_type);
+            const submittedAt = task.submitted_at ? formatDate(task.submitted_at) : '—';
+            const allocatedNode = task.allocated_node_id ? escapeHTML(task.allocated_node_id) : 'Aguardando alocação';
+            const priority = task.priority ? escapeHTML(task.priority) : 'Não definida';
+            const description = task.description ? escapeHTML(task.description) : 'Sem descrição fornecida';
+            const result = task.result;
+            const completedAt = result?.completed_at ? formatDate(result.completed_at) : '—';
+            const duration = result?.duration_seconds ? formatDuration(result.duration_seconds) : '—';
+
+            taskDetails.innerHTML = `
+                <section class="task-overview">
+                    <div class="task-overview__header">
+                        <div class="status-chip status-${task.status}">
+                            <span class="status-icon" aria-hidden="true">${getStatusIcon(task.status)}</span>
+                            <span>${statusText}</span>
+                        </div>
+                        <div class="meta meta--compact">
+                            <div class="meta-item" title="Tipo de tarefa">
+                                <span class="meta-label">Tipo</span>
+                                <span class="meta-value">${taskType}</span>
+                            </div>
+                            <div class="meta-divider" role="presentation"></div>
+                            <div class="meta-item" title="Tempo total até o momento">
+                                <span class="meta-label">Duração</span>
+                                <span class="meta-value">${duration}</span>
+                            </div>
+                            <div class="meta-divider" role="presentation"></div>
+                            <div class="meta-item" title="Última atualização">
+                                <span class="meta-label">Atualizado</span>
+                                <span class="meta-value">${completedAt}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-overview__body">
+                        <h2 class="task-title" title="Nome do arquivo enviado">${escapeHTML(task.filename)}</h2>
+                        <p class="task-description">${description}</p>
+                        <div class="tag-group">
+                            <span class="tag" aria-label="Prioridade da tarefa">Prioridade: ${priority}</span>
+                            <span class="tag" aria-label="Identificador da tarefa">ID: ${escapeHTML(task.task_id)}</span>
+                            ${task.allocated_node_id ? `<span class="tag tag--accent" aria-label="Nó alocado">Nó: ${allocatedNode}</span>` : ''}
+                        </div>
+                    </div>
+                </section>
+
+                <section class="info-section">
+                    <h3>Informações Gerais</h3>
+                    <div class="info-grid">
+                        ${renderInfoItem('Tipo', taskType)}
+                        ${renderInfoItem('Status atual', `<span class="status-chip status-${task.status} status-chip--inline">${statusText}</span>`)}
+                        ${renderInfoItem('Enviada em', submittedAt)}
+                        ${renderInfoItem('Última atualização', completedAt)}
+                        ${renderInfoItem('Nó alocado', allocatedNode)}
+                        ${renderInfoItem('Usuário', escapeHTML(task.user_id || localStorage.getItem('currentUser') || '—'))}
+                    </div>
+                    ${['analisando_ia','na_fila','pendente','alocada','executando'].indexOf(task.status) >= 0 ? `
+                    <div class="export-row">
+                        <button type="button" class="btn btn-danger" id="btnCancelTask" data-task-id="${escapeHTML(task.task_id)}">Cancelar tarefa</button>
+                    </div>
+                    ` : ''}
+                </section>
+
+                ${renderAIPlanSection(task)}
+
+                ${result ? renderResultSection(result, task.status, task.task_id) : renderPendingSection()}
+
+                ${renderLogSection('Saída da Execução', result?.stdout_log, 'info')}
+                ${renderLogSection('Logs de Erro', result?.stderr_log, 'error')}
+            `;
+            attachExportButtonHandler();
+            attachCancelButtonHandler();
+        }
+
+        function attachCancelButtonHandler() {
+            const btn = document.getElementById('btnCancelTask');
+            if (!btn) return;
+            const taskId = btn.getAttribute('data-task-id');
+            const userId = localStorage.getItem('currentUser') || '';
+            btn.addEventListener('click', async () => {
+                if (!confirm('Cancelar esta tarefa? A execução será interrompida.')) return;
+                btn.disabled = true;
+                btn.textContent = 'Cancelando...';
+                try {
+                    const res = await fetch(buildApiUrl('/cancel_task'), {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ task_id: taskId, user_id: userId })
+                    });
+                    const data = await res.json().catch(() => ({}));
+                    if (res.ok) {
+                        window.location.href = 'index.html';
+                    } else {
+                        alert(data.message || 'Falha ao cancelar.');
+                        btn.disabled = false;
+                        btn.textContent = 'Cancelar tarefa';
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Erro ao cancelar tarefa.');
+                    btn.disabled = false;
+                    btn.textContent = 'Cancelar tarefa';
+                }
+            });
+        }
+
+        function attachExportButtonHandler() {
+            const btn = document.getElementById('btnExportTask');
+            if (!btn) return;
+            const taskId = btn.getAttribute('data-task-id');
+            const userId = localStorage.getItem('currentUser') || '';
+            btn.addEventListener('click', async () => {
+                btn.disabled = true;
+                btn.textContent = 'Preparando download...';
+                try {
+                    const url = buildApiUrl(`/task_export/${encodeURIComponent(taskId)}?user_id=${encodeURIComponent(userId)}`);
+                    const res = await fetch(url);
+                    if (!res.ok) {
+                        const data = await res.json().catch(() => ({}));
+                        alert(data.message || 'Falha ao exportar.');
+                        return;
+                    }
+                    const blob = await res.blob();
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `tarefa_${taskId}.zip`;
+                    a.click();
+                    URL.revokeObjectURL(a.href);
+                } catch (err) {
+                    console.error(err);
+                    alert('Erro ao baixar exportação.');
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = '📥 Exportar relatório e planilha';
+                }
+            });
+        }
+
+        // Exibe erro
+        function showError(message) {
+            taskDetails.innerHTML = `
+                <div class="error-details">
+                    <p>❌ ${message}</p>
+                    <button onclick="window.location.href='index.html'" class="btn btn-secondary">Voltar ao Início</button>
+                </div>
+            `;
+        }
+
+        // Utilitários
+        function getStatusText(status) {
+            const statusMap = {
+                'pendente': 'Pendente',
+                'analisando_ia': 'Analisando IA',
+                'na_fila': 'Na fila',
+                'alocada': 'Alocada',
+                'executando': 'Executando',
+                'concluida': 'Concluída',
+                'cancelada': 'Cancelada',
+                'falha': 'Falha',
+                'falha_alocacao': 'Falha na alocação',
+                'falha_envio': 'Falha no envio',
+                'erro_agente': 'Erro do agente'
+            };
+            return statusMap[status] || status;
+        }
+
+        function formatDate(timestamp) {
+            return new Date(timestamp * 1000).toLocaleString('pt-BR');
+        }
+
+        function formatDuration(totalSeconds) {
+            const seconds = Number(totalSeconds) || 0;
+            const parts = [];
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+
+            if (hours > 0) parts.push(`${hours}h`);
+            if (minutes > 0 || hours > 0) parts.push(`${minutes}min`);
+            parts.push(`${remainingSeconds}s`);
+
+            return parts.join(' ');
+        }
+
+        function escapeHTML(value) {
+            if (value === null || value === undefined) return '—';
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function formatTaskType(type) {
+            if (!type) return '—';
+            if (type === 'auto') return 'Automático (IA)';
+            return escapeHTML(String(type).replace(/_/g, ' '));
+        }
+
+        function getStatusIcon(status) {
+            const iconMap = {
+                'pendente': '⏳',
+                'analisando_ia': '🧠',
+                'na_fila': '📋',
+                'alocada': '🎯',
+                'executando': '⚙️',
+                'concluida': '✅',
+                'cancelada': '🛑',
+                'falha': '❌',
+                'falha_alocacao': '🚫',
+                'falha_envio': '📤',
+                'erro_agente': '💥'
+            };
+            return iconMap[status] || 'ℹ️';
+        }
+
+        function renderInfoItem(label, value) {
+            return `
+                <div class="info-item">
+                    <span class="info-label">${label}</span>
+                    <span class="info-value">${value}</span>
+                </div>
+            `;
+        }
+
+        function renderResultSection(result, currentStatus, taskId) {
+            const statusFinal = result?.status_final ? getStatusText(result.status_final) : getStatusText(currentStatus);
+            const completedAt = result?.completed_at ? formatDate(result.completed_at) : '—';
+            const duration = result?.duration_seconds ? formatDuration(result.duration_seconds) : '—';
+
+            return `
+                <section class="info-section">
+                    <h3>Resultado da Execução</h3>
+                    <div class="info-grid">
+                        ${renderInfoItem('Status final', `<span class="status-chip status-${result?.status_final || currentStatus} status-chip--inline">${statusFinal}</span>`)}
+                        ${renderInfoItem('Tempo de execução', duration)}
+                        ${renderInfoItem('Concluída em', completedAt)}
+                    </div>
+                    <div class="export-row">
+                        <button type="button" class="btn btn-primary btn-export" id="btnExportTask" data-task-id="${escapeHTML(taskId)}" title="Baixar relatório e planilha em ZIP">
+                            📥 Exportar relatório e planilha
+                        </button>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderPendingSection() {
+            return `
+                <section class="info-section">
+                    <h3>Status da Execução</h3>
+                    <div class="empty-state" role="status">
+                        <span class="empty-state__icon" aria-hidden="true">🕒</span>
+                        <p>Esta tarefa ainda não foi executada ou não possui resultados disponíveis.</p>
+                        <small>Retorne mais tarde para acompanhar a evolução.</small>
+                    </div>
+                </section>
+            `;
+        }
+
+        function renderLogSection(title, logContent, type = 'info') {
+            if (!logContent) return '';
+
+            return `
+                <section class="info-section">
+                    <details class="log-section" ${type === 'error' ? 'open' : ''}>
+                        <summary>
+                            <span>${title}</span>
+                            <span class="log-section__hint">Clique para ${type === 'error' ? 'recolher' : 'visualizar'}</span>
+                        </summary>
+                        <div class="log-container ${type === 'error' ? 'error' : ''}">
+                            <pre class="log-content">${escapeHTML(logContent)}</pre>
+                        </div>
+                    </details>
+                </section>
+            `;
+        }
+
+        // Event listeners
+        backBtn.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

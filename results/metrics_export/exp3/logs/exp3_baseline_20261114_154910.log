@@ -1,0 +1,59 @@
+================================================================
+EXP-03 — Baseline Kubernetes Padrão (oversize / Pending)
+ns=tcc-baseline  monitor=90s
+================================================================
+
+Workers (allocatable memory):
+  tcc-cluster-worker: 8090832Ki (7.716 Gi) layer=edge <-- R_max
+  tcc-cluster-worker2: 8090832Ki (7.716 Gi) layer=fog
+  tcc-cluster-worker3: 8090832Ki (7.716 Gi) layer=cloud
+
+Oversize escolhido: 9.45Gi  (R_max ~ 7.716 Gi)
+YAML gerado: C:\Users\lsouz\Faculdade\TCC\docs\experimentos\exp3_baseline_job.yaml
+
+Aplicando Job oversize...
+job.batch/exp3-baseline-oversize created
+
+Monitorando até 90s (esperado: Pending)...
+  [15:49:12] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+    event: Warning  FailedScheduling  0s    default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+  [15:49:17] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:49:23] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+    event: Warning  FailedScheduling  8s    default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+  [15:49:28] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:49:33] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:49:38] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+    event: Warning  FailedScheduling  24s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+  [15:49:43] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:49:48] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:49:53] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+    event: Warning  FailedScheduling  39s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+  [15:49:59] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:50:04] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:50:09] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+    event: Warning  FailedScheduling  55s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+  [15:50:14] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:50:19] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:50:24] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+    event: Warning  FailedScheduling  70s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+  [15:50:29] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:50:34] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+  [15:50:39] pod=exp3-baseline-oversize-kzg6f phase=Pending nodeName=—
+    event: Warning  FailedScheduling  85s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+
+Cleanup...
+
+================================================================
+RESUMO EXP-03 BASELINE
+  R_max (maior worker): 7.716 Gi (tcc-cluster-worker)
+  Request/Limit:        9676Mi
+  Pod:                  exp3-baseline-oversize-kzg6f
+  Fase final:           Pending
+  nodeName:             (vazio)
+  Permaneceu Pending:   True
+  FailedScheduling:     True
+  Insufficient memory:  True
+  Eventos-chave:
+    - Warning  FailedScheduling  88s   default-scheduler  0/4 nodes are available: 1 node(s) had untolerated taint {node-role.kubernetes.io/control-plane: }, 3 Insufficient memory. preemption: 0/4 nodes are available: 1 Preemption is not helpful for scheduling, 3 No preemption victims found for incoming pod.
+
+JSON: C:\Users\lsouz\Faculdade\TCC\results\metrics_export\exp3\baseline\exp3_baseline_1794682243.json

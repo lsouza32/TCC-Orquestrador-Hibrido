@@ -1,0 +1,70 @@
+{
+  "experiment": "exp3",
+  "arm": "hybrid",
+  "task_id": "007a2a1f-b3c4-46e9-9fc5-e845c6dfd412",
+  "status": "concluida",
+  "allocated_node_id": "k8s:tcc-cluster-worker2",
+  "allocated_compute_layer": "fog",
+  "docker_image": "python:3.11-slim",
+  "r_max_gi": 7.565,
+  "workers": [
+    {
+      "hostname": "tcc-cluster-worker",
+      "effective_ram_gi": 7.512,
+      "memory_total_gb": 7.716,
+      "compute_layer": "edge"
+    },
+    {
+      "hostname": "tcc-cluster-worker2",
+      "effective_ram_gi": 7.552,
+      "memory_total_gb": 7.716,
+      "compute_layer": "fog"
+    },
+    {
+      "hostname": "tcc-cluster-worker3",
+      "effective_ram_gi": 7.565,
+      "memory_total_gb": 7.716,
+      "compute_layer": "cloud"
+    }
+  ],
+  "desired_memory_gi": 10.0,
+  "injected_memory_gi": 9.45,
+  "calibrate_reason": "calibrated_to_80pct_window",
+  "window_hi_gi": 9.456,
+  "injection": {
+    "injected_memory_gi": 9.45,
+    "injected_memory_qty": "9676Mi",
+    "injected_cpu": 1.0,
+    "status_before": "na_fila",
+    "required_memory_gb_before": 0.5
+  },
+  "required_memory_gb_final": 0.5,
+  "effective_k8s_job_spec": {
+    "metadata_name": "task-scripting",
+    "image": "python:3.11-slim",
+    "nodeSelector": {
+      "kubernetes.io/hostname": "tcc-cluster-worker2"
+    },
+    "cpu_request": "200m",
+    "cpu_limit": "1",
+    "memory_request": "256Mi",
+    "memory_limit": "512Mi"
+  },
+  "memory_limit_effective": "512Mi",
+  "memory_request_effective": "256Mi",
+  "dispatch_meta": {
+    "injected_hostname": "tcc-cluster-worker2",
+    "source": null,
+    "best_effort": false,
+    "k8s_job": "task-job-007a2a1fb3c446e99fc5e845c6dfd412",
+    "preferred_layer": "fog",
+    "dispatched_at": 1786902643.8479466
+  },
+  "best_effort": false,
+  "clamp_log_seen": false,
+  "clamp_log_lines": [],
+  "duration_wall_s": 112.748,
+  "job_created": true,
+  "anti_pending": true,
+  "at": "2026-08-16T17:51:55.244705+00:00"
+}

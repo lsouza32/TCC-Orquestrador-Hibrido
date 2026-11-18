@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submeter Tarefas - Context Server</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js"></script>
+    <script src="users.js"></script>
+</head>
+<body>
+    <div class="page-outer">
+        <a href="nodes.html" class="btn-ver-nos" title="Ver nós disponíveis e recursos em tempo real">Ver nós disponíveis</a>
+        <a href="admin/" class="btn-admin-link" id="adminLinkBtn" title="Abrir dashboard administrativo" style="display:none;">Dashboard Admin</a>
+        <!-- Menu Lateral -->
+        <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3>Minhas Tarefas</h3>
+            <button type="button" id="sidebarCloseBtn" class="sidebar-close-btn" aria-label="Fechar menu" title="Fechar">×</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-queue-block">
+                <h4 class="sidebar-subheading">Fila / em andamento <span id="queueCount" class="sidebar-count">0</span></h4>
+                <div id="tasksQueueList" class="tasks-list">
+                    <div class="loading-tasks"><p>Carregando…</p></div>
+                </div>
+            </div>
+            <div class="sidebar-history-block">
+                <h4 class="sidebar-subheading">Histórico <span id="historyCount" class="sidebar-count">0</span></h4>
+                <div id="tasksHistoryList" class="tasks-list"></div>
+            </div>
+        </div>
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="btn btn-danger btn-full">Logout</button>
+        </div>
+    </div>
+
+    <!-- Overlay para mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="container">
+        <div class="card">
+            <div class="header-with-logout">
+                <div class="header-left">
+                    <button id="menuBtn" class="btn btn-secondary">☰ Menu</button>
+                    <h1>Submeter Tarefa</h1>
+                </div>
+            </div>
+            
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskFile">Selecione o arquivo da tarefa (.py, .sh, etc.):</label>
+                    <input type="file" id="taskFile" name="taskFile" required>
+                </div>
+                
+                <p class="form-hint">A IA analisará o script e sugerirá requisitos (CPU, RAM, dependências) automaticamente.</p>
+                
+                <!-- Campo oculto para userId -->
+                <input type="hidden" id="userId" name="userId" value="">
+                
+                <button type="submit" class="btn btn-primary">Enviar Tarefa</button>
+            </form>
+            
+            <div id="message" class="message" style="display: none;"></div>
+        </div>
+    </div>
+    </div><!-- .page-outer -->
+
+    <script>
+        // Elementos do DOM
+        const form = document.getElementById('taskForm');
+        const fileInput = document.getElementById('taskFile');
+        const userIdInput = document.getElementById('userId');
+        const messageDisplay = document.getElementById('message');
+        const submitBtn = form.querySelector('button[type="submit"]');
+        
+        // Elementos do menu lateral
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+        const tasksQueueList = document.getElementById('tasksQueueList');
+        const tasksHistoryList = document.getElementById('tasksHistoryList');
+        const queueCountEl = document.getElementById('queueCount');
+        const historyCountEl = document.getElementById('historyCount');
+        const adminLinkBtn = document.getElementById('adminLinkBtn');
+        const { buildApiUrl } = window.APP_CONFIG;
+
+        const PIPELINE_STATUSES = new Set(['analisando_ia', 'na_fila', 'pendente', 'alocada', 'executando']);
+        let cachedTasks = [];
+        let taskEventSource = null;
+        let sseReloadTimer = null;
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verifica autenticação
+            const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+            const currentUser = localStorage.getItem('currentUser');
+            
+            if (!isAuthenticated || !currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Define o userId baseado no localStorage
+            userIdInput.value = currentUser;
+            if (!localStorage.getItem('isAdmin') && typeof window.isAdminUser === 'function') {
+                localStorage.setItem('isAdmin', window.isAdminUser(currentUser) ? 'true' : 'false');
+            }
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+            if (adminLinkBtn) {
+                adminLinkBtn.style.display = isAdmin ? 'inline-flex' : 'none';
+            }
+            
+            // Carrega as tarefas do usuário e abre stream de atualizações
+            loadUserTasks().then(() => connectTaskEventSource());
+
+            // Configura eventos do menu lateral
+            setupSidebarEvents();
+        });
+
+        function closeSidebar() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        }
+
+        // Configuração dos eventos do menu lateral
+        function setupSidebarEvents() {
+            menuBtn.addEventListener('click', () => {
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+            });
+
+            if (sidebarCloseBtn) {
+                sidebarCloseBtn.addEventListener('click', closeSidebar);
+            }
+
+            sidebarOverlay.addEventListener('click', closeSidebar);
+        }
+
+        function scheduleTasksReload() {
+            if (sseReloadTimer) clearTimeout(sseReloadTimer);
+            sseReloadTimer = setTimeout(() => { loadUserTasks(); }, 450);
+        }
+
+        function connectTaskEventSource() {
+            const userId = userIdInput.value;
+            if (!userId || taskEventSource) return;
+            const url = buildApiUrl('/user_tasks/stream?user_id=' + encodeURIComponent(userId));
+            try {
+                taskEventSource = new EventSource(url);
+            } catch (e) {
+                console.warn('EventSource não disponível:', e);
+                return;
+            }
+            taskEventSource.onmessage = (ev) => {
+                try {
+                    const d = JSON.parse(ev.data);
+                    if (d.type === 'connected') return;
+                    if (d.type === 'task_update') applySseTaskUpdate(d);
+                } catch (_) { /* ignore parse errors */ }
+            };
+            taskEventSource.onerror = () => {
+                taskEventSource.close();
+                taskEventSource = null;
+                setTimeout(() => connectTaskEventSource(), 3500);
+            };
+        }
+
+        function applySseTaskUpdate(d) {
+            const idx = cachedTasks.findIndex((t) => t.task_id === d.task_id);
+            if (idx < 0) {
+                scheduleTasksReload();
+                return;
+            }
+            const t = cachedTasks[idx];
+            t.status = d.status;
+            if (d.allocated_node_id !== undefined) t.allocated_node_id = d.allocated_node_id;
+            if (d.filename) t.filename = d.filename;
+            if (d.submitted_at) t.submitted_at = d.submitted_at;
+            if (d.required_cpu_threads != null) t.required_cpu_threads = d.required_cpu_threads;
+            if (d.required_memory_gb != null) t.required_memory_gb = d.required_memory_gb;
+            if (d.required_disk_gb != null) t.required_disk_gb = d.required_disk_gb;
+            if (d.docker_image) t.docker_image = d.docker_image;
+            if (Array.isArray(d.ai_detected_libraries)) t.ai_detected_libraries = d.ai_detected_libraries;
+            renderSidebar();
+        }
+
+        // Carrega as tarefas do usuário
+        async function loadUserTasks() {
+            try {
+                const userId = userIdInput.value;
+                const response = await fetch(buildApiUrl(`/user_tasks?user_id=${encodeURIComponent(userId)}`));
+                const data = await response.json();
+
+                if (response.ok) {
+                    cachedTasks = data.tasks || [];
+                    renderSidebar();
+                } else {
+                    showTasksError('Erro ao carregar tarefas: ' + data.message);
+                }
+            } catch (error) {
+                console.error('Erro ao carregar tarefas:', error);
+                showTasksError('Erro de conexão ao carregar tarefas');
+            }
+        }
+
+        function taskResourceChips(task) {
+            const cpu = task.required_cpu_threads != null ? `CPU ${task.required_cpu_threads}` : null;
+            const ram = task.required_memory_gb != null ? `RAM ${task.required_memory_gb} GB` : null;
+            const disk = task.required_disk_gb != null ? `Disco ${task.required_disk_gb} GB` : null;
+            const img = task.docker_image ? String(task.docker_image).split(':')[0].slice(0, 18) : null;
+            const parts = [cpu, ram, disk].filter(Boolean);
+            let html = '';
+            if (parts.length) {
+                html += `<div class="task-resource-chips">${parts.map((p) => `<span class="task-chip">${p}</span>`).join('')}</div>`;
+            }
+            if (task.docker_image) {
+                html += `<div class="task-docker-line" title="${escapeAttr(task.docker_image)}">🐳 ${escapeHTML(task.docker_image)}</div>`;
+            }
+            const libs = Array.isArray(task.ai_detected_libraries) ? task.ai_detected_libraries : [];
+            if (libs.length) {
+                const shown = libs.slice(0, 4).map(escapeHTML).join(', ');
+                const more = libs.length > 4 ? ` +${libs.length - 4}` : '';
+                html += `<div class="task-libs-line" title="${escapeAttr(libs.join(', '))}">📚 ${shown}${more}</div>`;
+            }
+            return html;
+        }
+
+        function escapeHTML(s) {
+            if (s == null) return '';
+            return String(s)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function escapeAttr(s) {
+            return escapeHTML(s).replace(/'/g, '&#39;');
+        }
+
+        function buildTaskCardHtml(task) {
+            const cancelBtn = canCancelTask(task.status)
+                ? `<button type="button" class="btn btn-cancel-task" onclick="cancelTask('${task.task_id}', event)" title="Cancelar tarefa">Cancelar</button>`
+                : '';
+            return `
+                <div class="task-item-simple ${task.status}" data-task-id="${task.task_id}" onclick="openTaskDetails('${task.task_id}')">
+                    <div class="task-header">
+                        <div class="task-name">${escapeHTML(task.filename)}</div>
+                        <span class="task-status-badge ${task.status}">${getStatusText(task.status)}</span>
+                    </div>
+                    <div class="task-type">${formatTaskType(task.task_type)}</div>
+                    ${taskResourceChips(task)}
+                    <div class="task-date">${formatDate(task.submitted_at)}</div>
+                    ${cancelBtn ? `<div class="task-item-actions">${cancelBtn}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function renderSidebar() {
+            const pipeline = cachedTasks.filter((t) => PIPELINE_STATUSES.has(t.status));
+            const history = cachedTasks.filter((t) => !PIPELINE_STATUSES.has(t.status));
+
+            if (queueCountEl) queueCountEl.textContent = String(pipeline.length);
+            if (historyCountEl) historyCountEl.textContent = String(history.length);
+
+            if (cachedTasks.length === 0) {
+                const empty = `
+                    <div class="no-tasks">
+                        <p>Nenhuma tarefa encontrada.</p>
+                        <p>Submeta sua primeira tarefa usando o formulário!</p>
+                    </div>`;
+                tasksQueueList.innerHTML = empty;
+                tasksHistoryList.innerHTML = '';
+                return;
+            }
+
+            tasksQueueList.innerHTML = pipeline.length
+                ? pipeline.map(buildTaskCardHtml).join('')
+                : '<div class="no-tasks no-tasks--inline"><p>Nada na fila.</p></div>';
+
+            tasksHistoryList.innerHTML = history.length
+                ? history.map(buildTaskCardHtml).join('')
+                : '<div class="no-tasks no-tasks--inline"><p>Sem histórico ainda.</p></div>';
+        }
+
+        // Exibe erro ao carregar tarefas
+        function showTasksError(message) {
+            const err = `
+                <div class="error-tasks">
+                    <p>❌ ${message}</p>
+                    <button onclick="loadUserTasks()" class="btn btn-secondary">Tentar Novamente</button>
+                </div>
+            `;
+            tasksQueueList.innerHTML = err;
+            tasksHistoryList.innerHTML = '';
+        }
+
+        // Utilitários
+        function getStatusText(status) {
+            const statusMap = {
+                'pendente': '⏳ Pendente',
+                'analisando_ia': '🧠 Analisando IA',
+                'na_fila': '📋 Na fila',
+                'alocada': '🎯 Alocada',
+                'executando': '⚙️ Executando',
+                'concluida': '✅ Concluída',
+                'cancelada': '🛑 Cancelada',
+                'falha': '❌ Falha',
+                'falha_alocacao': '🚫 Falha Alocação',
+                'falha_envio': '📤 Falha Envio',
+                'erro_agente': '💥 Erro Agente'
+            };
+            return statusMap[status] || status;
+        }
+
+        function canCancelTask(status) {
+            return ['analisando_ia', 'na_fila', 'pendente', 'alocada', 'executando'].indexOf(status) >= 0;
+        }
+
+        async function cancelTask(taskId, event) {
+            if (event) event.stopPropagation();
+            const userId = document.getElementById('userId').value;
+            if (!userId) return;
+            if (!confirm('Cancelar esta tarefa?')) return;
+            try {
+                const res = await fetch(buildApiUrl('/cancel_task'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ task_id: taskId, user_id: userId })
+                });
+                const data = await res.json().catch(() => ({}));
+                if (res.ok) {
+                    loadUserTasks();
+                } else {
+                    alert(data.message || 'Falha ao cancelar.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Erro ao cancelar tarefa.');
+            }
+        }
+
+        function formatDate(timestamp) {
+            return new Date(timestamp * 1000).toLocaleString('pt-BR');
+        }
+
+        function formatTaskType(type) {
+            if (!type) return '—';
+            if (type === 'auto') return 'Automático (IA)';
+            return String(type).replace(/_/g, ' ');
+        }
+
+        // Event listener do formulário
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const file = fileInput.files[0];
+            const userId = userIdInput.value;
+
+            if (!file) {
+                showMessage('Por favor, selecione um arquivo.', 'error');
+                return;
+            }
+
+            // Desabilita o botão e mostra loading
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Enviando...';
+
+            showMessage('Enviando tarefa... A IA analisará o script.', 'info');
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('taskType', 'auto');  // IA define requisitos
+            formData.append('userId', userId);
+
+            try {
+                const response = await fetch(buildApiUrl('/submit_task'), {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage(`Sucesso: ${data.message}`, 'success');
+                    const newTask = {
+                        task_id: data.task_id,
+                        task_type: data.task_type,
+                        filename: data.filename,
+                        status: data.status || 'na_fila',
+                        submitted_at: data.submitted_at,
+                        allocated_node_id: null,
+                        required_cpu_threads: data.required_cpu_threads,
+                        required_memory_gb: data.required_memory_gb,
+                        required_disk_gb: data.required_disk_gb,
+                        docker_image: data.docker_image,
+                        ai_detected_libraries: data.detected_libraries || [],
+                        result: null,
+                    };
+                    cachedTasks = [newTask, ...cachedTasks.filter((t) => t.task_id !== newTask.task_id)];
+                    renderSidebar();
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    form.reset();
+                    loadUserTasks();
+                } else {
+                    showMessage(`Erro: ${data.message}`, 'error');
+                }
+
+            } catch (error) {
+                console.error('Erro de conexão:', error);
+                showMessage('Erro ao conectar com o servidor.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Enviar Tarefa';
+            }
+        });
+
+        function showMessage(text, type) {
+            messageDisplay.textContent = text;
+            messageDisplay.className = `message ${type}`;
+            messageDisplay.style.display = 'block';
+            
+            if (type === 'success') {
+                setTimeout(() => {
+                    messageDisplay.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // Função para abrir detalhes da tarefa
+        function openTaskDetails(taskId) {
+            window.location.href = `task_details.html?task_id=${taskId}`;
+        }
+
+        // Sistema de logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja fazer logout?')) {
+                localStorage.removeItem('authenticated');
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('isAdmin');
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+[
+  {
+    "run": 1,
+    "status": "Succeeded",
+    "duration_s": 35.897,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T21:56:24.807320+00:00"
+  },
+  {
+    "run": 2,
+    "status": "Succeeded",
+    "duration_s": 25.302,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T21:56:56.656066+00:00"
+  },
+  {
+    "run": 3,
+    "status": "Succeeded",
+    "duration_s": 25.365,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T21:57:28.554364+00:00"
+  },
+  {
+    "run": 4,
+    "status": "Succeeded",
+    "duration_s": 25.33,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T21:58:00.420242+00:00"
+  },
+  {
+    "run": 5,
+    "status": "Succeeded",
+    "duration_s": 35.836,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T21:58:42.782050+00:00"
+  },
+  {
+    "run": 6,
+    "status": "Succeeded",
+    "duration_s": 25.291,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T21:59:14.702413+00:00"
+  },
+  {
+    "run": 7,
+    "status": "Succeeded",
+    "duration_s": 25.413,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T21:59:46.641779+00:00"
+  },
+  {
+    "run": 8,
+    "status": "Succeeded",
+    "duration_s": 25.319,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T22:00:18.487664+00:00"
+  },
+  {
+    "run": 9,
+    "status": "Succeeded",
+    "duration_s": 25.388,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T22:00:50.414956+00:00"
+  },
+  {
+    "run": 10,
+    "status": "Succeeded",
+    "duration_s": 25.333,
+    "job": "exp1-baseline",
+    "at": "2026-08-14T22:01:22.280932+00:00"
+  }
+]

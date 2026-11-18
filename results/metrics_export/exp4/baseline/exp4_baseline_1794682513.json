@@ -1,0 +1,206 @@
+{
+  "experiment": "exp4",
+  "arm": "k8s-default",
+  "n": 9,
+  "sequence": [
+    "edge",
+    "fog",
+    "cloud",
+    "edge",
+    "fog",
+    "cloud",
+    "edge",
+    "fog",
+    "cloud"
+  ],
+  "runtime_image": "python:3.11-slim",
+  "prepull": {
+    "tcc-cluster-worker": {
+      "ok": true,
+      "detail": "Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70"
+    },
+    "tcc-cluster-worker2": {
+      "ok": true,
+      "detail": "Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70"
+    },
+    "tcc-cluster-worker3": {
+      "ok": true,
+      "detail": "Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70"
+    }
+  },
+  "note_image_control": "Imagem única python:3.11-slim nas 9 jobs; pré-pull nos 3 workers antes do lote para equalizar ImageLocality/cache.",
+  "hits": 1,
+  "hit_rate": 0.1111,
+  "hit_by_preferred": {
+    "edge": {
+      "n": 3,
+      "hits": 0,
+      "hit_rate": 0.0
+    },
+    "fog": {
+      "n": 3,
+      "hits": 0,
+      "hit_rate": 0.0
+    },
+    "cloud": {
+      "n": 3,
+      "hits": 1,
+      "hit_rate": 0.3333333333333333
+    }
+  },
+  "confusion_matrix_preferred_vs_allocated": {
+    "edge": {
+      "edge": 0,
+      "fog": 1,
+      "cloud": 2
+    },
+    "fog": {
+      "edge": 0,
+      "fog": 0,
+      "cloud": 3
+    },
+    "cloud": {
+      "edge": 0,
+      "fog": 2,
+      "cloud": 1
+    }
+  },
+  "allocated_layer_distribution": {
+    "fog": 3,
+    "cloud": 6
+  },
+  "profile_counts": {
+    "edge": 3,
+    "fog": 3,
+    "cloud": 3
+  },
+  "runs": [
+    {
+      "run": 1,
+      "profile": "edge",
+      "script": "task_edge_light.py",
+      "preferred_layer": "edge",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-9l9l8",
+      "nodeName": "tcc-cluster-worker2",
+      "allocated_layer": "fog",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 10.825,
+      "at": "2026-11-14T18:53:37.125226+00:00"
+    },
+    {
+      "run": 2,
+      "profile": "fog",
+      "script": "task_fog_cpu.py",
+      "preferred_layer": "fog",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-v7b2t",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 6.638,
+      "at": "2026-11-14T18:53:48.109936+00:00"
+    },
+    {
+      "run": 3,
+      "profile": "cloud",
+      "script": "task_cloud_ml.py",
+      "preferred_layer": "cloud",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-szxtw",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": true,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 6.637,
+      "at": "2026-11-14T18:53:59.091811+00:00"
+    },
+    {
+      "run": 4,
+      "profile": "edge",
+      "script": "task_edge_light.py",
+      "preferred_layer": "edge",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-kd74x",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 10.806,
+      "at": "2026-11-14T18:54:14.237223+00:00"
+    },
+    {
+      "run": 5,
+      "profile": "fog",
+      "script": "task_fog_cpu.py",
+      "preferred_layer": "fog",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-pkcxx",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 6.664,
+      "at": "2026-11-14T18:54:25.255079+00:00"
+    },
+    {
+      "run": 6,
+      "profile": "cloud",
+      "script": "task_cloud_ml.py",
+      "preferred_layer": "cloud",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-6p4jr",
+      "nodeName": "tcc-cluster-worker2",
+      "allocated_layer": "fog",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 6.645,
+      "at": "2026-11-14T18:54:36.236730+00:00"
+    },
+    {
+      "run": 7,
+      "profile": "edge",
+      "script": "task_edge_light.py",
+      "preferred_layer": "edge",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-nntlr",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 10.824,
+      "at": "2026-11-14T18:54:51.399308+00:00"
+    },
+    {
+      "run": 8,
+      "profile": "fog",
+      "script": "task_fog_cpu.py",
+      "preferred_layer": "fog",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-8sv2d",
+      "nodeName": "tcc-cluster-worker3",
+      "allocated_layer": "cloud",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 6.647,
+      "at": "2026-11-14T18:55:02.398685+00:00"
+    },
+    {
+      "run": 9,
+      "profile": "cloud",
+      "script": "task_cloud_ml.py",
+      "preferred_layer": "cloud",
+      "status": "Succeeded",
+      "pod": "exp4-baseline-run-lh5hh",
+      "nodeName": "tcc-cluster-worker2",
+      "allocated_layer": "fog",
+      "hit": false,
+      "docker_image": "python:3.11-slim",
+      "duration_s": 6.637,
+      "at": "2026-11-14T18:55:13.378476+00:00"
+    }
+  ],
+  "at": "2026-11-14T18:55:13.651883+00:00"
+}

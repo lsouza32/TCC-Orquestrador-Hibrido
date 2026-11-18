@@ -1,0 +1,25 @@
+================================================================
+EXP-02 — Orquestrador Híbrido (noisy neighbor)
+API=http://127.0.0.1:5000  runs=5  hot_node=tcc-cluster-worker2  warmup=55s
+================================================================
+Stress pod exp2-noisy-neighbor removido (ns=tcc-baseline)
+Cold start backup: C:\Users\lsouz\Faculdade\TCC\data\nodes.bak_1794868315.db
+Cold start: removidos 9 tasks, 9 results
+Cold start: uploads removidos=9
+Traceback (most recent call last):
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_hybrid.py", line 436, in <module>
+    raise SystemExit(main())
+                     ~~~~^^
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_hybrid.py", line 280, in main
+    ensure_namespace(args.namespace)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_hybrid.py", line 95, in ensure_namespace
+    kubectl(["create", "namespace", namespace])
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lsouz\Faculdade\TCC\scripts\run_exp2_hybrid.py", line 52, in kubectl
+    return subprocess.run(["kubectl", *args], check=check, text=True, capture_output=True)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\lsouz\AppData\Local\Programs\Python\Python314\Lib\subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['kubectl', 'create', 'namespace', 'tcc-baseline']' returned non-zero exit status 1.

@@ -1,0 +1,49 @@
+{
+  "model": "LiquidAI/lfm2.5-1.2b-instruct",
+  "n": 4,
+  "planning_s_mean": 9.892,
+  "planning_s_min": 9.792,
+  "planning_s_max": 9.978,
+  "runs": [
+    {
+      "run": 1,
+      "planning_s": 9.978,
+      "used_fallback": false,
+      "docker_image": "joyzoursky/python-chromedriver:latest",
+      "category": "ml_treinamento",
+      "detected_libraries": "[\"requests\"]",
+      "cpu": 4.0,
+      "ram_gb": 2.0
+    },
+    {
+      "run": 2,
+      "planning_s": 9.931,
+      "used_fallback": false,
+      "docker_image": "joyzoursky/python-chromedriver:latest",
+      "category": "ml_treinamento",
+      "detected_libraries": "[\"requests\"]",
+      "cpu": 4.0,
+      "ram_gb": 2.0
+    },
+    {
+      "run": 3,
+      "planning_s": 9.868,
+      "used_fallback": false,
+      "docker_image": "joyzoursky/python-chromedriver:latest",
+      "category": "ml_treinamento",
+      "detected_libraries": "[\"requests\"]",
+      "cpu": 4.0,
+      "ram_gb": 2.0
+    },
+    {
+      "run": 4,
+      "planning_s": 9.792,
+      "used_fallback": false,
+      "docker_image": "joyzoursky/python-chromedriver:latest",
+      "category": "ml_treinamento",
+      "detected_libraries": "[\"requests\"]",
+      "cpu": 4.0,
+      "ram_gb": 2.0
+    }
+  ]
+}

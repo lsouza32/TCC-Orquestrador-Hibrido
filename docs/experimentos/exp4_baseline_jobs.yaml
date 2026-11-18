@@ -1,0 +1,146 @@
+# EXP-04 — Jobs baseline de topologia (sem nodeSelector / sem afinidade de camada)
+# Os 3 scripts ficam no ConfigMap; o runner aplica Jobs seriais reutilizando este manifesto
+# (ou gera Jobs one-shot a partir destes templates).
+#
+# Requests modestos e IGUAIS para isolar a variável topologia.
+# Imagem única: python:3.11-slim
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: exp4-baseline-scripts
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp4
+    arm: k8s-default
+data:
+  task_edge_light.py: |
+    #!/usr/bin/env python3
+    """EXP-04 — carga leve → preferência teórica Edge."""
+
+    from __future__ import annotations
+
+    import time
+
+    print("hello from edge_light", flush=True)
+    time.sleep(5)
+    print("edge_probe_ok", flush=True)
+  task_fog_cpu.py: |
+    #!/usr/bin/env python3
+    """EXP-04 — carga CPU intermediária → preferência teórica Fog."""
+
+    from __future__ import annotations
+
+
+    def cpu_bound_work(n: int = 4_000_000) -> int:
+        """Loop intensivo de CPU (sem deps externas)."""
+        acc = 0
+        for i in range(n):
+            acc += (i * i) ^ (i << 1)
+        return acc
+
+
+    if __name__ == "__main__":
+        result = cpu_bound_work()
+        print("fog_cpu_probe_ok", result, flush=True)
+  task_cloud_ml.py: |
+    #!/usr/bin/env python3
+    """
+    EXP-04 — carga estilo ML → preferência teórica Cloud.
+
+    O `import tensorflow` / `sklearn` fica no topo para o AST do braço híbrido
+    classificar como ML-heavy. Em runtime (baseline com python:3.11-slim) o import
+    pode falhar — a carga útil é multiplicação pesada de matrizes em Python puro.
+    """
+
+    from __future__ import annotations
+
+    try:
+        import tensorflow as tf  # noqa: F401 — marcador AST / ML-heavy
+    except ImportError:
+        tf = None
+
+    try:
+        import sklearn  # noqa: F401 — marcador AST / ML-heavy
+    except ImportError:
+        sklearn = None
+
+
+    def matmul(a, b):
+        n, m, p = len(a), len(b[0]), len(b)
+        out = [[0.0] * m for _ in range(n)]
+        for i in range(n):
+            for k in range(p):
+                aik = a[i][k]
+                for j in range(m):
+                    out[i][j] += aik * b[k][j]
+        return out
+
+
+    def heavy_matrix_work(size=64, rounds=8):
+        a = [[float((i * size + j) % 17) for j in range(size)] for i in range(size)]
+        b = [[float((i + j * 3) % 13) for j in range(size)] for i in range(size)]
+        acc = 0.0
+        x = a
+        for _ in range(rounds):
+            x = matmul(x, b)
+            acc += x[0][0] + x[size // 2][size // 2]
+        return acc
+
+
+    if __name__ == "__main__":
+        print(
+            f"cloud_ml: tf={'ok' if tf is not None else 'mock'} "
+            f"sklearn={'ok' if sklearn is not None else 'mock'}",
+            flush=True,
+        )
+        result = heavy_matrix_work()
+        print("cloud_ml_probe_ok", result, flush=True)
+---
+# Template de Job — o runner sobrescreve name/labels/args por corrida.
+# Mantido aqui como referência do contrato baseline (sem afinidade).
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exp4-baseline-template
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp4
+    arm: k8s-default
+    profile: template
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: tcc-baseline
+        experiment: exp4
+        arm: k8s-default
+        profile: template
+    spec:
+      restartPolicy: Never
+      # SEM nodeSelector / SEM affinity — kube-scheduler cego à topologia TCC
+      containers:
+        - name: task-runner
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - cd /app/scripts && python3 task_edge_light.py
+          volumeMounts:
+            - name: task-scripts
+              mountPath: /app/scripts
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+      volumes:
+        - name: task-scripts
+          configMap:
+            name: exp4-baseline-scripts

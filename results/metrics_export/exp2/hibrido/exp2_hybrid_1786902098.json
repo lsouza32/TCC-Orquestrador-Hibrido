@@ -1,0 +1,185 @@
+{
+  "experiment": "exp2",
+  "arm": "hybrid",
+  "hot_node": "tcc-cluster-worker2",
+  "stress_pod": "exp2-noisy-neighbor",
+  "batch_started_at": "2026-08-16T17:38:02.857979+00:00",
+  "batch_ended_at": "2026-08-16T17:41:38.292569+00:00",
+  "makespan_s": 215.435,
+  "makespan_note": "ponta-a-ponta: 1º POST /submit_task até último status terminal (inclui planejamento IA / Ollama)",
+  "n_tasks": 5,
+  "n_on_hot_node": 0,
+  "node_distribution": {
+    "tcc-cluster-worker3": 5
+  },
+  "tasks": [
+    {
+      "run": 1,
+      "task_id": "b33c70d9-0086-4446-954e-a5a4e2930b5c",
+      "status": "concluida",
+      "docker_image": "python:3.11-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": null,
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 95.451358,
+        "cpu_peak_percent": 99.13,
+        "ram_peak_mb": 7.27,
+        "prediction_delta_ram": 0.4929
+      },
+      "ram_peak_mb": 7.27,
+      "cpu_peak_percent": 99.13,
+      "duration_seconds": 95.451358,
+      "submitted_at": 1786901883.43866,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 2,
+      "task_id": "fdf6b646-b17f-4847-9592-217ec2d97ee6",
+      "status": "concluida",
+      "docker_image": "python:3.11-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": null,
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 93.8707,
+        "cpu_peak_percent": 99.3,
+        "ram_peak_mb": 3.95,
+        "prediction_delta_ram": 0.4961
+      },
+      "ram_peak_mb": 3.95,
+      "cpu_peak_percent": 99.3,
+      "duration_seconds": 93.8707,
+      "submitted_at": 1786901883.4841523,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 3,
+      "task_id": "3e2084ee-34de-4aa9-9e15-3e402687a0f7",
+      "status": "concluida",
+      "docker_image": "python:3.11-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": null,
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 94.800498,
+        "cpu_peak_percent": 84.25,
+        "ram_peak_mb": 4.01,
+        "prediction_delta_ram": 0.4961
+      },
+      "ram_peak_mb": 4.01,
+      "cpu_peak_percent": 84.25,
+      "duration_seconds": 94.800498,
+      "submitted_at": 1786901883.5171115,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 4,
+      "task_id": "4b56817b-65c8-49af-9db5-dcab504b923b",
+      "status": "concluida",
+      "docker_image": "python:3.11-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": null,
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 86.930888,
+        "cpu_peak_percent": 99.83,
+        "ram_peak_mb": 4.01,
+        "prediction_delta_ram": 0.4961
+      },
+      "ram_peak_mb": 4.01,
+      "cpu_peak_percent": 99.83,
+      "duration_seconds": 86.930888,
+      "submitted_at": 1786901883.5508683,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 5,
+      "task_id": "130d1519-b7c6-49b5-b983-cdda53d343e7",
+      "status": "concluida",
+      "docker_image": "python:3.11-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": null,
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 85.927657,
+        "cpu_peak_percent": 99.19,
+        "ram_peak_mb": 4.02,
+        "prediction_delta_ram": 0.4961
+      },
+      "ram_peak_mb": 4.02,
+      "cpu_peak_percent": 99.19,
+      "duration_seconds": 85.927657,
+      "submitted_at": 1786901883.59389,
+      "started_at": null,
+      "finished_at": null
+    }
+  ],
+  "kubectl_top_nodes_after_warmup": "NAME                        CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   \ntcc-cluster-control-plane   114m         0%       682Mi           8%          \ntcc-cluster-worker          21m          0%       221Mi           2%          \ntcc-cluster-worker2         1701m        14%      185Mi           2%          \ntcc-cluster-worker3         18m          0%       161Mi           2%",
+  "submit_errors": [],
+  "at": "2026-08-16T17:41:38.402814+00:00"
+}

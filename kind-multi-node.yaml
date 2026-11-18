@@ -1,0 +1,15 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+# Control-plane: não tipado para execução de tarefas (taint NoSchedule típico).
+- role: control-plane
+# Workers representam as camadas Edge, Fog e Cloud do TCC.
+- role: worker
+  labels:
+    tcc.utfpr.edu.br/compute-layer: edge
+- role: worker
+  labels:
+    tcc.utfpr.edu.br/compute-layer: fog
+- role: worker
+  labels:
+    tcc.utfpr.edu.br/compute-layer: cloud

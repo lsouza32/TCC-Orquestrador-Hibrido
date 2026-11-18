@@ -1,0 +1,63 @@
+[
+  {
+    "case": "edge_light",
+    "task_id": "4edd5154-2e6a-44dc-bf60-6b9fe773d1f4",
+    "expected_preferred": "edge",
+    "preferred_compute_layer": "fog",
+    "allocated_compute_layer": "fog",
+    "allocated_node_id": "k8s:tcc-cluster-worker",
+    "docker_image": "python:3.9-slim",
+    "status": "concluida",
+    "result": {
+      "status_final": "concluida",
+      "duration_seconds": 85.660182,
+      "cpu_peak_percent": 0.71,
+      "ram_peak_mb": 1.29
+    },
+    "checks": {
+      "preferred_matches_expected": false,
+      "preferred_equals_allocated": true,
+      "hostname_matches_layer_node": false
+    },
+    "at": "2026-07-18T23:20:47.770812+00:00"
+  },
+  {
+    "case": "fog_cpu",
+    "task_id": "7d17b9bf-a213-4ee9-9029-9e338c529fc3",
+    "expected_preferred": "fog",
+    "preferred_compute_layer": "fog",
+    "allocated_compute_layer": "fog",
+    "allocated_node_id": "k8s:tcc-cluster-worker",
+    "docker_image": "python:3.11-bullseye",
+    "status": "concluida",
+    "result": {
+      "status_final": "concluida",
+      "duration_seconds": 108.821376,
+      "cpu_peak_percent": 74.37,
+      "ram_peak_mb": 117.47
+    },
+    "checks": {
+      "preferred_matches_expected": true,
+      "preferred_equals_allocated": true,
+      "hostname_matches_layer_node": true
+    },
+    "at": "2026-07-18T23:24:44.869654+00:00"
+  },
+  {
+    "case": "cloud_ml",
+    "task_id": "579a0092-230f-4241-8b60-c09b75f9fdd5",
+    "expected_preferred": "cloud",
+    "preferred_compute_layer": "cloud",
+    "allocated_compute_layer": "cloud",
+    "allocated_node_id": "k8s:tcc-cluster-control-plane",
+    "docker_image": "tcc-tf-ml:latest",
+    "status": "cancelada",
+    "result": null,
+    "checks": {
+      "preferred_matches_expected": true,
+      "preferred_equals_allocated": true,
+      "hostname_matches_layer_node": true
+    },
+    "at": "2026-07-18T23:32:00.026818+00:00"
+  }
+]

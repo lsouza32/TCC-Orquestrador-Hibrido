@@ -1,0 +1,37 @@
+# EXP-03 — Job oversize (gerado por scripts/run_exp3_baseline.py)
+# request/limit = 9676Mi > allocatable do maior worker → Pending / FailedScheduling
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: exp3-baseline-oversize
+  namespace: tcc-baseline
+  labels:
+    app: tcc-baseline
+    experiment: exp3
+    arm: k8s-default
+spec:
+  backoffLimit: 0
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: tcc-baseline
+        experiment: exp3
+        arm: k8s-default
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: task-runner
+          image: python:3.11-slim
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh", "-c"]
+          args:
+            - echo "exp3_oversize_hello" && sleep 2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 9676Mi
+            limits:
+              cpu: 200m
+              memory: 9676Mi

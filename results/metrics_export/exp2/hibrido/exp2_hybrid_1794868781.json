@@ -1,0 +1,205 @@
+{
+  "experiment": "exp2",
+  "arm": "hybrid",
+  "hot_node": "tcc-cluster-worker2",
+  "stress_pod": "exp2-noisy-neighbor",
+  "batch_started_at": "2026-11-16T22:36:47.647631+00:00",
+  "batch_ended_at": "2026-11-16T22:39:08.033048+00:00",
+  "makespan_s": 140.385,
+  "makespan_note": "ponta-a-ponta: 1º POST /submit_task até último status terminal (inclui planejamento IA / Ollama)",
+  "n_tasks": 5,
+  "n_on_hot_node": 0,
+  "node_distribution": {
+    "tcc-cluster-worker3": 5
+  },
+  "tasks": [
+    {
+      "run": 1,
+      "task_id": "b70732ad-2e82-4203-9a4e-4f9959d93479",
+      "status": "concluida",
+      "docker_image": "python:3.9-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": {
+        "near_ceiling_count": 0,
+        "near_ceiling_ratio": 0.0,
+        "near_ceiling": false
+      },
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 94.518521,
+        "cpu_peak_percent": 93.2,
+        "ram_peak_mb": 0.73,
+        "prediction_delta_ram": 0.4993
+      },
+      "ram_peak_mb": 0.73,
+      "cpu_peak_percent": 93.2,
+      "duration_seconds": 94.518521,
+      "submitted_at": 1794868612.5979655,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 2,
+      "task_id": "a6faa0fb-d056-4489-877f-66090c1c2ef7",
+      "status": "concluida",
+      "docker_image": "python:3.9-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": {
+        "near_ceiling_count": 0,
+        "near_ceiling_ratio": 0.0,
+        "near_ceiling": false
+      },
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 95.316257,
+        "cpu_peak_percent": 79.28,
+        "ram_peak_mb": 6.15,
+        "prediction_delta_ram": 0.494
+      },
+      "ram_peak_mb": 6.15,
+      "cpu_peak_percent": 79.28,
+      "duration_seconds": 95.316257,
+      "submitted_at": 1794868612.6275141,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 3,
+      "task_id": "ebff0d8a-58cb-4919-ac60-4bc8dca97c7c",
+      "status": "concluida",
+      "docker_image": "python:3.9-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": {
+        "near_ceiling_count": 0,
+        "near_ceiling_ratio": 0.0,
+        "near_ceiling": false
+      },
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 98.735896,
+        "cpu_peak_percent": 81.98,
+        "ram_peak_mb": 4.66,
+        "prediction_delta_ram": 0.4954
+      },
+      "ram_peak_mb": 4.66,
+      "cpu_peak_percent": 81.98,
+      "duration_seconds": 98.735896,
+      "submitted_at": 1794868612.7015486,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 4,
+      "task_id": "a74b969c-a213-4d91-bfec-4f153db46842",
+      "status": "concluida",
+      "docker_image": "python:3.9-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": {
+        "near_ceiling_count": 0,
+        "near_ceiling_ratio": 0.0,
+        "near_ceiling": false
+      },
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 92.53187,
+        "cpu_peak_percent": 82.73,
+        "ram_peak_mb": 4.66,
+        "prediction_delta_ram": 0.4954
+      },
+      "ram_peak_mb": 4.66,
+      "cpu_peak_percent": 82.73,
+      "duration_seconds": 92.53187,
+      "submitted_at": 1794868612.7325468,
+      "started_at": null,
+      "finished_at": null
+    },
+    {
+      "run": 5,
+      "task_id": "4b773a36-c318-4a83-a1d9-e8333c69e32b",
+      "status": "concluida",
+      "docker_image": "python:3.9-slim",
+      "preferred_compute_layer": "fog",
+      "allocated_compute_layer": "cloud",
+      "allocated_node_id": "k8s:tcc-cluster-worker3",
+      "hostname": "tcc-cluster-worker3",
+      "on_hot_node": false,
+      "librarian_best_image": "python:3.11-slim",
+      "ceiling_signals": {
+        "near_ceiling_count": 0,
+        "near_ceiling_ratio": 0.0,
+        "near_ceiling": false
+      },
+      "safety_margin": {
+        "applied": false,
+        "factor": 1.0,
+        "base_cpu": 1.0,
+        "base_ram": 0.5,
+        "reason": "sem sinal de teto"
+      },
+      "result": {
+        "status_final": "concluida",
+        "duration_seconds": 94.301113,
+        "cpu_peak_percent": 100.0,
+        "ram_peak_mb": 4.74,
+        "prediction_delta_ram": 0.4954
+      },
+      "ram_peak_mb": 4.74,
+      "cpu_peak_percent": 100.0,
+      "duration_seconds": 94.301113,
+      "submitted_at": 1794868612.7758265,
+      "started_at": null,
+      "finished_at": null
+    }
+  ],
+  "kubectl_top_nodes_after_warmup": "NAME                        CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   \ntcc-cluster-control-plane   127m         1%       657Mi           8%          \ntcc-cluster-worker          21m          0%       179Mi           2%          \ntcc-cluster-worker2         1783m        14%      144Mi           1%          \ntcc-cluster-worker3         22m          0%       137Mi           1%",
+  "submit_errors": [],
+  "at": "2026-11-16T22:39:41.495647+00:00"
+}

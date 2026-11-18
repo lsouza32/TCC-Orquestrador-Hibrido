@@ -1,0 +1,299 @@
+================================================================
+EXP-01 — Orquestrador Híbrido
+API=http://127.0.0.1:5000  runs=10  script=task_exp1_memory.py
+================================================================
+Cold start backup: C:\Users\lsouz\Faculdade\TCC\data\nodes.bak_1794680704.db
+Cold start: removidos 9 tasks, 9 results
+Cold start: uploads removidos=9
+
+--- Run 1/10 ---
+  submetida: f0258579-538a-49f8-b465-5e58f81c79dc
+  [15:25:05] f0258579… status=analisando_ia image=python:3.9-slim
+  [15:25:10] f0258579… status=analisando_ia image=python:3.9-slim
+  [15:25:15] f0258579… status=analisando_ia image=python:3.9-slim
+  [15:25:20] f0258579… status=executando image=python:3.11-slim
+  [15:25:25] f0258579… status=executando image=python:3.11-slim
+  [15:25:30] f0258579… status=executando image=python:3.11-slim
+  [15:25:35] f0258579… status=executando image=python:3.11-slim
+  [15:25:40] f0258579… status=executando image=python:3.11-slim
+  [15:25:45] f0258579… status=executando image=python:3.11-slim
+  [15:25:50] f0258579… status=executando image=python:3.11-slim
+  [15:25:55] f0258579… status=executando image=python:3.11-slim
+  [15:26:00] f0258579… status=executando image=python:3.11-slim
+  [15:26:05] f0258579… status=executando image=python:3.11-slim
+  [15:26:10] f0258579… status=executando image=python:3.11-slim
+  [15:26:15] f0258579… status=executando image=python:3.11-slim
+  [15:26:20] f0258579… status=executando image=python:3.11-slim
+  [15:26:25] f0258579… status=executando image=python:3.11-slim
+  [15:26:30] f0258579… status=executando image=python:3.11-slim
+  [15:26:35] f0258579… status=executando image=python:3.11-slim
+  [15:26:40] f0258579… status=executando image=python:3.11-slim
+  [15:26:45] f0258579… status=executando image=python:3.11-slim
+  [15:26:50] f0258579… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.4 wall_s=105.1
+
+--- Run 2/10 ---
+  submetida: af3dd6dc-8d51-488a-b667-c22e5b63c5e0
+  [15:26:58] af3dd6dc… status=analisando_ia image=python:3.9-slim
+  [15:27:03] af3dd6dc… status=analisando_ia image=python:3.9-slim
+  [15:27:08] af3dd6dc… status=analisando_ia image=python:3.9-slim
+  [15:27:13] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:18] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:23] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:28] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:33] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:38] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:43] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:48] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:53] af3dd6dc… status=executando image=python:3.11-slim
+  [15:27:58] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:03] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:08] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:13] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:18] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:23] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:28] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:33] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:38] af3dd6dc… status=executando image=python:3.11-slim
+  [15:28:43] af3dd6dc… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.4 wall_s=105.1
+
+--- Run 3/10 ---
+  submetida: 96eca93d-7b55-4bc5-bdf9-47e64f805914
+  [15:28:51] 96eca93d… status=analisando_ia image=python:3.9-slim
+  [15:28:56] 96eca93d… status=analisando_ia image=python:3.9-slim
+  [15:29:01] 96eca93d… status=analisando_ia image=python:3.9-slim
+  [15:29:06] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:11] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:16] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:21] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:26] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:31] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:36] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:41] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:46] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:51] 96eca93d… status=executando image=python:3.11-slim
+  [15:29:56] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:01] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:06] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:11] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:16] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:21] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:26] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:31] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:36] 96eca93d… status=executando image=python:3.11-slim
+  [15:30:41] 96eca93d… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.39 wall_s=110.1
+
+--- Run 4/10 ---
+  submetida: 175a981e-5e66-4685-8ca5-f8c847749668
+  [15:30:49] 175a981e… status=analisando_ia image=python:3.9-slim
+  [15:30:54] 175a981e… status=analisando_ia image=python:3.9-slim
+  [15:30:59] 175a981e… status=analisando_ia image=python:3.9-slim
+  [15:31:04] 175a981e… status=executando image=python:3.11-slim
+  [15:31:09] 175a981e… status=executando image=python:3.11-slim
+  [15:31:14] 175a981e… status=executando image=python:3.11-slim
+  [15:31:19] 175a981e… status=executando image=python:3.11-slim
+  [15:31:24] 175a981e… status=executando image=python:3.11-slim
+  [15:31:29] 175a981e… status=executando image=python:3.11-slim
+  [15:31:34] 175a981e… status=executando image=python:3.11-slim
+  [15:31:39] 175a981e… status=executando image=python:3.11-slim
+  [15:31:44] 175a981e… status=executando image=python:3.11-slim
+  [15:31:49] 175a981e… status=executando image=python:3.11-slim
+  [15:31:54] 175a981e… status=executando image=python:3.11-slim
+  [15:31:59] 175a981e… status=executando image=python:3.11-slim
+  [15:32:04] 175a981e… status=executando image=python:3.11-slim
+  [15:32:09] 175a981e… status=executando image=python:3.11-slim
+  [15:32:14] 175a981e… status=executando image=python:3.11-slim
+  [15:32:19] 175a981e… status=executando image=python:3.11-slim
+  [15:32:24] 175a981e… status=executando image=python:3.11-slim
+  [15:32:29] 175a981e… status=executando image=python:3.11-slim
+  [15:32:34] 175a981e… status=executando image=python:3.11-slim
+  [15:32:39] 175a981e… status=executando image=python:3.11-slim
+  [15:32:44] 175a981e… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.39 wall_s=115.1
+
+--- Run 5/10 ---
+  submetida: ea615ab1-984f-4a8a-a011-9cbd00484ceb
+  [15:32:52] ea615ab1… status=analisando_ia image=python:3.9-slim
+  [15:32:57] ea615ab1… status=analisando_ia image=python:3.9-slim
+  [15:33:02] ea615ab1… status=analisando_ia image=python:3.9-slim
+  [15:33:07] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:12] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:17] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:22] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:27] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:32] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:37] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:42] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:47] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:52] ea615ab1… status=executando image=python:3.11-slim
+  [15:33:57] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:02] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:07] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:12] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:17] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:22] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:27] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:32] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:37] ea615ab1… status=executando image=python:3.11-slim
+  [15:34:42] ea615ab1… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.39 wall_s=110.1
+
+--- Run 6/10 ---
+  submetida: cedde9ca-1098-418e-9785-3bb426d53958
+  [15:34:50] cedde9ca… status=analisando_ia image=python:3.9-slim
+  [15:34:55] cedde9ca… status=analisando_ia image=python:3.9-slim
+  [15:35:00] cedde9ca… status=analisando_ia image=python:3.9-slim
+  [15:35:05] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:10] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:15] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:20] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:25] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:30] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:35] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:40] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:45] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:50] cedde9ca… status=executando image=python:3.11-slim
+  [15:35:55] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:00] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:05] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:10] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:15] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:20] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:25] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:30] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:35] cedde9ca… status=executando image=python:3.11-slim
+  [15:36:40] cedde9ca… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.4 wall_s=110.1
+
+--- Run 7/10 ---
+  submetida: e208ef6f-ca57-4b58-831c-bd48237b8515
+  [15:36:48] e208ef6f… status=analisando_ia image=python:3.9-slim
+  [15:36:53] e208ef6f… status=analisando_ia image=python:3.9-slim
+  [15:36:58] e208ef6f… status=analisando_ia image=python:3.9-slim
+  [15:37:03] e208ef6f… status=na_fila image=python:3.9-slim
+  [15:37:08] e208ef6f… status=na_fila image=python:3.9-slim
+  [15:37:13] e208ef6f… status=na_fila image=python:3.9-slim
+  [15:37:18] e208ef6f… status=na_fila image=python:3.9-slim
+  [15:37:23] e208ef6f… status=executando image=python:3.9-slim
+  [15:37:28] e208ef6f… status=executando image=python:3.9-slim
+  [15:37:33] e208ef6f… status=executando image=python:3.9-slim
+  [15:37:38] e208ef6f… status=executando image=python:3.9-slim
+  [15:37:43] e208ef6f… status=executando image=python:3.9-slim
+  [15:37:48] e208ef6f… status=executando image=python:3.9-slim
+  [15:37:53] e208ef6f… status=executando image=python:3.9-slim
+  [15:37:58] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:03] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:08] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:13] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:18] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:23] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:28] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:33] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:38] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:43] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:48] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:53] e208ef6f… status=executando image=python:3.9-slim
+  [15:38:58] e208ef6f… status=executando image=python:3.9-slim
+  [15:39:03] e208ef6f… status=concluida image=python:3.9-slim
+  RESULTADO: status=concluida image=python:3.9-slim ram_peak_mb=225.58 wall_s=135.1
+
+--- Run 8/10 ---
+  submetida: 428466d6-c21c-443a-aea0-3f247cf653d3
+  [15:39:11] 428466d6… status=analisando_ia image=python:3.9-slim
+  [15:39:16] 428466d6… status=analisando_ia image=python:3.9-slim
+  [15:39:21] 428466d6… status=analisando_ia image=python:3.9-slim
+  [15:39:26] 428466d6… status=analisando_ia image=python:3.9-slim
+  [15:39:31] 428466d6… status=executando image=python:3.11-slim
+  [15:39:36] 428466d6… status=executando image=python:3.11-slim
+  [15:39:41] 428466d6… status=executando image=python:3.11-slim
+  [15:39:46] 428466d6… status=executando image=python:3.11-slim
+  [15:39:51] 428466d6… status=executando image=python:3.11-slim
+  [15:39:56] 428466d6… status=executando image=python:3.11-slim
+  [15:40:01] 428466d6… status=executando image=python:3.11-slim
+  [15:40:06] 428466d6… status=executando image=python:3.11-slim
+  [15:40:11] 428466d6… status=executando image=python:3.11-slim
+  [15:40:16] 428466d6… status=executando image=python:3.11-slim
+  [15:40:21] 428466d6… status=executando image=python:3.11-slim
+  [15:40:26] 428466d6… status=executando image=python:3.11-slim
+  [15:40:31] 428466d6… status=executando image=python:3.11-slim
+  [15:40:36] 428466d6… status=executando image=python:3.11-slim
+  [15:40:41] 428466d6… status=executando image=python:3.11-slim
+  [15:40:46] 428466d6… status=executando image=python:3.11-slim
+  [15:40:51] 428466d6… status=executando image=python:3.11-slim
+  [15:40:56] 428466d6… status=executando image=python:3.11-slim
+  [15:41:01] 428466d6… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.39 wall_s=110.1
+
+--- Run 9/10 ---
+  submetida: b6a3d775-5b51-4c54-93da-29df8a23cc33
+  [15:41:09] b6a3d775… status=analisando_ia image=python:3.9-slim
+  [15:41:14] b6a3d775… status=analisando_ia image=python:3.9-slim
+  [15:41:19] b6a3d775… status=analisando_ia image=python:3.9-slim
+  [15:41:24] b6a3d775… status=analisando_ia image=python:3.9-slim
+  [15:41:29] b6a3d775… status=executando image=python:3.11-slim
+  [15:41:34] b6a3d775… status=executando image=python:3.11-slim
+  [15:41:39] b6a3d775… status=executando image=python:3.11-slim
+  [15:41:44] b6a3d775… status=executando image=python:3.11-slim
+  [15:41:49] b6a3d775… status=executando image=python:3.11-slim
+  [15:41:54] b6a3d775… status=executando image=python:3.11-slim
+  [15:41:59] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:04] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:09] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:14] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:19] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:24] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:29] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:34] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:39] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:44] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:49] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:54] b6a3d775… status=executando image=python:3.11-slim
+  [15:42:59] b6a3d775… status=executando image=python:3.11-slim
+  [15:43:04] b6a3d775… status=concluida image=python:3.11-slim
+  RESULTADO: status=concluida image=python:3.11-slim ram_peak_mb=224.39 wall_s=115.1
+
+--- Run 10/10 ---
+  submetida: 2d9ec2b1-9f2f-4a20-ab18-6ae763d2d118
+  [15:43:12] 2d9ec2b1… status=analisando_ia image=python:3.9-slim
+  [15:43:17] 2d9ec2b1… status=analisando_ia image=python:3.9-slim
+  [15:43:22] 2d9ec2b1… status=analisando_ia image=python:3.9-slim
+  [15:43:27] 2d9ec2b1… status=analisando_ia image=python:3.9-slim
+  [15:43:32] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:43:37] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:43:42] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:43:47] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:43:52] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:43:57] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:02] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:07] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:12] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:17] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:22] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:27] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:32] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:37] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:42] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:47] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:52] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:44:57] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:45:02] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:45:07] 2d9ec2b1… status=executando image=python:3.9-slim
+  [15:45:12] 2d9ec2b1… status=concluida image=python:3.9-slim
+  RESULTADO: status=concluida image=python:3.9-slim ram_peak_mb=225.09 wall_s=120.1
+
+================================================================
+RESUMO HÍBRIDO
+  run1: python:3.11-slim | status=concluida | ram_peak_mb=224.4 | node=k8s:tcc-cluster-worker3
+  run2: python:3.11-slim | status=concluida | ram_peak_mb=224.4 | node=k8s:tcc-cluster-worker2
+  run3: python:3.11-slim | status=concluida | ram_peak_mb=224.39 | node=k8s:tcc-cluster-worker3
+  run4: python:3.11-slim | status=concluida | ram_peak_mb=224.39 | node=k8s:tcc-cluster-worker2
+  run5: python:3.11-slim | status=concluida | ram_peak_mb=224.39 | node=k8s:tcc-cluster-worker3
+  run6: python:3.11-slim | status=concluida | ram_peak_mb=224.4 | node=k8s:tcc-cluster-worker3
+  run7: python:3.9-slim | status=concluida | ram_peak_mb=225.58 | node=k8s:tcc-cluster-worker3
+  run8: python:3.11-slim | status=concluida | ram_peak_mb=224.39 | node=k8s:tcc-cluster-worker3
+  run9: python:3.11-slim | status=concluida | ram_peak_mb=224.39 | node=k8s:tcc-cluster-worker2
+  run10: python:3.9-slim | status=concluida | ram_peak_mb=225.09 | node=k8s:tcc-cluster-worker3
+
+JSON: C:\Users\lsouz\Faculdade\TCC\results\metrics_export\exp1\hibrido\exp1_hybrid_1794681912.json

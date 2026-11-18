@@ -1,0 +1,61 @@
+{
+  "experiment": "exp2",
+  "arm": "k8s-default",
+  "hot_node": "tcc-cluster-worker2",
+  "stress_pod": "exp2-noisy-neighbor",
+  "batch_started_at": "2026-11-16T22:34:46.478371+00:00",
+  "batch_ended_at": "2026-11-16T22:35:12.825925+00:00",
+  "makespan_s": 26.348,
+  "job_status": {
+    "exp2-baseline-1": "Succeeded",
+    "exp2-baseline-2": "Succeeded",
+    "exp2-baseline-3": "Succeeded",
+    "exp2-baseline-4": "Succeeded",
+    "exp2-baseline-5": "Succeeded"
+  },
+  "placements": [
+    {
+      "pod": "exp2-baseline-1-b4mn9",
+      "run": "1",
+      "nodeName": "tcc-cluster-worker3",
+      "phase": "Succeeded",
+      "on_hot_node": false
+    },
+    {
+      "pod": "exp2-baseline-2-ztqj8",
+      "run": "2",
+      "nodeName": "tcc-cluster-worker2",
+      "phase": "Succeeded",
+      "on_hot_node": true
+    },
+    {
+      "pod": "exp2-baseline-3-94kfd",
+      "run": "3",
+      "nodeName": "tcc-cluster-worker3",
+      "phase": "Succeeded",
+      "on_hot_node": false
+    },
+    {
+      "pod": "exp2-baseline-4-gsp7w",
+      "run": "4",
+      "nodeName": "tcc-cluster-worker2",
+      "phase": "Succeeded",
+      "on_hot_node": true
+    },
+    {
+      "pod": "exp2-baseline-5-fkrsp",
+      "run": "5",
+      "nodeName": "tcc-cluster-worker",
+      "phase": "Succeeded",
+      "on_hot_node": false
+    }
+  ],
+  "node_distribution": {
+    "tcc-cluster-worker3": 2,
+    "tcc-cluster-worker2": 2,
+    "tcc-cluster-worker": 1
+  },
+  "n_on_hot_node": 2,
+  "kubectl_top_nodes_after_warmup": "NAME                        CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   \ntcc-cluster-control-plane   142m         1%       640Mi           8%          \ntcc-cluster-worker          23m          0%       171Mi           2%          \ntcc-cluster-worker2         123m         1%       133Mi           1%          \ntcc-cluster-worker3         20m          0%       126Mi           1%",
+  "at": "2026-11-16T22:35:47.028233+00:00"
+}

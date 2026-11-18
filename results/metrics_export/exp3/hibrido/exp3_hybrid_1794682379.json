@@ -1,0 +1,105 @@
+{
+  "experiment": "exp3",
+  "arm": "hybrid",
+  "task_id": "07725920-bf40-40b3-b64b-a03c45cd8a5e",
+  "status": "concluida",
+  "allocated_node_id": "k8s:tcc-cluster-worker2",
+  "allocated_compute_layer": "fog",
+  "docker_image": "python:3.9-slim",
+  "r_max_gi": 7.567,
+  "workers": [
+    {
+      "hostname": "tcc-cluster-worker",
+      "effective_ram_gi": 7.52,
+      "memory_total_gb": 7.716,
+      "compute_layer": "edge"
+    },
+    {
+      "hostname": "tcc-cluster-worker2",
+      "effective_ram_gi": 7.567,
+      "memory_total_gb": 7.716,
+      "compute_layer": "fog"
+    },
+    {
+      "hostname": "tcc-cluster-worker3",
+      "effective_ram_gi": 7.547,
+      "memory_total_gb": 7.716,
+      "compute_layer": "cloud"
+    }
+  ],
+  "desired_memory_gi": 9.45,
+  "injected_memory_gi": 9.45,
+  "calibrate_reason": "desired_in_window",
+  "window_hi_gi": 9.459,
+  "injection": {
+    "injected_memory_gi": 9.45,
+    "injected_memory_qty": "9676Mi",
+    "injected_cpu": 1.0,
+    "status_before": "pendente",
+    "required_memory_gb_before": 0.5
+  },
+  "required_memory_gb_final": 7.56640625,
+  "effective_k8s_job_spec": {
+    "metadata_name": "task-trivial",
+    "image": "python:3.9-slim",
+    "cpu_request": "1",
+    "cpu_limit": "1",
+    "memory_request": "7748Mi",
+    "memory_limit": "7748Mi",
+    "nodeSelector": {
+      "kubernetes.io/hostname": "tcc-cluster-worker2"
+    }
+  },
+  "memory_limit_effective": "7748Mi",
+  "memory_request_effective": "7748Mi",
+  "dispatch_meta": {
+    "injected_hostname": "tcc-cluster-worker2",
+    "source": "ranked_winner",
+    "best_effort": true,
+    "k8s_job": "task-job-07725920bf4040b3b64ba03c45cd8a5e",
+    "preferred_layer": "cloud",
+    "dispatched_at": 1794682279.8130968
+  },
+  "best_effort": true,
+  "clamp_log_seen": true,
+  "clamp_log_lines": [
+    "18:43:35 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-2d9ec2b19f2f4a20ab186ae763d2d118 cm=task-cm-2d9ec2b19f2f4a20ab186ae763d2d118 image=python:3.9-slim",
+    "18:43:35 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 2d9ec2b1-9f2f-4a20-ab18-6ae763d2d118 | planning_s=20.861 | queue_wait_s=0.144 | submit_to_dispatch_s=21.005 | preferred_layer=cloud | allocated_layer=cloud | hostname=tcc-cluster-worker3",
+    "18:47:23 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-b1c7b86392424771a76a104b9e7b7e46 cm=task-cm-b1c7b86392424771a76a104b9e7b7e46 image=python:3.9-slim",
+    "18:47:23 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: b1c7b863-9242-4771-a76a-104b9e7b7e46 | planning_s=26.242 | queue_wait_s=0.179 | submit_to_dispatch_s=26.420 | preferred_layer=fog | allocated_layer=fog | hostname=tcc-cluster-worker2",
+    "18:47:26 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-1a486463883445dc8b0143c1d7e7f987 cm=task-cm-1a486463883445dc8b0143c1d7e7f987 image=python:3.9-slim",
+    "18:47:26 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 1a486463-8834-45dc-8b01-43c1d7e7f987 | planning_s=29.734 | queue_wait_s=0.148 | submit_to_dispatch_s=29.882 | preferred_layer=fog | allocated_layer=fog | hostname=tcc-cluster-worker2",
+    "18:47:30 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-c8f60e8fa24647dc86c6777a09cee50e cm=task-cm-c8f60e8fa24647dc86c6777a09cee50e image=python:3.9-slim",
+    "18:47:30 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: c8f60e8f-a246-47dc-86c6-777a09cee50e | planning_s=33.285 | queue_wait_s=0.150 | submit_to_dispatch_s=33.435 | preferred_layer=fog | allocated_layer=cloud | hostname=tcc-cluster-worker3",
+    "18:47:34 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-5042abc662d0409ca227b6b655cd947a cm=task-cm-5042abc662d0409ca227b6b655cd947a image=python:3.9-slim",
+    "18:47:34 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 5042abc6-62d0-409c-a227-b6b655cd947a | planning_s=36.883 | queue_wait_s=0.157 | submit_to_dispatch_s=37.040 | preferred_layer=fog | allocated_layer=cloud | hostname=tcc-cluster-worker3",
+    "18:47:37 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-7ed6a447086549eaa0a1de8580abe40c cm=task-cm-7ed6a447086549eaa0a1de8580abe40c image=python:3.9-slim",
+    "18:47:37 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 7ed6a447-0865-49ea-a0a1-de8580abe40c | planning_s=40.650 | queue_wait_s=0.143 | submit_to_dispatch_s=40.793 | preferred_layer=fog | allocated_layer=cloud | hostname=tcc-cluster-worker3",
+    "18:50:56 | \u001b[32mINFO\u001b[0m | context_server.api.tasks_routes | ? TAREFA SUBMETIDA | ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | Tipo: auto | Arquivo: task_exp3_hello.py",
+    "18:50:56 | \u001b[32mINFO\u001b[0m | context_server.api.tasks_routes | Tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e registrada para an?lise ass?ncrona da IA.",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][PLANEJAMENTO] Task ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | Libs: [\"__future__\"] | Tipo IA: CPU-bound | Recursos Solicitados K8s: CPU Req/Lim=200m/1, RAM Req/Lim=256Mi/512Mi",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.api.tasks_routes | ? IA finalizada para 07725920-bf40-40b3-b64b-a03c45cd8a5e | categoria=scripting_geral CPU=1.0 RAM=0.5 disco=0.5 imagem=python:3.9-slim",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.api.tasks_routes | ? [07725920-bf40-40b3-b64b-a03c45cd8a5e] S?ntese dos agentes (Analista/Librarian/Strategist):",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.api.tasks_routes | ? [07725920-bf40-40b3-b64b-a03c45cd8a5e] JSON por agente (multi_agent_trace):",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? 1 node_agent ignorado(s) no ranking K8s (apenas provider_type=kubernetes).",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? nodeSelector injetado hostname=tcc-cluster-worker2 (source=None)",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Job 07725920-bf40-40b3-b64b-a03c45cd8a5e: preservando nodeSelector fresco do caller hostname=tcc-cluster-worker2",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-07725920bf4040b3b64ba03c45cd8a5e cm=task-cm-07725920bf4040b3b64ba03c45cd8a5e image=python:3.9-slim",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | planning_s=9.373 | queue_wait_s=0.000 | submit_to_dispatch_s=9.242 | preferred_layer=fog | allocated_layer=fog | hostname=tcc-cluster-worker2",
+    "18:51:06 | \u001b[32mINFO\u001b[0m | context_server.queue_processor | ? SUCESSO | Tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e despachada como Job Kubernetes | job=task-job-07725920bf4040b3b64ba03c45cd8a5e imagem=python:3.9-slim node=tcc-cluster-worker2 layer=fog",
+    "18:51:19 | \u001b[32mINFO\u001b[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? 1 node_agent ignorado(s) no ranking K8s (apenas provider_type=kubernetes).",
+    "18:51:19 | \u001b[33mWARNING\u001b[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? aloca??o ajustada dentro da toler?ncia de 80% do piso cpu=1.00->1.00 ram=9.45->7.57",
+    "18:51:19 | \u001b[32mINFO\u001b[0m | context_server.queue_processor | Fila: tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e ? nodeSelector injetado hostname=tcc-cluster-worker2 (source=ranked_winner)",
+    "18:51:19 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Job 07725920-bf40-40b3-b64b-a03c45cd8a5e: preservando nodeSelector fresco do caller hostname=tcc-cluster-worker2",
+    "18:51:19 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_job_executor | Kubernetes Job criado | ns=default job=task-job-07725920bf4040b3b64ba03c45cd8a5e cm=task-cm-07725920bf4040b3b64ba03c45cd8a5e image=python:3.9-slim",
+    "18:51:19 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][ALOCACAO] Task ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | planning_s=9.373 | queue_wait_s=13.600 | submit_to_dispatch_s=22.974 | preferred_layer=cloud | allocated_layer=fog | hostname=tcc-cluster-worker2",
+    "18:51:19 | \u001b[32mINFO\u001b[0m | context_server.queue_processor | ? SUCESSO | Tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e despachada como Job Kubernetes | job=task-job-07725920bf4040b3b64ba03c45cd8a5e imagem=python:3.9-slim node=tcc-cluster-worker2 layer=fog",
+    "18:52:59 | \u001b[32mINFO\u001b[0m | context_server.services.tcc_metrics | [TCC-METRICS][EXECUCAO-FIM] Task ID: 07725920-bf40-40b3-b64b-a03c45cd8a5e | Status: concluida | Dura??o: 74.966s",
+    "18:53:00 | \u001b[32mINFO\u001b[0m | context_server.services.task_export | Exporta??o da tarefa 07725920-bf40-40b3-b64b-a03c45cd8a5e salva em /app/exports/07725920-bf40-40b3-b64b-a03c45cd8a5e",
+    "18:53:00 | \u001b[32mINFO\u001b[0m | context_server.services.k8s_watcher | K8s watcher: telemetria task_id=07725920-bf40-40b3-b64b-a03c45cd8a5e cpu_peak=0.34 ram_peak_mb=1.05 ? removendo Job (sinal Broker)"
+  ],
+  "duration_wall_s": 123.985,
+  "job_created": true,
+  "anti_pending": true,
+  "at": "2026-11-14T18:52:59.935840+00:00"
+}

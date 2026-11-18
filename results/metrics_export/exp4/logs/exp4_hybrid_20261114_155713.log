@@ -1,0 +1,184 @@
+================================================================
+EXP-04 — Orquestrador Híbrido (topologia inteligente)
+API=http://127.0.0.1:5000  N=9  ordem=['edge', 'fog', 'cloud', 'edge', 'fog', 'cloud', 'edge', 'fog', 'cloud']
+================================================================
+
+[0/5] Preflight: limpar estresse EXP-02 + snapshot de labels...
+  kubectl nodes -L compute-layer:
+    tcc-cluster-control-plane: layer=None (control-plane)
+    tcc-cluster-worker: layer=edge (worker)
+    tcc-cluster-worker2: layer=fog (worker)
+    tcc-cluster-worker3: layer=cloud (worker)
+
+[1/5] Pré-pull python:3.11-slim nos 3 workers (cache inicial)...
+  pre-pull python:3.11-slim @ tcc-cluster-worker: ok Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70
+  pre-pull python:3.11-slim @ tcc-cluster-worker2: ok Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70
+  pre-pull python:3.11-slim @ tcc-cluster-worker3: ok Image is up to date for sha256:896edfbcbf0c29ad15681617a8886cb9871b7f24c5fde4606114c8ee6bfe4c70
+
+[2/5] Cold Start SQLite (tasks + task_results) — OBRIGATÓRIO...
+Cold start backup: C:\Users\lsouz\Faculdade\TCC\data\nodes.bak_1794682637.db
+Cold start: removidos 1 tasks, 1 results
+Cold start: uploads removidos=1
+  catálogo TF redirecionado para python:3.11-slim: {'deleted_tf_rows': 0, 'slim_libraries': ['requests', 'httpx', 'flask', 'fastapi', 'uvicorn', 'pydantic', 'json', 'datetime', 'schedule', 'tensorflow', 'keras', 'sklearn', 'scikit-learn']}
+
+[3/5] Submetendo lote intercalado via /submit_task (serial)...
+
+--- Run 1/9 profile=edge preferred_regra=edge script=task_edge_light.py ---
+  submetida: 2884255b-6f37-44ca-882a-652add208710
+  pin imagem: python:3.9-slim -> python:3.11-slim recovered
+  [15:57:31] 2884255b… status=na_fila k8s=— pref=fog alloc=fog node=—
+  [15:57:47] 2884255b… status=na_fila k8s=— pref=fog alloc=fog node=—
+  [15:58:03] 2884255b… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [15:58:19] 2884255b… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [15:58:35] 2884255b… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [15:58:51] 2884255b… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [15:59:08] 2884255b… status=executando k8s=Complete pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  recover k8s Job task-job-2884255b6f3744ca882a652add208710 -> concluida (SQLite não fechou o status; placement já gravado)
+  RESULTADO: status=concluida pref_ia=fog alloc=cloud node=tcc-cluster-worker3 hit_exact=False score_layer=10.0 warm=0 img=python:3.11-slim wall_s=107.9
+
+--- Run 2/9 profile=fog preferred_regra=fog script=task_fog_cpu.py ---
+  submetida: 0bedd2f8-d4cc-4526-85ed-4d257982e8fb
+  skip pin (já python:3.11-slim) status=executando
+  [15:59:27] 0bedd2f8… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [15:59:44] 0bedd2f8… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:00:00] 0bedd2f8… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:00:16] 0bedd2f8… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:00:32] 0bedd2f8… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:00:48] 0bedd2f8… status=concluida k8s=— pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  RESULTADO: status=concluida pref_ia=cloud alloc=fog node=tcc-cluster-worker2 hit_exact=False score_layer=10.0 warm=0 img=python:3.11-slim wall_s=92.5
+
+--- Run 3/9 profile=cloud preferred_regra=cloud script=task_cloud_ml.py ---
+  submetida: d4b18f51-2e71-430a-9ebb-990179a48054
+  skip pin (já python:3.11-slim) status=na_fila
+  [16:01:10] d4b18f51… status=na_fila k8s=Job pref=cloud alloc=None node=—
+  [16:01:26] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:01:42] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:01:58] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:02:15] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:02:31] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:02:47] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:03:03] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:03:19] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:03:35] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:03:52] d4b18f51… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:04:08] d4b18f51… status=executando k8s=Complete pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  recover k8s Job task-job-d4b18f512e71430a9ebb990179a48054 -> concluida (SQLite não fechou o status; placement já gravado)
+  RESULTADO: status=concluida pref_ia=cloud alloc=cloud node=tcc-cluster-worker3 hit_exact=True score_layer=20.0 warm=1 img=python:3.11-slim wall_s=191.4
+
+--- Run 4/9 profile=edge preferred_regra=edge script=task_edge_light.py ---
+  submetida: 7f50be11-0430-4877-9fbe-d4805f60ff38
+  skip pin (já python:3.11-slim) status=na_fila
+  [16:04:28] 7f50be11… status=na_fila k8s=Job pref=fog alloc=None node=—
+  [16:04:44] 7f50be11… status=na_fila k8s=Job pref=fog alloc=None node=—
+  [16:05:01] 7f50be11… status=executando k8s=Job pref=fog alloc=fog node=k8s:tcc-cluster-worker2
+  [16:05:17] 7f50be11… status=executando k8s=Job pref=fog alloc=fog node=k8s:tcc-cluster-worker2
+  [16:05:33] 7f50be11… status=executando k8s=Job pref=fog alloc=fog node=k8s:tcc-cluster-worker2
+  [16:05:49] 7f50be11… status=executando k8s=Job pref=fog alloc=fog node=k8s:tcc-cluster-worker2
+  [16:06:05] 7f50be11… status=executando k8s=Job pref=fog alloc=fog node=k8s:tcc-cluster-worker2
+  [16:06:21] 7f50be11… status=concluida k8s=— pref=fog alloc=fog node=k8s:tcc-cluster-worker2
+  RESULTADO: status=concluida pref_ia=fog alloc=fog node=tcc-cluster-worker2 hit_exact=True score_layer=20.0 warm=1 img=python:3.11-slim wall_s=125.4
+
+--- Run 5/9 profile=fog preferred_regra=fog script=task_fog_cpu.py ---
+  submetida: 78363b24-ba32-4ee2-a211-45c104410e38
+  skip pin (já python:3.11-slim) status=executando
+  [16:06:43] 78363b24… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:06:59] 78363b24… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:07:15] 78363b24… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:07:31] 78363b24… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:07:47] 78363b24… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:07:56] 78363b24… status=executando k8s=Complete pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  recover k8s Job task-job-78363b24ba324ee2a21145c104410e38 -> concluida (SQLite não fechou o status; placement já gravado)
+  RESULTADO: status=concluida pref_ia=cloud alloc=cloud node=tcc-cluster-worker3 hit_exact=True score_layer=20.0 warm=2 img=python:3.11-slim wall_s=85.9
+
+--- Run 6/9 profile=cloud preferred_regra=cloud script=task_cloud_ml.py ---
+  submetida: 4c6d6699-1628-4faf-ad01-b0333ad9a0ac
+  pin imagem: python:3.11-slim -> python:3.11-slim
+  [16:08:19] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:08:35] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:08:51] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:09:07] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:09:24] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:09:40] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:09:56] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:10:12] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:10:28] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:10:44] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:11:01] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:11:17] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:11:33] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:11:49] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:12:05] 4c6d6699… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:12:13] 4c6d6699… status=executando k8s=Complete pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  recover k8s Job task-job-4c6d669916284fafad01b0333ad9a0ac -> concluida (SQLite não fechou o status; placement já gravado)
+  RESULTADO: status=concluida pref_ia=cloud alloc=fog node=tcc-cluster-worker2 hit_exact=False score_layer=10.0 warm=2 img=python:3.11-slim wall_s=249.8
+
+--- Run 7/9 profile=edge preferred_regra=edge script=task_edge_light.py ---
+  submetida: 48dfba20-beb2-41e1-86d0-26b3a81a3546
+  pin imagem: python:3.9-slim -> python:3.11-slim recovered
+  [16:12:36] 48dfba20… status=na_fila k8s=— pref=fog alloc=cloud node=—
+  [16:12:53] 48dfba20… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:13:09] 48dfba20… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:13:25] 48dfba20… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:13:41] 48dfba20… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:13:57] 48dfba20… status=executando k8s=Job pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:14:05] 48dfba20… status=executando k8s=Complete pref=fog alloc=cloud node=k8s:tcc-cluster-worker3
+  recover k8s Job task-job-48dfba20beb241e186d026b3a81a3546 -> concluida (SQLite não fechou o status; placement já gravado)
+  RESULTADO: status=concluida pref_ia=fog alloc=cloud node=tcc-cluster-worker3 hit_exact=False score_layer=10.0 warm=3 img=python:3.11-slim wall_s=103.8
+
+--- Run 8/9 profile=fog preferred_regra=fog script=task_fog_cpu.py ---
+  submetida: ef0abffb-4c0d-497b-8708-1a141bcc4907
+  pin imagem: python:3.9-slim -> python:3.11-slim
+  [16:14:28] ef0abffb… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:14:44] ef0abffb… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:15:01] ef0abffb… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:15:17] ef0abffb… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:15:33] ef0abffb… status=executando k8s=Job pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  [16:15:49] ef0abffb… status=concluida k8s=— pref=cloud alloc=fog node=k8s:tcc-cluster-worker2
+  RESULTADO: status=concluida pref_ia=cloud alloc=fog node=tcc-cluster-worker2 hit_exact=False score_layer=10.0 warm=3 img=python:3.11-slim wall_s=95.6
+
+--- Run 9/9 profile=cloud preferred_regra=cloud script=task_cloud_ml.py ---
+  submetida: f58c2e8a-3cc5-41fe-9abf-eee4e6e6f296
+  skip pin (já python:3.11-slim) status=executando
+  [16:16:17] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:16:33] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:16:49] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:17:06] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:17:22] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:17:38] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:17:54] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:18:10] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:18:26] f58c2e8a… status=executando k8s=Job pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  [16:18:35] f58c2e8a… status=executando k8s=Complete pref=cloud alloc=cloud node=k8s:tcc-cluster-worker3
+  recover k8s Job task-job-f58c2e8a3cc541fe9abfeee4e6e6f296 -> concluida (SQLite não fechou o status; placement já gravado)
+  RESULTADO: status=concluida pref_ia=cloud alloc=cloud node=tcc-cluster-worker3 hit_exact=True score_layer=20.0 warm=4 img=python:3.11-slim wall_s=157.3
+
+================================================================
+RESUMO EXP-04 HIBRIDO
+  Hit rate exato (IA vs allocated): 4/9 = 44.4%
+  Hit rate vs regra offline:        4/9 = 44.4%
+  Hit adjacente (d<=1):             9/9 = 100.0%
+  Baseline:                         2/9 = 22.2%
+  Superou baseline 22,2%?           SIM
+  Matriz preferred_ia \ allocated:
+               edge    fog  cloud
+  edge            0      0      0
+  fog             0      1      2
+  cloud           0      3      3
+  Por classe (preferred_ia):
+    edge: 0/0 (0%)
+    fog: 1/3 (33%)
+    cloud: 3/6 (50%)
+  ML->cloud: 2/3   leve->edge: 0/3
+  opostas: leve->cloud=2  ML->edge=0
+  --- logs [TCC-METRICS][LAYER] ---
+    run1: preferred=fog chosen=cloud hostname=tcc-cluster-worker3 score_layer=10.0 score_total=65.0
+    run2: preferred=cloud chosen=fog hostname=tcc-cluster-worker2 score_layer=10.0 score_total=65.0
+    run3: preferred=cloud chosen=cloud hostname=tcc-cluster-worker3 score_layer=20.0 score_total=100.0
+    run4: preferred=fog chosen=fog hostname=tcc-cluster-worker2 score_layer=20.0 score_total=87.5
+    run5: preferred=cloud chosen=cloud hostname=tcc-cluster-worker3 score_layer=20.0 score_total=86.5
+    run6: preferred=cloud chosen=fog hostname=tcc-cluster-worker2 score_layer=10.0 score_total=81.67
+    run7: preferred=fog chosen=cloud hostname=tcc-cluster-worker3 score_layer=10.0 score_total=85.48
+    run8: preferred=cloud chosen=fog hostname=tcc-cluster-worker2 score_layer=10.0 score_total=65.0
+    run9: preferred=cloud chosen=cloud hostname=tcc-cluster-worker3 score_layer=20.0 score_total=92.48
+
+JSON: C:\Users\lsouz\Faculdade\TCC\results\metrics_export\exp4\hibrido\exp4_hybrid_1794683915.json
