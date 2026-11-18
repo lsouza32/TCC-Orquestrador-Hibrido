@@ -175,15 +175,6 @@ Os experimentos do artigo usam Jobs do Kubernetes e não dependem do `node_agent
 - Cada braço foi executado uma vez. Os pesos do NodeRanker (40/25/15/20) foram
   definidos manualmente e não foram calibrados.
 
-## Compilar o artigo
-
-```powershell
-cd docs/artigo-TCC-final
-pdflatex artigo ; bibtex artigo ; pdflatex artigo ; pdflatex artigo
-```
-
-Requer uma distribuição TeX Live com `abntex2cite`.
-
 ## Licença
 
 A definir pelo autor.
